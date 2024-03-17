@@ -185,6 +185,170 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/16/java%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="吕宙航">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/03/16/java%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">java注入学习</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-03-16 20:56:44" itemprop="dateCreated datePublished" datetime="2024-03-16T20:56:44+08:00">2024-03-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-17 17:26:32" itemprop="dateModified" datetime="2024-03-17T17:26:32+08:00">2024-03-17</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><h3 id="JDBC是什么"><a href="#JDBC是什么" class="headerlink" title="JDBC是什么"></a>JDBC是什么</h3><p><strong>J</strong>ava <strong>D</strong>ata<strong>B</strong>ase <strong>C</strong>onnectivity（Java语言连接数据库）</p>
+<table>
+<thead>
+<tr>
+<th>接口或类</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>DriverManager类</strong></td>
+<td>1)管理和注册数据库驱动<br>2)得到数据库连接对象</td>
+</tr>
+<tr>
+<td><strong>Connection接口</strong></td>
+<td>一个连接对象，可用于创建Statement和PreparedStatement对象</td>
+</tr>
+<tr>
+<td><strong>Statemen接口</strong></td>
+<td>一个SQL语句对象，用于将SQL语句发送给数据库服务器</td>
+</tr>
+<tr>
+<td><strong>PreparedStetemen接口</strong></td>
+<td>一个SQL语句对象，是Statemen的子接口</td>
+</tr>
+<tr>
+<td><strong>ResultSet接口</strong></td>
+<td>用于封装数据库查询的结果集，返回给数据库Java程序</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>加载和注册驱动的方法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Class.forName(数据库驱动实现类)</strong></td>
+<td>加载和注册数据库驱动，数据库驱动由mysql厂商”com.mysql.jbdc.Driver”</td>
+</tr>
+</tbody></table>
+<p>PrepareStatement会对SQL语句进行预编译，但如果直接采取拼接的方式构造SQL，此时进行预编译也无用。</p>
+<p>Statement不会对SQL语句进行预编译。</p>
+<p>两种操作都是因为SQL语句拼接导致的SQL注入。</p>
+<h2 id="MyBatis框架"><a href="#MyBatis框架" class="headerlink" title="MyBatis框架"></a>MyBatis框架</h2><p>在mybatis中的，使用<code>#</code>包裹的字段在内部进行了预编译处理，而<code>$</code>并没有使用预编译，也就是JDBC中prepareStatement和Statement的区别。mybatis的sql语句通常是写在xml文件中。</p>
+<h3 id="order-by-盲注"><a href="#order-by-盲注" class="headerlink" title="order by 盲注"></a>order by 盲注</h3><p>在SQL中是不允许union直接跟在order by后面的，所以我们可以考虑使用盲注或报错注入。</p>
+<p>我的理解就是通过order by将列进行排序，通过返回的不同结果</p>
+<p>举个简单的例子:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [test]&gt; select * from user order by (if(substr((select username from user limit 0,1),1,1)=&#x27;1&#x27;,sleep(1),1));</span><br><span class="line">+------------------+------------+</span><br><span class="line">| username         | password   |</span><br><span class="line">+------------------+------------+</span><br><span class="line">| Nakajima Ayato   | 9CXLGSEWDO |</span><br><span class="line">| Mildred Green    | r8ZPbvDXBC |</span><br><span class="line">| Ito Momoe        | qao7ysP90D |</span><br><span class="line">| Lo On Kay        | x8rGVqTQqd |</span><br><span class="line">| Kobayashi Sakura | lYiv7UO8Yo |</span><br><span class="line">+------------------+------------+</span><br><span class="line">5 rows in set (0.002 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [test]&gt; select * from user order by (if(substr((select username from user limit 0,1),1,1)=&#x27;N&#x27;,sleep(1),1));</span><br><span class="line">+------------------+------------+</span><br><span class="line">| username         | password   |</span><br><span class="line">+------------------+------------+</span><br><span class="line">| Nakajima Ayato   | 9CXLGSEWDO |</span><br><span class="line">| Mildred Green    | r8ZPbvDXBC |</span><br><span class="line">| Ito Momoe        | qao7ysP90D |</span><br><span class="line">| Lo On Kay        | x8rGVqTQqd |</span><br><span class="line">| Kobayashi Sakura | lYiv7UO8Yo |</span><br><span class="line">+------------------+------------+</span><br><span class="line">5 rows in set (5.004 sec)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，当if语句成立时返回的时间为5s，但是不成立时为0.002s</p>
+<p>这是基于时间的盲注。</p>
+<p>还可以利用其它的方式来进行盲注</p>
+<p>例如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [test]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">order</span> <span class="keyword">by</span> if(substr((<span class="keyword">select</span> username <span class="keyword">from</span> <span class="keyword">user</span> limit <span class="number">0</span>,<span class="number">1</span>),<span class="number">1</span>,<span class="number">1</span>)<span class="operator">=</span><span class="string">&#x27;a&#x27;</span>,<span class="number">1</span>,(<span class="keyword">select</span> host <span class="keyword">from</span> mysql.user));</span><br><span class="line">ERROR <span class="number">1242</span> (<span class="number">21000</span>): Subquery <span class="keyword">returns</span> more than <span class="number">1</span> <span class="type">row</span></span><br></pre></td></tr></table></figure>
+
+<p>如果if语句错误就会返回<code>ERROR 1242 (21000): Subquery returns more than 1 row</code>，当if成立时就会返回正常页面，可以通过返回的情况来判断。</p>
+<h3 id="rand-盲注"><a href="#rand-盲注" class="headerlink" title="rand()盲注"></a>rand()盲注</h3><p>原理和order by大差不差，就是rand()会产生一个0-1之间的随机数，我们给一个固定的种子就会生成一个固定的数，所以我们控制rand的种子就可以造成排序的结果不同。</p>
+<p>比如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rand(1)</span><br><span class="line">rand(0)</span><br><span class="line">rand(1=1)</span><br><span class="line">rand(lenth(database())=8)</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
+
+<h3 id="和-符号的区别"><a href="#和-符号的区别" class="headerlink" title="#和$符号的区别"></a>#和$符号的区别</h3><p><strong>#{}</strong> </p>
+<p>使用#{}意味着使用的预编译的语句，即在使用jdbc时的preparedStatement，sql语句中如果存在参数则会使用?作占位符，我们知道这种方式可以防止sql注入，并且在使用#{}时形成的sql语句，已经带有引号，例，select * from table1 where id=#{id} 在调用这个语句时我们可以通过后台看到打印出的sql为：select * from table1 where id=’2’ 加入传的值为2.也就是说在组成sql语句的时候把参数默认为字符串。</p>
+<p><strong>${}</strong></p>
+<p>使用${}时的sql不会当做字符串处理，是什么就是什么，如上边的语句：select * from table1 where id=${id} 在调用这个语句时控制台打印的为：select * from table1 where id=2 ，假设传的参数值为2</p>
+<p>从上边的介绍可以看出这两种方式的区别，我们最好是能用#{}则用它，因为它可以防止sql注入，且是预编译的，在需要原样输出时才使用${}，如，</p>
+<p>select * from ${tableName} order by ${id} 这里需要传入表名和按照哪个列进行排序 ，加入传入table1、id 则语句为：select * from table1 order by id</p>
+<p>如果是使用#{} 则变成了select * from ‘table1’ order by ‘id’ 我们知道这样就不对了。</p>
+<p>另，在使用以下的配置时，必须使用#{}</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectMessageByIdI&quot; parameterType=&quot;int&quot; resultType=&quot;Message&quot;&gt;</span><br><span class="line">         </span><br><span class="line">         select * from message where id=#&#123;id&#125;;</span><br><span class="line">     &lt;/select&gt;</span><br></pre></td></tr></table></figure>
+
+<p>在parameterType是int时，sql语句中必须是#{}。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p> <a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/360733.html">关于Java中order by注入详解</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/12/NoSQL%E6%B3%A8%E5%85%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1287,93 +1451,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/01/TFCCTF2023/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="吕宙航">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/08/01/TFCCTF2023/" class="post-title-link" itemprop="url">TFCCTF2023</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-08-01 10:49:21 / 修改时间：11:48:12" itemprop="dateCreated datePublished" datetime="2023-08-01T10:49:21+08:00">2023-08-01</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>698</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="FORENSICS"><a href="#FORENSICS" class="headerlink" title="FORENSICS"></a>FORENSICS</h1><h2 id="DOWN-BAD"><a href="#DOWN-BAD" class="headerlink" title="DOWN BAD"></a>DOWN BAD</h2><p>修改图片的高度就能得到flag</p>
-<h2 id="LIST"><a href="#LIST" class="headerlink" title="LIST"></a>LIST</h2><p>比赛的时候与正确答案插肩而过了，我真该死啊。</p>
-<p>附件给了一个流量包，追踪TCP流能发现有类似<code>command=echo+%22ZmluZCAvaG9tZS9jdGYgLXR5cGUgZiAtbmFtZSAiRiIgMj4vZGV2L251bGw%3D%22+%7C+base64+-d+%7C+bash</code>这种，解码是<code> find /home/ctf -type f -name &quot;T&quot; 2&gt;/dev/null</code>多解码几个可以发现-name的参数就是flag</p>
-<p>可以用<code>strings list.pcap|grep command</code>这个代码找到所有的flag，用脚本解码快一点，一个一个解码也可以。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import base64</span><br><span class="line"></span><br><span class="line">traces = open(&quot;./2.txt&quot;, &quot;r&quot;).readlines()</span><br><span class="line"></span><br><span class="line">base64_commands = []</span><br><span class="line"></span><br><span class="line">for t in traces:</span><br><span class="line">    t = t.replace(&quot;command=echo+%22&quot;, &quot;&quot;)</span><br><span class="line">    t = t.replace(&quot;%22+%7C+base64+-d+%7C+bash&quot;, &quot;&quot;)</span><br><span class="line">    t = t.replace(&quot;%3D&quot;, &quot;&quot;)</span><br><span class="line">    t = t.strip()</span><br><span class="line"></span><br><span class="line">    print(base64.b64decode(t + &quot;=&quot; * (len(t) % 4)).decode()[30], end=&quot;&quot;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1443,14 +1520,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">15</span>
+        <span class="site-state-item-count">16</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1492,12 +1569,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">89k</span>
+    <span title="站点总字数">91k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:21</span>
+    <span title="站点阅读时长">1:23</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
