@@ -25,7 +25,7 @@
 <meta property="og:description" content="FLAG01先用 fscan 进行一波信息搜集 12345678910111213141516171819202122232425262728293031┌──(root㉿kali)-[~&#x2F;Desktop&#x2F;tmp]└─# ..&#x2F;pentest&#x2F;fscan&#x2F;fscan2 -h 39.99.157.149┌──────────────────────────────────────────────┐│">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2025-04-27T07:42:03.000Z">
-<meta property="article:modified_time" content="2025-04-27T09:23:42.004Z">
+<meta property="article:modified_time" content="2025-04-29T03:23:01.542Z">
 <meta property="article:author" content="lvzhouhang">
 <meta property="article:tag" content="靶机">
 <meta name="twitter:card" content="summary">
@@ -200,6 +200,10 @@
             
             
             
+                <div class="kratos-post-inner-toc toc-div-class" >
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FLAG01"><span class="toc-number">1.</span> <span class="toc-text">FLAG01</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FLAG02"><span class="toc-number">2.</span> <span class="toc-text">FLAG02</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FLAG03"><span class="toc-number">3.</span> <span class="toc-text">FLAG03</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FLAG04"><span class="toc-number">4.</span> <span class="toc-text">FLAG04</span></a></li></ol>
+                </div>
+            
             <hr />
             <div itemprop="articleBody"><h1 id="FLAG01"><a href="#FLAG01" class="headerlink" title="FLAG01"></a>FLAG01</h1><p>先用 fscan 进行一波信息搜集</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp]</span><br><span class="line">└─# ../pentest/fscan/fscan2 -h 39.99.157.149</span><br><span class="line">┌──────────────────────────────────────────────┐</span><br><span class="line">│    ___                              _        │</span><br><span class="line">│   / _ \     _ __  __ _ _ __ __ _  _ __| | __    │</span><br><span class="line">│  / /_\/____/ _ _|/ _ _| &#x27;_ _/ _` |/ __| |/ /    │</span><br><span class="line">│ / /_\\_ ____\__ \ (__| | | (_| | (__|   &lt;     │</span><br><span class="line">│ \____/     |___/\___|_|  \_ _,_|\___|_|\_\    │</span><br><span class="line">└──────────────────────────────────────────────┘</span><br><span class="line">      Fscan Version: 2.0.0</span><br><span class="line"></span><br><span class="line">[2025-04-27 03:44:50] [INFO] 暴力破解线程数: 1</span><br><span class="line">[2025-04-27 03:44:50] [INFO] 开始信息扫描</span><br><span class="line">[2025-04-27 03:44:50] [INFO] 最终有效主机数量: 1</span><br><span class="line">[2025-04-27 03:44:51] [INFO] 开始主机扫描</span><br><span class="line">[2025-04-27 03:44:51] [INFO] 有效端口数量: 233</span><br><span class="line">[2025-04-27 03:44:51] [SUCCESS] 端口开放 39.99.157.149:22</span><br><span class="line">[2025-04-27 03:44:51] [SUCCESS] 端口开放 39.99.157.149:80</span><br><span class="line">[2025-04-27 03:44:51] [SUCCESS] 端口开放 39.99.157.149:21</span><br><span class="line">[2025-04-27 03:44:51] [SUCCESS] 服务识别 39.99.157.149:22 =&gt; [ssh] 版本: 8.2p1 Ubuntu 4ubuntu0.5 产品: OpenSSH 系统: Linux 信息: Ubuntu Linux; protocol 2.0 Banner: [SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.5.]</span><br><span class="line">[2025-04-27 03:44:51] [SUCCESS] 服务识别 39.99.157.149:21 =&gt; [ftp] 版本: 3.0.3 产品: vsftpd 系统: Unix Banner: [220 (vsFTPd 3.0.3).]</span><br><span class="line">[2025-04-27 03:44:53] [SUCCESS] 端口开放 39.99.157.149:8080</span><br><span class="line">[2025-04-27 03:44:56] [SUCCESS] 服务识别 39.99.157.149:80 =&gt; [http]</span><br><span class="line">[2025-04-27 03:44:59] [SUCCESS] 服务识别 39.99.157.149:8080 =&gt; [http]</span><br><span class="line">[2025-04-27 03:45:00] [INFO] 存活端口数量: 4</span><br><span class="line">[2025-04-27 03:45:00] [INFO] 开始漏洞扫描</span><br><span class="line">[2025-04-27 03:45:00] [INFO] 加载的插件: ftp, ssh, webpoc, webtitle</span><br><span class="line">[2025-04-27 03:45:01] [SUCCESS] 网站标题 http://39.99.157.149      状态码: 200 长度: 10918  标题: Apache2 Ubuntu Default Page: It works</span><br><span class="line">[2025-04-27 03:45:02] [SUCCESS] 匿名登录成功!</span><br><span class="line">[2025-04-27 03:45:02] [SUCCESS] 网站标题 http://39.99.157.149:8080 状态码: 200 长度: 3655   标题: 公司发货单</span><br><span class="line">[2025-04-27 03:45:08] [SUCCESS] 扫描已完成: 6/6</span><br></pre></td></tr></table></figure>
@@ -296,7 +300,7 @@
                     <a class="tag-none-link" href="/tags/%E9%9D%B6%E6%9C%BA/" rel="tag">靶机</a>
                 </div>
                 <div class="pull-date">
-                    <time datetime="2025-04-27T09:23:42.004Z" itemprop="dateModified">最后编辑：2025-04-27</time>
+                    <time datetime="2025-04-29T03:23:01.542Z" itemprop="dateModified">最后编辑：2025-04-29</time>
                 </div>
             </div>
         </footer>
@@ -372,6 +376,18 @@
 </aside>
             
                     <div class="sticky-area">
+                
+                    <aside id="krw-toc" class="widget widget-kratos-toc clearfix toc-div-class" >
+    <div class="photo-background"></div>
+    <h4 class="widget-title no-after">
+        <i class="fa fa-compass"></i>
+        文章目录
+        <span class="toc-progress-bar" role="progressbar" aria-label="阅读进度："></span>
+    </h4>
+    <div class="textwidget">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#FLAG01"><span class="toc-text">FLAG01</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FLAG02"><span class="toc-text">FLAG02</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FLAG03"><span class="toc-text">FLAG03</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#FLAG04"><span class="toc-text">FLAG04</span></a></li></ol>
+    </div>
+</aside>
                 
                 
   <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
